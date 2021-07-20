@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { UploadDocsPage } from './upload-docs.page';
@@ -7,7 +7,7 @@ describe('UploadDocsPage', () => {
   let component: UploadDocsPage;
   let fixture: ComponentFixture<UploadDocsPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ UploadDocsPage ],
       imports: [IonicModule.forRoot()]

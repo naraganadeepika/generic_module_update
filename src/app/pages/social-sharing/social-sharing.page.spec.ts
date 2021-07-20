@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { SocialSharingPage } from './social-sharing.page';
@@ -7,7 +7,7 @@ describe('SocialSharingPage', () => {
   let component: SocialSharingPage;
   let fixture: ComponentFixture<SocialSharingPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SocialSharingPage ],
       imports: [IonicModule.forRoot()]
