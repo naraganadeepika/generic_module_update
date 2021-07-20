@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { NgxGaugeModule } from 'ngx-gauge';
+// import { NgxGaugeModule } from 'ngx-gauge';
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    NgxGaugeModule,
+    // NgxGaugeModule,
   ],
   declarations: [HomePage]
 })
