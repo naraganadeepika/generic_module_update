@@ -1,0 +1,73 @@
+img{
+    max-width:50% !important;
+    max-height:50% !important;
+}
+ion-grid .hydrated{
+       padding: 0px 0px;
+    font-size: 14px;
+    line-height: 20px;
+}
+ion-col {padding:0px;}
+ion-list, ion-item {--background:none; background:none;}
+// .today_blk {background:#fff; --background:#fff}
+.title_bg{
+    border-bottom:1px solid #f0f0f0;
+}
+.user_with_bal{
+    margin-right: 5px;
+}
+.title_bg ion-label {    padding: 10px 15px;
+    font-size: 14px;}
+#help-icon {margin-right: 20px;}
+#notifications-badge {
+            background-color: orange;
+            //position: absolute;
+            top: 0px;
+            right: 0px;
+            border-radius: 5px;
+            font-size:11px;
+            padding: 3px 4px;
+            margin-bottom:5px;
+        }
+        ion-segment {
+        background:#474747; border-top:1px solid #474747; color:#fff 
+        }
+        ion-segment-button {
+            ion-label {
+                color:#cacaca;
+                font-size:12px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+        }
+        ion-segment-button.segment-button-checked {
+        ion-label {
+                color: #fff !important;
+            }
+        }
+.cup{
+    width: 41px;
+    margin-top: 9px;
+    display: inline-block;
+}
+.blink {
+    -webkit-animation: blink 1s step-end infinite;
+                    animation: blink 1s step-end infinite;
+}
+
+@-webkit-keyframes blink { 
+0%{ color:#ED3833 }
+50% { color: #fff; }
+0%{ color:#ED3833 }
+}
+@keyframes blink { 
+0%{ color:#ED3833 }
+50% { color: #fff; }
+0%{ color:#ED3833 }
+}
+
+.warning_div{
+    margin-top: 30px;font-size:15px;display: block;text-align: center;
+    ion-button{margin-top: 20px;}
+    }
+.share_icn{width: 163px;margin: 0px auto;display: block;margin-top: 20px;}

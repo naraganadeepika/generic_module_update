@@ -1,0 +1,130 @@
+<ion-header>
+	<ion-toolbar color="primary">
+  	<ion-buttons no-padding slot="start">
+          <ion-back-button text="" defaultHref="/wallet"></ion-back-button>
+       </ion-buttons>
+        <ion-title>{{'DEPOSIT' | translate }}</ion-title>
+        <!-- <ion-list no-lines class="user_with_bal pad_10" slot="end">
+          <span><small>{{user.username}}</small></span>
+          
+          <span class="font_12"><ion-icon name="wallet"></ion-icon>&nbsp;{{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list> -->
+         <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding >
+          <div [className]="user.notification_count > 0 ?'blink':''">
+             <ion-icon id="notification-button" name="notifications" >  </ion-icon>  
+             <ion-badge id="notifications-badge" color="primary" *ngIf="user.notification_count != null">{{user.notification_count}}</ion-badge>
+          </div>
+        </ion-list>
+
+  </ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event.detail.value)" value="summary">
+  <ion-segment-button value="summary">
+    <ion-label>{{'SUMMARY' | translate}}</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="history">
+    <ion-label>{{'HISTORY' | translate }}</ion-label>
+  </ion-segment-button>
+</ion-segment>
+</ion-header>
+
+<ion-content color="background">
+	<ion-grid *ngIf="deposit_summary_err!=''">
+    <ion-row>
+	    <ion-col class="center_txt">
+	    	<ion-img src="assets/img/rewards_offers.svg" class="share_icn"></ion-img><br>
+	    	<p  class="error_message"> {{deposit_summary_err}} </p>
+	    </ion-col>
+	</ion-row>
+	</ion-grid>
+
+	<div  *ngIf="deposit_view">
+
+		<ion-list class="walt_trans"  text-wrap lines="none" no-padding > 
+
+          <ion-item   lines="none" *ngFor="let deposit of deposit_summary" class="transhis">
+            <ion-thumbnail slot="start">
+              <img src="assets/img/{{get_payment_mode(deposit.payment_mode)}}">
+            </ion-thumbnail>
+            <ion-label>
+              <h4><b>{{deposit.payment_mode | titlecase}}</b></h4>
+              <p>#{{deposit.ant11_reference_id}}</p>
+              <p *ngIf="deposit.order_number!=null">
+		    	{{'NUMBER' | translate }}: {{deposit.order_number}}</p>
+              
+            </ion-label>
+            <div slot="end" class="font_14 right_txt">
+              <small>{{deposit.date | date:'MMM d, y'}}</small>
+              <h5>
+               <span *ngIf="deposit.status == 'Paid'" class="success_txt">
+		    		{{deposit.amount | currency:'INR'}}
+		    	</span>
+		    	<span *ngIf="deposit.status == 'Pending'" class="yellow">
+		    	{{deposit.amount | currency:'INR'}}</span>
+		    	<span *ngIf="deposit.status == 'Failed'" class="red">
+		    	{{deposit.amount | currency:'INR'}}</span>
+		    	<span *ngIf="deposit.status == 'Cancelled'" class="red">{{deposit.amount | currency:'INR'}}</span>
+               </h5>
+               <small>*{{deposit.status}}</small><br>
+              
+            </div>
+          </ion-item>
+        </ion-list>
+
+
+
+
+
+
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="lazySummary($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+       </ion-infinite-scroll>
+	</div>
+
+	<div  *ngIf="!deposit_view">
+
+	<ion-list class="walt_trans"  text-wrap lines="none" no-padding > 
+
+          <ion-item   lines="none" *ngFor="let deposit of deposit_history;" class="transhis">
+            <ion-thumbnail slot="start">
+              <img src="assets/imgs/{{get_amountType(deposit.transaction_type)}}">
+            </ion-thumbnail>
+            <ion-label>
+              <h4><b>{{deposit.transaction_type | titlecase}}</b></h4>
+              <p>#{{deposit.reference_id}}</p>
+            </ion-label>
+            <div slot="end" class="font_14 right_txt">
+              
+              <h5 [className]="deposit.action == 'credit' ? 'success_txt' : 'red'">
+                <span *ngIf="deposit.action === 'credit'" > + </span>
+              <span *ngIf="deposit.action === 'debit'" > - </span>
+              {{deposit.amount|currency:'INR'}}</h5>
+              <small>{{deposit.date | date:'MMM d, y'}}</small>
+            </div>
+          </ion-item>
+        </ion-list>
+
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="lazyHistory($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+       </ion-infinite-scroll>
+	</div>
+
+
+	<ion-grid *ngIf="deposit_history_err!=''">
+    <ion-row>
+	    <ion-col class="center_txt">
+	    	<ion-img src="assets/img/rewards_offers.svg" class="share_icn"></ion-img><br>
+	    	<p  class="error_message"> {{deposit_history_err}} </p>
+	    </ion-col>
+	</ion-row>
+	</ion-grid>
+
+
+
+
+</ion-content>

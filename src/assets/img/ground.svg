@@ -1,0 +1,111 @@
+<svg id="ground" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="261.031" height="269.688" viewBox="0 0 261.031 269.688">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill: #db2c01;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: #92fd92;
+      }
+
+      .cls-5 {
+        fill: #fa6537;
+      }
+
+      .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-7 {
+        fill: #5ad85a;
+      }
+
+      .cls-10, .cls-8 {
+        fill: #b3b3b3;
+      }
+
+      .cls-9 {
+        fill: #d8d8d8;
+      }
+
+      .cls-11 {
+        fill: #ffe400;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="325" y1="217" x2="325" y2="165" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#b3b3b3" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="214" x2="214" xlink:href="#linear-gradient"/>
+  </defs>
+  <ellipse class="cls-1" cx="131.031" cy="130" rx="130" ry="61"/>
+  <path class="cls-2" d="M305,217l-13-52s58.071,7.454,66,16Z" transform="translate(-134.969 -90)"/>
+  <path id="Shape_13_copy" data-name="Shape 13 copy" class="cls-3" d="M234,217l13-52s-58.071,7.454-66,16Z" transform="translate(-134.969 -90)"/>
+  <path class="cls-4" d="M179,260s84.432,32.74,173-1c0,0-14.848-21.949-40-30,0,0-63.522-14.687-110,8C202,237,184.051,246.779,179,260Z" transform="translate(-134.969 -90)"/>
+  <path class="cls-5" d="M172,255s-56.422-19.165-30-58c0,0,59.194-60.717,199-28,0,0,110.315,31.848,17,87,0,0,34.48-23.1,30-46,0,0-6.066-36.362-98-47,0,0-109.966-12.246-145,42C145,205,128.729,232.379,172,255Z" transform="translate(-134.969 -90)"/>
+  <path class="cls-6" d="M177,258s-1.565-32,94-37c0,0,67.159,2.435,81,36,0,0,6.443.407,7-5,0,0-18.387-38.927-90-38,0,0-83.082-2.139-99,39Z" transform="translate(-134.969 -90)"/>
+  <path class="cls-7" d="M177,257s4.052-27.609,65-34c0,0,39.679-10.322,90,11,0,0,18.116,12.309,21,23l-1,2s-13.6-30.717-64-34c0,0-83.847-10.1-107,33Z" transform="translate(-134.969 -90)"/>
+  <path class="cls-8" d="M135,231v79s15.27,37.28,84,47c0,0,81.639,10.8,132-11,0,0,43.337-15.94,44-39l1-79s-4.719,27.346-43,39c0,0-59.788,21.277-118,14C235,281,159.255,279.186,135,231Z" transform="translate(-134.969 -90)"/>
+  <path id="Shape_12_copy" data-name="Shape 12 copy" class="cls-9" d="M140,237.665l9,70.189s13.632,33.123,74.989,41.758c0,0,72.881,9.6,117.839-9.773,0,0,38.687-14.162,39.279-34.65L392,236s-14.213,23.3-48.387,33.65c0,0-53.374,18.9-105.341,12.439C238.272,282.089,161.653,280.477,140,237.665Z" transform="translate(-134.969 -90)"/>
+  <rect class="cls-10" x="55.031" y="11" width="7" height="68"/>
+  <rect id="Rounded_Rectangle_1" data-name="Rounded Rectangle 1" class="cls-10" x="10.031" width="104" height="56" rx="5" ry="5"/>
+  <circle class="cls-11" cx="32.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_2" data-name="Ellipse 3 copy 2" class="cls-11" cx="52.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_4" data-name="Ellipse 3 copy 4" class="cls-11" cx="72.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_6" data-name="Ellipse 3 copy 6" class="cls-11" cx="92.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_8" data-name="Ellipse 3 copy 8" class="cls-11" cx="32.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_10" data-name="Ellipse 3 copy 10" class="cls-11" cx="52.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_12" data-name="Ellipse 3 copy 12" class="cls-11" cx="72.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_14" data-name="Ellipse 3 copy 14" class="cls-11" cx="92.031" cy="39" r="6"/>
+  <rect id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-10" x="197.031" y="11" width="7" height="68"/>
+  <rect id="Rounded_Rectangle_1_copy" data-name="Rounded Rectangle 1 copy" class="cls-10" x="152.031" width="104" height="56" rx="5" ry="5"/>
+  <circle id="Ellipse_3_copy_16" data-name="Ellipse 3 copy 16" class="cls-11" cx="174.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_18" data-name="Ellipse 3 copy 18" class="cls-11" cx="194.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_20" data-name="Ellipse 3 copy 20" class="cls-11" cx="214.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_22" data-name="Ellipse 3 copy 22" class="cls-11" cx="234.031" cy="19" r="6"/>
+  <circle id="Ellipse_3_copy_24" data-name="Ellipse 3 copy 24" class="cls-11" cx="174.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_26" data-name="Ellipse 3 copy 26" class="cls-11" cx="194.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_28" data-name="Ellipse 3 copy 28" class="cls-11" cx="214.031" cy="39" r="6"/>
+  <circle id="Ellipse_3_copy_30" data-name="Ellipse 3 copy 30" class="cls-11" cx="234.031" cy="39" r="6"/>
+</svg>

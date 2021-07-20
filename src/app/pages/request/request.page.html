@@ -1,0 +1,100 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="search-holder">
+    <ion-searchbar placeholder="Enter a name or email" mode="ios"></ion-searchbar>
+  </div>
+  <ion-item  *ngIf="title=='request'">
+    <div class="start-slot" slot="start">
+      <ion-button fill='none'>
+        <ion-icon name="share-alt"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-label text-left>Share your custom link to get paid</ion-label>
+    <div class="end-slot" slot="end">
+      <ion-badge color="primary" mode="md">New</ion-badge>
+    </div>
+  </ion-item>
+
+  <div class="the-list">
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/yogie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">John Doe</h3>
+        <p>johndoe@nexgen.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/josie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">Jessy Neila</h3>
+        <p>jeessy@abc.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/yogie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">John Doe</h3>
+        <p>johndoe@nexgen.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/josie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">Jessy Neila</h3>
+        <p>jeessy@abc.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/yogie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">John Doe</h3>
+        <p>johndoe@nexgen.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/josie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">Jessy Neila</h3>
+        <p>jeessy@abc.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/yogie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">John Doe</h3>
+        <p>johndoe@nexgen.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goMoneyPage()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/josie.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h3 class="ion-text-wrap">Jessy Neila</h3>
+        <p>jeessy@abc.com</p>
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>

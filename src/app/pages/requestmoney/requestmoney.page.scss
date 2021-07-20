@@ -1,0 +1,56 @@
+ion-title{
+    span{
+        font-family: 'AvenirL';
+        font-size: 1rem !important;
+    }
+}
+
+.money-holder
+{
+    .input-holder
+    {
+      
+        display: flex;
+        align-items: center;
+
+        .sign-holder
+        {
+            h1
+            {
+                margin: 0 !important;
+            }   
+        }
+        ion-input{
+            font-size: 3.5rem !important;
+            width: 250px !important;
+        }
+    }
+   
+}
+
+.unit-holder
+{
+    ion-item{
+        ion-select{
+            margin: 0 auto !important;
+            min-width: 100px !important;
+        }
+    }
+}
+
+.sign
+{
+    position: absolute;
+    left: 20%;
+    top: -10px;
+    h1{
+        font-size: 2.2rem !important;
+        font-weight: lighter !important;
+    }
+}
+
+ion-footer{
+    ion-button{
+        height: 50px !important;
+    }
+}

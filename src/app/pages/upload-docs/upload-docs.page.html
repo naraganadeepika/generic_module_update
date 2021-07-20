@@ -1,0 +1,391 @@
+<ion-header>
+ <ion-toolbar color="primary">
+
+            <ion-buttons no-padding slot="start">
+          <ion-back-button text="" defaultHref="/home"></ion-back-button>
+       </ion-buttons>
+    <ion-title>{{'UPLOAD_DOCUMENTS' | translate }}</ion-title>
+    <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge>
+     </ion-list >
+  </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+  <ion-list no-padding>
+     <div class="doc_top1"> 
+      <p>{{'COMPLETE_PROFILE_VERIFICATION' | translate}}</p>
+     </div>
+   </ion-list>
+
+   <ion-grid class="upload" *ngIf="KYC_status">
+    <!--  <ion-row>
+      <ion-col  size="3">
+      </ion-col>
+      <div class="line"> </div>
+    </ion-row>
+ -->
+    <ion-row class="click_div">
+      <ion-col  size="2">
+      </ion-col>
+        <ion-col  size="2">
+            <ion-icon name="mail" class="fav success_icon"></ion-icon>
+         </ion-col>
+         
+         <ion-col  size="5" class="margin_top">
+            <ion-label>{{'EMAIL' | translate }} </ion-label>
+         </ion-col>
+         <ion-col size="1" class="margin_top">
+          <ion-icon  name="checkmark-circle" color="success"></ion-icon>
+          
+         </ion-col>
+      
+    </ion-row>
+     <ion-row>
+      <ion-col  size="2">
+      </ion-col>
+       <div [className]="KYC_status.email_verified == true ? 'success' : 'rejected'"> </div>
+    </ion-row>
+
+     <ion-row class="click_div">
+      <ion-col  size="2">
+      </ion-col>
+      <ion-col  size="2">
+            <ion-icon name="call" class="fav success_icon"></ion-icon>
+      </ion-col>
+       <ion-col  size="5" class="margin_top">
+            <ion-label>{{'PHONE_NUMBER'  | translate}}</ion-label>
+      </ion-col>
+      <ion-col size="1" class="margin_top">
+          <ion-icon  name="checkmark-circle" color="success"></ion-icon>
+      </ion-col>
+    </ion-row>
+     <ion-row>
+      <ion-col  size="2">
+      </ion-col>
+      <div [className]="KYC_status.email_verified == true ? 'success' : 'rejected'"> </div>
+    </ion-row>
+
+    <ion-row class="click_div" (click)="address_swiper('address_proof')">
+      <ion-col  size="2">
+      </ion-col>
+      <ion-col  size="2">
+         <ion-icon name="home" class="fav success_icon" *ngIf="KYC_status.address_proof_status == 'accepted'"></ion-icon>
+        <ion-icon name="home" class="fav" *ngIf="KYC_status.address_proof_status == 'not uploaded'"></ion-icon>
+        <ion-icon name="home" class="fav pending_icon" *ngIf="KYC_status.address_proof_status == 'pending'"></ion-icon>
+        <ion-icon name="home" class="fav rejected_icon" *ngIf="KYC_status.address_proof_status == 'rejected'"></ion-icon>
+     </ion-col>
+       <ion-col  size="5" class="margin_top">
+            <ion-label>{{'ADDRESS_PROOF' | translate }}</ion-label>
+      </ion-col>
+      <ion-col size="1" class="margin_top">
+        <ion-icon  name="add-circle-outline" color="success" *ngIf="KYC_status.address_proof_status == 'not uploaded'"></ion-icon>
+          <ion-icon  name="checkmark-circle" color="success" *ngIf="KYC_status.address_proof_status == 'accepted'"></ion-icon>
+          <ion-icon name="clock" color="warning" *ngIf="KYC_status.address_proof_status == 'pending'"></ion-icon>
+          <ion-icon name="close-circle" color="danger"  *ngIf="KYC_status.address_proof_status == 'rejected'"></ion-icon>
+      </ion-col>
+    </ion-row>
+     <ion-row>
+      <ion-col  size="2">
+      </ion-col>
+      <div class="line"  *ngIf="KYC_status.address_proof_status == 'not uploaded'"> </div>
+      <div class="success"  *ngIf="KYC_status.address_proof_status == 'accepted'"> </div>
+      <div class="pending"  *ngIf="KYC_status.address_proof_status == 'pending'"> </div>
+      <div class="rejected"  *ngIf="KYC_status.address_proof_status == 'rejected'"> </div>
+      <ion-col  size="8" *ngIf="KYC_status.address_proof_status == 'rejected'">
+        <small>{{'REJECTED_REASON' | translate }}: <span class="reason_msg">
+        {{KYC_status.address_proof_rejected_reason}}</span></small>
+      </ion-col>
+    </ion-row>
+     <ion-row (click)="address_swiper('id_proof')" class="click_div">
+      <ion-col  size="2">
+      </ion-col>
+      <ion-col  size="2">
+        <ion-icon name="person"class="fav" *ngIf="KYC_status.id_proof_status == 'not uploaded'"></ion-icon>
+        <ion-icon name="person" class="fav success_icon" *ngIf="KYC_status.id_proof_status == 'accepted'"></ion-icon>
+        <ion-icon name="person" class="fav pending_icon" *ngIf="KYC_status.id_proof_status == 'pending'"></ion-icon>
+        <ion-icon name="person" class="fav rejected_icon" *ngIf="KYC_status.id_proof_status == 'rejected'"></ion-icon>
+      </ion-col>
+       <ion-col  size="5" class="margin_top">
+            <ion-label>{{'ID_PROOF' | translate }}</ion-label>
+      </ion-col>
+      <ion-col size="1" class="margin_top">
+        <ion-icon  name="add-circle-outline" color="success" *ngIf="KYC_status.id_proof_status == 'not uploaded'"></ion-icon>
+          <ion-icon  name="checkmark-circle" color="success" *ngIf="KYC_status.id_proof_status == 'accepted'"></ion-icon>
+          <ion-icon name="clock" color="warning" *ngIf="KYC_status.id_proof_status == 'pending'"></ion-icon>
+          <ion-icon name="close-circle" color="danger"  *ngIf="KYC_status.id_proof_status == 'rejected'"></ion-icon>
+      </ion-col>
+    </ion-row>
+     <ion-row>
+      <ion-col  size="2">
+      </ion-col>
+      <div class="line"  *ngIf="KYC_status.id_proof_status == 'not uploaded'"> </div>
+      <div class="success"  *ngIf="KYC_status.id_proof_status == 'accepted'"> </div>
+      <div class="pending"  *ngIf="KYC_status.id_proof_status == 'pending'"> </div>
+      <div class="rejected"  *ngIf="KYC_status.id_proof_status == 'rejected'"> </div>
+      <ion-col  size="8" *ngIf="KYC_status.id_proof_status == 'rejected'">
+        <small>{{'REJECTED_REASON' | translate }}: <span class="reason_msg">
+        {{KYC_status.id_proof_rejected_reason}}</span></small>
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="address_swiper('pan_card')" class="click_div">
+      <ion-col  size="2">
+      </ion-col>
+      <ion-col  size="2">
+        <ion-icon name="finger-print" class="fav success_icon" *ngIf="KYC_status.pan_card_status == 'accepted'"></ion-icon>
+        <ion-icon name="finger-print"class="fav " *ngIf="KYC_status.pan_card_status == 'not uploaded'"></ion-icon>
+        <ion-icon name="finger-print" class="fav pending_icon" *ngIf="KYC_status.pan_card_status == 'pending'"></ion-icon>
+        <ion-icon name="finger-print" class="fav rejected_icon" *ngIf="KYC_status.pan_card_status == 'rejected'"></ion-icon>
+            
+      </ion-col>
+       <ion-col  size="5" class="margin_top">
+            <ion-label>{{'PAN_CARD' | translate }}</ion-label>
+      </ion-col>
+      <ion-col size="1" class="margin_top">
+        <ion-icon  name="add-circle-outline" color="success" *ngIf="KYC_status.pan_card_status == 'not uploaded'"></ion-icon>
+          <ion-icon  name="checkmark-circle" color="success" *ngIf="KYC_status.pan_card_status == 'accepted'"></ion-icon>
+          <ion-icon name="clock" color="warning" *ngIf="KYC_status.pan_card_status == 'pending'"></ion-icon>
+          <ion-icon name="close-circle" color="danger"  *ngIf="KYC_status.pan_card_status == 'rejected'"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col  size="2">
+      </ion-col>
+      <div class="line"  *ngIf="KYC_status.pan_card_status == 'not uploaded'"> </div>
+      <div class="success"  *ngIf="KYC_status.pan_card_status == 'accepted'"> </div>
+      <div class="pending"  *ngIf="KYC_status.pan_card_status == 'pending'"> </div>
+      <div class="rejected"  *ngIf="KYC_status.pan_card_status == 'rejected'"> </div>
+      <ion-col  size="8" *ngIf="KYC_status.pan_card_status == 'rejected'">
+        <small>{{'REJECTED_REASON' | translate }}: <span class="reason_msg">
+        {{KYC_status.pan_card_rejected_reason}}</span></small>
+      </ion-col>
+    </ion-row>
+
+    <ion-row (click)="address_swiper('back_account')" class="click_div">
+      <ion-col  size="2">
+      </ion-col>
+      <ion-col  size="2">
+        <ion-icon  name="document" class="fav success_icon" *ngIf="KYC_status.bank_account_status == 'accepted'"></ion-icon>
+        <ion-icon  name="document" class="fav " *ngIf="KYC_status.bank_account_status == 'not uploaded'"></ion-icon>
+        <ion-icon  name="document" class="fav pending_icon" *ngIf="KYC_status.bank_account_status == 'pending'"></ion-icon>
+        <ion-icon  name="document" class="fav rejected_icon" *ngIf="KYC_status.bank_account_status == 'rejected'"></ion-icon>
+      </ion-col>
+       <ion-col  size="5" class="margin_top">
+            <ion-label>{{'ADD_BANK' | translate}}</ion-label>
+      </ion-col>
+      
+        <ion-col size="1" class="margin_top">
+            <ion-icon  name="add-circle-outline" color="success"  class="icon_position" *ngIf="KYC_status.bank_account_status == 'not uploaded'"></ion-icon>
+            <ion-icon  name="checkmark-circle" color="success"  class="icon_position" *ngIf="KYC_status.bank_account_status == 'accepted'"></ion-icon>
+            <ion-icon name="clock" color="warning"  class="icon_position" *ngIf="KYC_status.bank_account_status == 'pending'"></ion-icon>
+            <ion-icon name="close-circle" color="danger"  class="icon_position"  *ngIf="KYC_status.bank_account_status == 'rejected'"></ion-icon>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col  size="3">
+      </ion-col>
+
+      <ion-col  size="9" *ngIf="KYC_status.bank_account_status == 'rejected'">
+        <small>{{'REJECTED_REASON' | translate }}: <span class="reason_msg">
+        {{KYC_status.bank_account_rejected_reason}}</span></small>
+      </ion-col>
+    </ion-row>
+
+
+   </ion-grid>
+
+
+  <div [className]="addressproof == true ? 'alpha_Blk show_swipe' : 'alpha_Blk hide_swipe'">
+  <div swipeAll  class="sw_blk">
+      <div class="swip_hdr"> <div class="swipe_close" (click)="close_proof()"> {{'CLOSE'| translate}} </div> 
+      <span *ngIf="selected_doc_type == 'address_proof' || selected_doc_type == 'id_proof' || selected_doc_type =='pan_card'">{{'UPLOAD' | translate}}</span>
+      <span *ngIf="selected_doc_type == 'address_proof' ">{{'ADDRESS_PROOF' | translate }} </span> 
+      <span *ngIf="selected_doc_type == 'id_proof' ">{{'ID_PROOF' | translate }}</span>
+      <span *ngIf="selected_doc_type =='pan_card'">{{'PAN_CARD' | translate }}</span>
+      <span *ngIf="selected_doc_type == 'back_account'">{{'ADD_BANK' | translate}}</span>
+      </div>
+        <div class="swip_cnt" *ngIf="selected_doc_type == 'address_proof' || selected_doc_type == 'id_proof' || selected_doc_type =='pan_card'  " >
+        <ion-list *ngIf="KYC_status">
+         <ion-item *ngIf="selected_doc_type != 'pan_card' ">
+          <ion-label>{{'SELECT' | translate }}
+            <span *ngIf="selected_doc_type == 'address_proof' ">{{'ADDRESS_PROOF' | translate }} </span> 
+            <span *ngIf="selected_doc_type == 'id_proof' ">{{'ID_PROOF' | translate }}</span>     {{'TYPE' | translate }}         
+          </ion-label>
+
+
+          <ion-select placeholder="{{'SELECT' | translate }}" [(ngModel)]="selected_proof_type">
+            <ion-select-option *ngFor="let proof of proofs_list | keyvalue" [value]='proof.key' >
+           {{proof.value}} </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <span *ngIf="selected_doc_type != 'pan_card' " class="err_msg">{{valid_fun('selected_proof_type')}}</span>
+        <!-- <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label></ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
+  <ion-item >
+  <ion-label position="floating" > 
+  {{'ENTER' | translate}} 
+    <span *ngIf="selected_doc_type == 'address_proof' ">{{'ENTER' | translate}}
+ {{'ADDRESS_PROOF' | translate }} {{'DOCUMENT_NUMBER' | translate }}</span> 
+      <span *ngIf="selected_doc_type == 'id_proof' ">{{'ENTER' | translate}}
+ {{'ID_PROOF' | translate }} {{'DOCUMENT_NUMBER' | translate }}</span>
+
+    <span *ngIf="selected_doc_type =='pan_card'">{{'ENTER' | translate}}
+ {{'PAN_CARD' | translate }} {{'NUMBER' | translate }}</span>   
+   </ion-label>
+  <ion-input [(ngModel)]="proof_number"></ion-input>
+  </ion-item>
+  <span class="err_msg">{{valid_fun('proof_number')}}</span>
+  <div *ngIf="selected_proof_type!=''">
+  <ion-item *ngIf="expiry_dates[selected_proof_type]">
+  <ion-label position="floating" >  
+    <span *ngIf="selected_proof_type!=''">{{proofs_list[selected_proof_type]}}</span>   
+   {{'EXPIRY_DATE' | translate }}</ion-label>
+   <ion-datetime displayFormat="YYYY-MMM-DD" value="" [(ngModel)]="proof_expiry_date" [min]="dateminlimit" [max]="datemaxlimit"></ion-datetime>
+  </ion-item>
+  <span class="err_msg" *ngIf="expiry_dates[selected_proof_type]">{{valid_fun('expiry_date')}}</span>
+  </div>
+<ion-item lines="none" >
+  <ion-label>{{'FRONT_SIDE' | translate}}</ion-label>
+  <ion-button color="primary" *ngIf="proof_front_btn()" (click)="presentActionSheet('proof_front')" >{{'UPLOAD' | translate}}</ion-button>
+  <ion-button color="warning" *ngIf="!proof_front_btn()">{{'UPLOADED' | translate}}</ion-button>
+</ion-item>
+<span class="err_msg">{{valid_fun('proof_front')}}</span>
+
+<ion-item  lines="none" *ngIf="selected_proof_type!='' && allowed_sides[selected_proof_type]">
+  <ion-label>{{'BACK_SIDE' | translate}}</ion-label>
+  <ion-button color="primary" *ngIf="proof_back_btn()" (click)="presentActionSheet('proof_back')">{{'UPLOAD' | translate}}</ion-button>
+  <ion-button color="warning" *ngIf="!proof_back_btn()" >{{'UPLOADED' | translate}}</ion-button>
+</ion-item>
+<span class="err_msg" *ngIf="selected_proof_type!='' && allowed_sides[selected_proof_type]">{{valid_fun('proof_back')}}</span>
+ <div class="swiper_footer">
+   <ion-button size="medium" color="dark" (click)="upload_docs()" >{{ 'SUBMIT_BUTTON' | translate }}</ion-button>
+ </div>
+
+
+
+
+    </ion-list>
+    </div>
+
+    <!-- Bank Account -->
+        <div class="swip_cnt" *ngIf="selected_doc_type == 'back_account'">
+          <form [formGroup]="bankForm" class="form" (ngSubmit)="bankSubmit()">
+                 <ion-item no-padding>
+                  <ion-label position="floating" class="font_14"> {{'NICK_NAME' | translate }}
+                  <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="text" formControlName="nick_name" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{bank_valid('nick_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'HOLDER_NAME' | translate }}
+                    <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input  type="text" formControlName="holder_name"></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{bank_valid('holder_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'BRANCH_NAME' | translate }} 
+                    <ion-text color="danger">*</ion-text></ion-label>
+                    <ion-input type="text" formControlName="branch_name"></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{bank_valid('branch_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{ 'BANK_ACCOUNT_NUMBER' | translate }} <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="number" formControlName="account_number" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{bank_valid('account_number')}}</span>
+                  <ion-row>
+                    <ion-col size="6">
+                         <ion-item  class="slct" no-padding>
+                             <ion-label position="floating" class="font_14">{{'SELECT_BANK' | translate  }} <ion-text color="danger">*</ion-text></ion-label>
+                           
+                            <ion-select  formControlName="bank_name">
+                              <ion-select-option  *ngFor="let bank of banks | keyvalue" [(value)]='bank.key'>{{bank.value}}</ion-select-option>
+                            </ion-select>
+                         </ion-item>
+                         <span class="err_msg">{{bank_valid('bank_name')}}</span>
+                   </ion-col>
+                   <ion-col size="6">
+                     <ion-item class="slct" no-padding>
+                         <ion-label position="floating" class="font_14">{{'SELECT_ACCOUNT_TYPE' | translate }} <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-select formControlName="account_type">
+                      <ion-select-option value="savings" >{{'SAVINGS' | translate }}</ion-select-option>
+                      <ion-select-option value="current" >{{'CURRENT' | translate }}</ion-select-option>
+                    </ion-select>
+                     </ion-item>
+                     <span class="err_msg">{{bank_valid('account_type')}}</span>
+                   </ion-col>
+                 </ion-row>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'IFSC' | translate }}<ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="text" [value]="bankForm.get('ifsc_code').value | uppercase"
+autocapitalize="characters" formControlName="ifsc_code" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{bank_valid('ifsc_code')}}</span>
+                  <ion-row>
+                    <ion-col size="6">
+                         <ion-item  class="slct" no-padding>
+                             <ion-label position="floating" class="font_14">{{ 'SELECT_STATE' | translate }} <ion-text color="danger">*</ion-text></ion-label>
+                             <ion-select formControlName="state_name"  (ionChange)="change_st($event)">
+                             <ion-select-option *ngFor="let state of states| keyvalue" value="{{state.key}}"> {{state.value}} </ion-select-option>
+                             </ion-select>
+                         </ion-item>
+                         <span class="err_msg">{{bank_valid('state_name')}}</span>
+                   </ion-col>
+                   <ion-col size="6">
+                     <ion-item class="slct" no-padding>
+                         <ion-label position="floating" class="font_14">{{ 'SELECT_CITY' | translate }}
+                         <ion-text color="danger">*</ion-text></ion-label>
+                         <ion-select name="city" formControlName="city_name" >
+                         <ion-select-option *ngFor="let city of cities | keyvalue" value="{{city.value}}">{{city.value}} </ion-select-option> 
+                        </ion-select>
+                     </ion-item>
+                     <span class="err_msg">{{bank_valid('city_name')}}</span>
+                   </ion-col>
+                 </ion-row>
+
+                      <ion-row>
+                      <ion-col size="8" class="mar_top20">
+                        <ion-label class="font_14">{{'UPLOAD_PASSBOOK' | translate }}<ion-text color="danger">*</ion-text></ion-label>
+                      </ion-col>
+                      <ion-col size="4">
+
+                         <ion-button (click)="presentActionSheet('proof_front') " size="small"  color="dark" *ngIf="!bankUpload"  >{{'UPLOAD' | translate}} </ion-button>
+                         <ion-button color="warning" size="small" *ngIf="bankUpload">{{'UPLOADED' | translate}}</ion-button>          
+              
+
+                      </ion-col>
+                    </ion-row>
+                    <span class="err_msg">{{bank_passbook_err_msg}}</span>
+                    
+                       <div class="swiper_footer">
+                         <ion-button size="medium" color="primary" (click)="bankSubmit()">{{ 'SUBMIT_BUTTON' | translate }}</ion-button>
+                         <button  type="submit" class="hidden"></button>
+                       </div>                  
+                  <!-- <ion-button (click)="account()" class="primary_btn" color="danger" style="width: 100%;" fill="outline"> {{'MY_ACCOUNTS' | translate }}</ion-button> -->
+          </form>
+        </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+<!--   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher> -->
+</ion-content>
+<ion-footer>
+  <div class="doc_btm">
+      <p>
+        {{ 'MAIL_KYC' | translate }} <span><a href="mailto:kyc@ant11.org" target="_black">kyc@ant11.org</a></span></p>
+  </div>
+</ion-footer>

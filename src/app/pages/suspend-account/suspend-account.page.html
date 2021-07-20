@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+         <ion-buttons slot="start">
+             <ion-back-button text="" defaultHref="/profile"></ion-back-button>
+         </ion-buttons>
+         <!-- <ion-title>{{'SUSPEND_ACCOUNT' | translate | uppercase }}</ion-title> -->
+          <ion-title>
+          {{ 'SUSPEND_ACCOUNT' | translate }}
+         
+        </ion-title>
+         <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+ </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="background2">
+	<!-- <ion-card> -->
+		<ion-grid>
+			<ion-row>
+				
+			</ion-row>
+			<ion-row *ngIf="!suspend_account">
+				<p style="text-align: left">
+					{{'SUSPEND_MSG' | translate  }}
+				</p>
+			</ion-row>
+			<ion-row *ngIf="!suspend_account">
+				<b class="center_txt">
+					{{'SUSPEND_DURATION' | translate  }}
+				</b>
+			</ion-row>
+			<ion-row *ngIf="!suspend_account">
+				<ion-col size="4"></ion-col>
+				<ion-col>
+					<ion-button fill="outline" color="tertiary" (click)="suspend('24_hours')">{{'24_HOURS' | translate  }}</ion-button>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngIf="!suspend_account">
+				<ion-col size="4"></ion-col>
+				<ion-col>
+					<ion-button fill="outline" color="tertiary" (click)="suspend('1_week')">   <span class="week">{{'1_WEEK' | translate  }}</span></ion-button>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngIf="suspend_account">
+				<span style="margin: 0px auto">{{'JOIN_PAID_CONTESTS_AFTER' | translate}}</span> <br>
+				<b class="lft">{{lft_time}}</b>
+			</ion-row>
+			<ion-row>
+				{{'WHAT_HAPP' | translate  }}
+				<ul>
+					<li>
+						{{'ACCESS_APP_NOPAID' | translate }}
+					</li>
+					<li>
+						{{'NO_CUSTOMER_CARE' | translate  }}
+					</li>
+				</ul>
+				<a class="red_link" (click)="view_tcs()"> {{'VIEW_TCS' | translate }}</a>
+			</ion-row>
+		</ion-grid>
+	<!-- </ion-card> -->
+</ion-content>

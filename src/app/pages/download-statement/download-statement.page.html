@@ -1,0 +1,62 @@
+<ion-header>
+	<ion-toolbar color="primary">
+  	<ion-buttons no-padding slot="start">
+          <ion-back-button text="" defaultHref="/wallet"></ion-back-button>
+       </ion-buttons>
+        <ion-title>{{'REQUEST_ACCOUNT_STATEMENT' | translate }}</ion-title>
+        <!-- <ion-list no-lines class="user_with_bal pad_10" slot="end">
+          <span><small>{{user.username}}</small></span>
+          
+          <span class="font_12"><ion-icon name="wallet"></ion-icon>&nbsp;{{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list> -->
+         <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding >
+          <div [className]="user.notification_count > 0 ?'blink':''">
+             <ion-icon id="notification-button" name="notifications" >  </ion-icon>  
+             <ion-badge id="notifications-badge" color="primary" *ngIf="user.notification_count != null">{{user.notification_count}}</ion-badge>
+          </div>
+        </ion-list>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="download_Form" (ngSubmit)="download()">
+
+  <ion-item>
+    <ion-label>{{'SELECT_TIME_PERIOD' | translate}}</ion-label>
+    <ion-select [interfaceOptions]="customActionSheetOptions" formControlName="time" interface="action-sheet" placeholder="Select One" (ionChange)="time_period($event)">
+      <ion-select-option value="30_days">{{'LAST' | translate}} 30 {{'DAYS' | translate}}</ion-select-option>
+      <ion-select-option value="60_days">{{'LAST' | translate}} 60 {{'DAYS' | translate}}</ion-select-option>
+      <ion-select-option value="90_days">{{'LAST' | translate}} 90 {{'DAYS' | translate}}</ion-select-option>
+      <ion-select-option value="1_year">{{'LAST_ONE_YEAR' | translate}}</ion-select-option>
+      <ion-select-option value="custom_date">{{"CUSTOM_DATE" | translate}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <span class="err_msg">{{valid_fun('time')}}</span>
+
+
+<div *ngIf="range_div"> 
+  	
+<ion-item>
+  <ion-label>{{'START_DATE' | translate}}</ion-label>
+<ion-datetime displayFormat="MMM/DD/YYYY" formControlName="start_date" ></ion-datetime>
+</ion-item>
+<span class="err_msg">{{valid_fun('start_date')}}</span>
+<ion-item>
+  <ion-label>{{'END_DATE' | translate}}</ion-label>
+<ion-datetime displayFormat="MMM/DD/YYYY" formControlName="end_date" ></ion-datetime>
+</ion-item>
+<span class="err_msg">{{valid_fun('end_date')}}</span>
+  </div>
+
+<ion-grid class="margin">
+<ion-note>{{'NOTE ' | translate}}:{{'DOWNLOAD_STATEMENT_NOTE' | translate}}</ion-note>
+</ion-grid>
+<ion-button size="full" type="submit" color="primary"> {{'SUBMIT' | translate}}</ion-button>
+	
+</form>
+  
+
+
+
+</ion-content>

@@ -1,0 +1,287 @@
+<ion-header>
+    <ion-toolbar color="blue">
+     <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/wallet"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!bonus_enable">{{'TRANSACTION_DETAILS' | translate }}</ion-title>
+    <ion-title  *ngIf="bonus_enable">{{'BONUS_DETAILS' | translate }}</ion-title>
+         <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+         <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <div [className]="user.notification_count > 0 ?'blink':''">
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
+     </ion-list >
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="walt_trans">
+
+    <!-- <ion-grid class="transhis" *ngIf="bonus_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <p> <b>{{'BONUS_AMOUNT' | translate }}:</b>{{bonus_summary.bonus_amount | currency:'INR' }}</p>
+          <p> <b>{{'USED_BONUS' | translate }}:</b>{{bonus_summary.used_amount| currency:'INR'}}</p>
+          <p> <b>{{'UNUSED_BONUS' | translate }} :</b>{{bonus_summary.unused_amount| currency:'INR'}}</p>
+          <p class="txt_red">{{bonus_summary.message}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+    <ion-card *ngIf="bonus_enable" no-padding>
+    <ion-card-header>
+      <ion-card-subtitle>{{bonus_summary.message}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p> <b>{{'BONUS_AMOUNT' | translate }}:</b><span class="fR">{{bonus_summary.bonus_amount | currency:'INR' }}</span></p>
+          <p> <b>{{'USED_BONUS' | translate }}:</b><span class="fR">{{bonus_summary.used_amount| currency:'INR'}}</span></p>
+          <p> <b>{{'UNUSED_BONUS' | translate }} :</b><span class="fR">{{bonus_summary.unused_amount| currency:'INR'}}</span></p>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+
+<!--     <ion-grid class="transhis" *ngIf="contest_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <ion-label>{{'PAYMENT_DETAILS' | translate }}:</ion-label>
+           <p> <b>{{'MATCH' | translate}} : </b>{{contest_summary.match}}</p>
+          <p> <b>{{'CONTEST_NAME' | translate}}:</b>{{contest_summary.contest_name}}</p>
+          <p> <b>{{'ENTRY_FEE'| translate}} :</b>{{contest_summary.entry_fee| currency:'INR'}}</p>
+          <p> <b>{{'FROM_BONUS'| translate}} :</b>{{contest_summary.from_bonus| currency:'INR'}}</p>
+          <p> <b>{{'FROM_DEPOSIT'| translate}}:</b>{{contest_summary.from_deposit| currency:'INR'}}</p>
+          <p> <b>{{'FROM_WINNING'| translate}}:</b>{{contest_summary.from_winning| currency:'INR'}}</p>
+          <ion-grid class="coupon" *ngIf="contest_summary.coupon_code != null && contest_summary.coupon_code != ''">
+            <ion-row>
+              <ion-col><ion-label class="coupon_code">{{contest_summary.coupon_code}}</ion-label></ion-col>
+              <ion-col>{{contest_summary.message}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+
+
+
+    <ion-card *ngIf="contest_enable" no-padding>
+    <ion-card-header>
+      
+      <ion-card-subtitle>
+
+      {{'CONTEST' | translate}} : {{contest_summary.contest_name}}
+      <span class="fR">{{contest_summary.entry_fee| currency:'INR'}}</span>
+      </ion-card-subtitle>
+      <ion-card-subtitle>{{contest_summary.match}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p> <b>{{'FROM_BONUS'| translate}} :</b><span class="fR">{{contest_summary.from_bonus| currency:'INR'}}</span></p>
+          <p> <b>{{'FROM_DEPOSIT'| translate}}:</b><span class="fR">{{contest_summary.from_deposit| currency:'INR'}}</span></p>
+          <p> <b>{{'FROM_WINNING'| translate}}:</b><span class="fR">{{contest_summary.from_winning| currency:'INR'}}</span></p>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="contest_summary.coupon_code != null && contest_summary.coupon_code != ''">
+      <ion-col><ion-label class="coupon_code">{{contest_summary.coupon_code}}</ion-label></ion-col>
+      <ion-col>{{contest_summary.message}}</ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+   <!-- <ion-grid class="transhis" *ngIf="winning_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <ion-label>{{'PAYMENT_DETAILS' | translate }}:</ion-label>
+          <p> <b>{{'MATCH' | translate}} : </b>{{winning_summary.match}}</p>
+          <p> <b>{{'CONTEST_NAME' | translate}}:</b>{{winning_summary.contest_name}}</p>
+          <p> <b>{{'ENTRY_FEE'| translate}} :</b>{{winning_summary.entry_fee| currency:'INR'}}</p>
+          <p> <b>{{'WINNING_AMOUNT'| translate}}:</b>{{winning_summary.winning_amount| currency:'INR'}}</p>
+          <p> <b>{{'TEAM_NAME'| translate}}:</b>{{winning_summary.team_name}}</p>
+          <p> <b>{{'RANK'| translate}}  :</b>{{winning_summary.rank}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+<ion-card *ngIf="winning_enable" no-padding>
+    <ion-card-header>
+      <ion-card-subtitle>{{'CONTEST' | translate}}:{{winning_summary.contest_name}}
+        <span class="fR">#{{winning_summary.rank}}</span>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p>{{winning_summary.match}}</p>
+          <p> <b>{{'TEAM_NAME'| translate}}:</b><span class="fR">{{winning_summary.team_name}}</span></p>
+          <p> <b>{{'ENTRY_FEE'| translate}} :</b><span class="fR">{{winning_summary.entry_fee| currency:'INR'}}</span></p>
+          <p> <b>{{'WINNING_AMOUNT'| translate}}:</b><span class="fR">{{winning_summary.winning_amount| currency:'INR'}}</span></p>
+          
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <!-- <ion-grid class="transhis" *ngIf="withdraw_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <ion-label>{{'PAYMENT_DETAILS' | translate }}:</ion-label>
+          <p> <b>{{'BANK_ACCOUNT_NUMBER'| translate}} :</b>{{withdraw_summary.account_number}}</p>
+          <p> <b>{{'BANK_NAME' | translate}} : </b>{{withdraw_summary.bank_name}}</p>
+          <p> <b>{{'IFSC'| translate}} :</b>{{withdraw_summary.ifsc_code}}</p>
+          <p> <b>{{'ACCOUNT_TYPE'| translate}} :</b>{{withdraw_summary.account_type}}</p>
+          <p> <b>{{'BRANCH_NAME'| translate}}:</b>{{withdraw_summary.branch_name}}</p>
+          <p> <b>{{'CITY'| translate}}  :</b>{{withdraw_summary.city}}</p>
+          <p> <b>{{'NICK_NAME'| translate}}:</b>{{withdraw_summary.nick_name}}</p>
+          <p> <b>{{'AMOUNT'| translate }}:</b>{{withdraw_summary.amount| currency:'INR'}}</p>
+          <p> <b>{{'STATUS'| translate}} :</b>{{withdraw_summary.status}}</p>
+          <p> <b> {{'WITHDRAW' | translate }} {{'REFERENCE_NO' | translate}} </b> {{withdraw_summary.withdraw_reference_number}}</p>
+          <p> <b>{{'TRANSACTION_DATE'| translate}} :</b>{{withdraw_summary.created_at}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+    <ion-card *ngIf="withdraw_enable" no-padding>
+    <ion-card-header>
+      <ion-card-subtitle>#{{withdraw_summary.withdraw_reference_number}}
+        <span class="fR">{{withdraw_summary.status}}</span>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+         <p> <b>{{'BANK_ACCOUNT_NUMBER'| translate}} :</b><span class="fR">{{withdraw_summary.account_number}}</span></p>
+          <p> <b>{{'BANK_NAME' | translate}} : </b><span class="fR">{{withdraw_summary.bank_name}}</span></p>
+          <p> <b>{{'IFSC'| translate}} :</b><span class="fR">{{withdraw_summary.ifsc_code}}</span></p>
+          <p> <b>{{'ACCOUNT_TYPE'| translate}} :</b><span class="fR">{{withdraw_summary.account_type}}</span></p>
+          <p> <b>{{'BRANCH_NAME'| translate}}:</b><span class="fR">{{withdraw_summary.branch_name}}</span></p>
+          <p> <b>{{'CITY'| translate}}  :</b><span class="fR">{{withdraw_summary.city}}</span></p>
+          <p> <b>{{'NICK_NAME'| translate}}:</b><span class="fR">{{withdraw_summary.nick_name}}</span></p>
+          <p> <b>{{'AMOUNT'| translate }}:</b><span class="fR">{{withdraw_summary.amount| currency:'INR'}}</span></p>
+          <p><span class="fR">{{withdraw_summary.created_at}}</span></p>
+          
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+    <!-- <ion-grid class="transhis" *ngIf="deposit_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <ion-label>{{'PAYMENT_DETAILS' | translate }}:</ion-label>
+          <p> <b>{{'PAYMENT_MODE' | translate }}:</b>{{deposit_summary.payment_mode}}</p>
+          <p> <b>{{'TRANSACTION_ID' | translate }}:</b>{{deposit_summary.transaction_id}}</p>
+          <p> <b>{{'AMOUNT'| translate }}:</b>{{deposit_summary.amount| currency:'INR'}}</p>
+          <p> <b>{{'STATUS'| translate}} :</b>{{deposit_summary.status}}</p>
+          <p> <b>{{'TRANSACTION_DATE'| translate}} :</b>{{deposit_summary.date}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+    <ion-card *ngIf="deposit_enable" no-padding>
+    <ion-card-header>
+     
+      <ion-card-title> {{'PAYMENT_DETAILS' | translate }} </ion-card-title>
+      <ion-card-subtitle>{{deposit_summary.status}} <span class="fR credit">{{deposit_summary.amount| currency:'INR'}}</span></ion-card-subtitle>
+      <ion-card-subtitle>#{{deposit_summary.transaction_id}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="fR"><small>{{deposit_summary.date}}</small></span>
+    </ion-card-content>
+    
+  </ion-card>
+
+
+ 
+
+ <ion-card *ngIf="refund_enable" no-padding>
+    <ion-card-header>
+      <ion-card-title> {{'REFUND' | translate }} </ion-card-title>
+      <ion-card-subtitle>{{'CONTEST' | translate}}:{{refund_summary.contest_name}}
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p>{{refund_summary.match}}</p>
+          <p> <b>{{'ENTRY_FEE'| translate}} :</b><span class="fR credit">{{refund_summary.entry_fee| currency:'INR'}}</span></p>
+          <p> <b>{{'DEPOSIT_AMOUNT'| translate}} :</b><span class="fR credit">{{refund_summary.deposit_amount| currency:'INR'}}</span></p>
+          <p> <b>{{'WINNING_AMOUNT'| translate}}:</b><span class="fR credit">{{refund_summary.winning_amount| currency:'INR'}}</span></p>
+          <p> <b>{{'BONUS_AMOUNT'| translate}}:</b><span class="fR credit">{{refund_summary.bonus_amount| currency:'INR'}}</span></p>
+          <p> <b>{{'TEAM_NAME'| translate}}:</b><span class="fR credit">{{refund_summary.team_name}}</span></p>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="refund_summary.code != null">
+        <ion-col><ion-label class="coupon_code">{{refund_summary.code}}</ion-label></ion-col>
+        <ion-col>{{refund_summary.message}}</ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="affiliate_credit" no-padding>
+   <ion-card-header>
+     <ion-card-title> {{'AFFILIATE' | translate }} </ion-card-title>
+     <ion-card-subtitle>{{'CONTEST' | translate}}:{{affiliate_summary.contest_name}}
+     </ion-card-subtitle>
+   </ion-card-header>
+   <ion-card-content>
+     <ion-row>
+       <ion-col>
+         <p>{{affiliate_summary.match_name}}</p>
+         <p> <b>{{'FROM'| translate}} :</b><span class="fR credit">{{affiliate_summary.from}}</span></p>
+         <p> <b>{{'AMOUNT'| translate}} :</b><span class="fR credit">{{affiliate_summary.amount| currency:'INR'}}</span></p>    
+       </ion-col>
+     </ion-row>
+   </ion-card-content>
+ </ion-card>
+
+
+<!-- 
+    <ion-grid class="transhis" *ngIf="refund_enable">
+      <ion-row no-padding>
+        <ion-col size="12">
+          <ion-label>{{'PAYMENT_DETAILS' | translate }}:</ion-label>
+          <p> <b>{{'MATCH' | translate}} : </b>{{refund_summary.match}}</p>
+          <p> <b>{{'CONTEST_NAME' | translate}}:</b>{{refund_summary.contest_name}}</p>
+          <p> <b>{{'ENTRY_FEE'| translate}} :</b>{{refund_summary.entry_fee| currency:'INR'}}</p>
+          <p> <b>{{'DEPOSIT_AMOUNT'| translate}} :</b>{{refund_summary.deposit_amount| currency:'INR'}}</p>
+          <p> <b>{{'WINNING_AMOUNT'| translate}}:</b>{{refund_summary.winning_amount| currency:'INR'}}</p>
+          <p> <b>{{'BONUS_AMOUNT'| translate}}:</b>{{refund_summary.bonus_amount| currency:'INR'}}</p>
+          <p> <b>{{'TEAM_NAME'| translate}}:</b>{{refund_summary.team_name}}</p> 
+
+          <ion-grid class="coupon" *ngIf="refund_summary.code != null">
+            <ion-row>
+              <ion-col><ion-label class="coupon_code">{{refund_summary.code}}</ion-label></ion-col>
+              <ion-col>{{refund_summary.message}}</ion-col>
+            </ion-row>
+          </ion-grid> -->
+
+
+       <!--  </ion-col>
+      </ion-row>
+    </ion-grid> -->
+  </div>
+</ion-content>

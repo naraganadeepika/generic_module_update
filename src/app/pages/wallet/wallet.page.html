@@ -1,0 +1,577 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+       <ion-buttons slot="start">
+             <ion-menu-button></ion-menu-button>
+         </ion-buttons>
+        <!-- <ion-title>{{ 'WALLET' | translate }}</ion-title>
+        <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
+        <ion-title >
+          {{ 'WALLET' | translate }}
+         
+        </ion-title>
+         <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+        <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <div [className]="user.notification_count > 0 ?'blink':''">
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
+     </ion-list >
+  
+  </ion-toolbar>
+</ion-header>
+
+<ion-slides pager="false">
+
+  <ion-slide>
+     
+<ion-grid>
+  <ion-row>
+    <ion-col size="3" (click)="segmentChanged('Transactions')" [className]="transactions_div == true ? 'act hydrated' : 'inact hydrated'"  data-step="1" id="step9">
+
+
+     <span> {{ 'TRANSACTIONS' | translate }} </span>
+    </ion-col>
+    <ion-col size="3" (click)="segmentChanged('AddMoney')" [className]="addAmount_div == true ? 'act hydrated' : 'inact hydrated'" data-step="2" id="step10">
+    <span> {{ 'ADD_MONEY' | translate}} </span>
+    </ion-col>
+     <ion-col size="3" (click)="segmentChanged('AddBank')" [className]="addBank_div == true || bankList_div == true ? 'act hydrated' : 'inact hydrated'" data-step="3" id="step11">
+     <span> {{'BANK' | translate}} </span>
+    </ion-col>
+      <ion-col size="3" (click)="segmentChanged('Withdraw')" [className]="withdraw_div == true ? 'act hydrated' : 'inact hydrated'"  data-step="4" id="step12">
+    
+     <span> {{'WITHDRAW' | translate}} </span>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  </ion-slide>
+
+</ion-slides>
+<div class="avail_bal" data-step="5" id="step13">
+<ion-row>
+  <!--  routerLink="/bonus" routerDirection="forward" -->
+<ion-col routerLink="/bonus" routerDirection="forward">
+{{'BONUS' | translate}} 
+<!-- <ion-icon name="information-circle"  class="info_icon" ></ion-icon><ion-icon name="information-circle" (click)="get_level_info()" class="info_icon"></ion-icon> -->
+<h3 class="center_text red">{{bonus_balance|currency:'INR'}}</h3>
+</ion-col>
+<!--  routerLink="/deposit-history" routerDirection="forward" -->
+<ion-col routerLink="/deposit" routerDirection="forward">
+{{'DEPOSIT' | translate}} 
+<h3 class="center_text red">{{deposit_balance|currency:'INR'}}</h3>
+</ion-col>
+<ion-col routerLink="/winning-amount" routerDirection="forward">
+{{'WINNING_BALANCE' | translate}}
+<h3 class="center_text red">{{winning_balance|currency:'INR'}}</h3>
+</ion-col>
+<ion-col *ngIf="affiliate_is" routerLink="/affiliate-amount" routerDirection="forward">
+{{'AFFILIATE' | translate}}
+<h3 class="center_text red">{{affiliate_balance|currency:'INR'}}</h3>
+</ion-col>
+</ion-row>
+</div>
+<ion-content color="background">
+
+<div class="wlt_cnt"> 
+
+  <div *ngIf="transactions_div">
+    <div>
+      
+<!-- 
+          <div class="blk_filter"> 
+
+   <ion-label class="start_end">{{'FROM' | translate}}:<span class="red"> {{startDate | date:'MMM d, y'}}</span> {{'TO' | translate}}: <span class="red">{{endDate | date:'MMM d, y'}}</span></ion-label>
+           <div id="filter" (click)="filter()"  data-step="6">
+             <img src="assets/img/filter.svg">
+           </div>
+         </div>
+ -->
+ <ion-item-divider no-lines  sticky class="blk_filter">
+    <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>{{'FROM' | translate}}:<div class="red pad5" >{{startDate | date:'MMM d, y'}}</div>  
+        </ion-label>
+
+      </ion-col>
+       <ion-col size="4">
+        <ion-label> {{'TO' | translate}}: <div class="red pad5">{{endDate | date:'MMM d, y'}}</div>
+        </ion-label>
+
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="funnel-outline" (click)="filter()"></ion-icon>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="cloud-download-outline" (click)="download()"></ion-icon>
+      </ion-col>
+        </ion-row>
+      </ion-grid>
+        </ion-item-divider>
+
+        <div class="mone_trans">
+          <div *ngIf="filtertransactions" class="alpha">
+            <div class="popup_blk">
+              <form [formGroup]="transactionfilter" (ngSubmit)="filter_alert()">
+                <ion-grid no-padding>
+                   <ion-row class="flt_ttl">
+                      <ion-col size="12">
+                        {{'FILTER' | translate}}
+                      </ion-col>
+                    </ion-row>
+                   <ion-row class="row_txt">
+                      <ion-col size="12">
+                          <ion-item no-padding>
+                             <ion-label position="floating">{{'START_DATE' | translate}}</ion-label>
+                 <ion-datetime display-format="YYYY/MM/DD" formControlName="start_date" picker-format="YYYY MMM DD"></ion-datetime>
+                         </ion-item>
+                       </ion-col>
+                  </ion-row>
+                   <ion-row class="row_txt">
+                        <ion-col size="12">
+                           <ion-item no-padding>
+                             <ion-label  position="floating">{{'END_DATE' | translate}}</ion-label>
+                 <ion-datetime display-format="YYYY/MM/DD" formControlName="end_date" picker-format="YYYY MMM DD"></ion-datetime>
+                         </ion-item>
+                         </ion-col>
+                       </ion-row>
+                        <ion-row class="row_txt btm_btns">
+                     <ion-col size="6" style="padding: 5px;">
+                   <ion-button class="can_date" (click)="cancel()">{{'CANCEL_BUTTON' | translate}}</ion-button>
+                  </ion-col>
+                    <ion-col size="6" style="padding: 5px;">
+                   <ion-button class="sub_date"  type="submit">{{'SUBMIT_BUTTON' | translate}}</ion-button>
+                  </ion-col> 
+                </ion-row>
+                </ion-grid>
+              </form>
+              </div>
+           </div>
+           <ion-item  *ngIf="trans_msg" lines="none">
+             <ion-row>*{{trans_msg_exist}}</ion-row>
+          </ion-item>
+
+        
+        <ion-list class="walt_trans"  text-wrap lines="none" no-padding > 
+
+          <ion-item   lines="none" *ngFor="let wallet of cpy_trasctions" (click)="transFulldtls(wallet.id)" class="transhis">
+            <ion-thumbnail slot="start">
+              <img src="assets/imgs/{{get_amountType(wallet.transaction_type)}}">
+            </ion-thumbnail>
+            <ion-label>
+              <h4><b>{{wallet.transaction_type | titlecase}}</b></h4>
+              <p>#{{wallet.reference_id}}</p>
+            </ion-label>
+            <div slot="end" class="font_14 right_txt">
+              
+              <h5 [className]="wallet.action == 'credit' ? 'green' : 'red'">
+                <span *ngIf="wallet.action === 'credit'" > + </span>
+              <span *ngIf="wallet.action === 'debit'" > - </span>
+              {{wallet.amount|currency:'INR'}}</h5>
+              <small>{{wallet.created_at | date:'MMM d, y, h:mm a'}}</small>
+            </div>
+          </ion-item>
+        </ion-list>
+
+     
+
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="lazytransactions($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+           </ion-infinite-scroll>
+          
+      </div>
+      </div>
+  </div>
+
+
+  <div *ngIf="addAmount_div" class="pad_30" >
+    <h4 class="hdg_wal"> <span> {{'ADD_AMOUNT' | translate}} </span> </h4>
+    <p class="hdg_ttl" *ngIf="error_msg==''">
+     <span>{{'ADD_TO_WALLET' | translate }} </span> 
+       <span>{{'MAXIMUM_LIMIT' | translate }} : {{max_deposit|currency:'INR'}}</span>
+        <span>{{'MINIMUM_LIMIT' | translate }} : {{min_deposit|currency:'INR'}} </span>
+
+       </p>
+       <p class="hdg_ttl" *ngIf="error_msg!=''">{{error_msg}} </p>
+ <form [formGroup]="amountForm" (ngSubmit)="amountSubmit(amountForm.value.amount)">
+                  <ion-item no-padding color="ioninput">
+                    <ion-label position="floating" class="font_14">{{'ADD_MONEY' | translate }} </ion-label>
+                    <ion-input  type="number" formControlName="amount" class="font_14"></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('amount')}}</span>
+                  <ion-button ion-button color="mainbutton" class="submit" type="submit">{{'ADD_AMOUNT' | translate}}</ion-button>
+                            <button  type="submit" class="hidden"></button>
+
+  </form>
+  </div>
+
+<!-- BANKS LIST END-->
+
+
+ <ion-list lines="none" no-padding *ngIf="bankList_div" class="ion_list"> 
+       <ion-item no-padding no-lines color="ionitem">
+         <ion-grid no-padding>
+              <ion-row>
+                <ion-col size="6">
+                <ion-label color="medium" class="fL">
+                  Account Number
+                </ion-label>
+              </ion-col>
+               <ion-col size="6" >
+                <ion-label class="fL" >
+                  {{mybank.account_number}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+         </ion-grid>
+       </ion-item>
+       <ion-item no-padding no-lines color="ionitem">
+         <ion-grid no-padding>
+              <ion-row>
+                <ion-col size="6">
+                <ion-label color="medium" class="fL">
+                   Bank Name
+                </ion-label>
+              </ion-col>
+               <ion-col size="6">
+                <ion-label class="fL">
+                   {{banks[mybank.bank_name]}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-padding no-lines color="ionitem">
+         <ion-grid no-padding>
+              <ion-row>
+                <ion-col size="6">
+                <ion-label color="medium" class="fL">
+                   {{ 'NICK_NAME' | translate }}
+                </ion-label>
+              </ion-col>
+               <ion-col size="6">
+                <ion-label class="fL" >
+                   {{mybank.nick_name}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-padding no-lines color="ionitem">
+           <ion-grid no-padding>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label color="medium" class="fL">
+                    {{ 'BRANCH_NAME' | translate }}
+                  </ion-label>
+                </ion-col>
+                 <ion-col size="6">
+                  <ion-label class="fL">
+                    {{mybank.branch_name}}
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+           </ion-grid>
+      </ion-item>
+      <ion-item no-padding no-lines color="ionitem">
+          <ion-grid no-padding>
+                <ion-row>
+                    <ion-col size="6">
+                    <ion-label color="medium" class="fL">
+                      {{ 'IFSC' | translate }}
+                    </ion-label>
+                  </ion-col>
+                   <ion-col size="6">
+                    <ion-label class="fL">
+                      {{mybank.ifsc_code}}
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+          </ion-grid>
+      </ion-item>
+      <ion-item no-padding no-lines color="ionitem">
+          <ion-grid no-padding>
+                <ion-row>
+                    <ion-col size="6">
+                    <ion-label color="medium" class="fL">
+                         {{ 'TYPE' | translate }}
+                    </ion-label>
+                  </ion-col>
+                   <ion-col size="6">
+                    <ion-label class="fL">
+                      {{mybank.account_type}}
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+          </ion-grid>
+      </ion-item>
+      <ion-item *ngIf="mybank.message!='' && mybank.message!=null" no-padding no-lines color="ionitem">
+          <ion-grid>
+           <ion-row>   
+              <ion-label color="danger">*{{mybank.message | translate }}</ion-label>
+            </ion-row>
+        </ion-grid>
+      </ion-item>
+
+    <ion-item lines="none" color="ionitem">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+         <ion-button color="redbutton" class="follow fR" (click)="follow(mybank.bank_account_id)">{{'FOLLOW_UP' | translate }}</ion-button>
+       </ion-col>
+            </ion-row>   
+      </ion-grid>
+    </ion-item>
+</ion-list>
+
+
+
+
+
+ 
+
+<!-- BANKS LIST END-->
+
+  <div *ngIf="addBank_div" class="pad_30" >
+                    
+              <h4 class="hdg_wal"> <span>  {{'ADD_BANK_DETAILS' | translate }} </span> </h4>
+               
+
+              <form [formGroup]="bankForm" (ngSubmit)="bankSubmit()">
+                 <ion-item no-padding>
+                  <ion-label position="floating" class="font_14"> {{'NICK_NAME' | translate }}
+                  <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="text" formControlName="nick_name" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('nick_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'HOLDER_NAME' | translate }}
+                    <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input  type="text" formControlName="holder_name"></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('holder_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'BRANCH_NAME' | translate }} 
+                    <ion-text color="danger">*</ion-text></ion-label>
+                    <ion-input type="text" formControlName="branch_name"></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('branch_name')}}</span>
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{ 'BANK_ACCOUNT_NUMBER' | translate }} <ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="number" formControlName="account_number" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('account_number')}}</span>
+                  <ion-row>
+                    <ion-col size="6">
+                         <ion-item  class="slct" no-padding>
+                             <ion-label position="floating" class="font_14">{{'SELECT_BANK' | translate  }} <ion-text color="danger">*</ion-text></ion-label>
+                           
+                            <ion-select  formControlName="bank_name">
+                              <ion-select-option  *ngFor="let bank of banks | keyvalue" [(value)]='bank.key'>{{bank.value}}</ion-select-option>
+                            </ion-select>
+                         </ion-item>
+                         <span class="err_msg">{{valid_fun('bank_name')}}</span>
+                   </ion-col>
+                   <ion-col size="6">
+                     <ion-item class="slct" no-padding>
+                         <ion-label position="floating" class="font_14">{{'SELECT_ACCOUNT_TYPE' | translate }} <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-select formControlName="account_type">
+                      <ion-select-option value="savings" >{{'SAVINGS' | translate }}</ion-select-option>
+                      <ion-select-option value="current" >{{'CURRENT' | translate }}</ion-select-option>
+                    </ion-select>
+                     </ion-item>
+                     <span class="err_msg">{{valid_fun('account_type')}}</span>
+                   </ion-col>
+                 </ion-row>
+
+
+
+                  <ion-item no-padding>
+                    <ion-label position="floating" class="font_14"> {{'IFSC' | translate }}<ion-text color="danger">*</ion-text> </ion-label>
+                    <ion-input type="text" autocapitalize="characters" formControlName="ifsc_code" [value]="bankForm.get('ifsc_code').value | uppercase" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('ifsc_code')}}</span>
+                  <ion-row>
+                    <ion-col size="6">
+                         <ion-item  class="slct" no-padding>
+                             <ion-label position="floating" class="font_14">{{ 'SELECT_STATE' | translate }} <ion-text color="danger">*</ion-text></ion-label>
+                             <ion-select formControlName="state_name"  (ionChange)="change_st($event)">
+                             <ion-select-option *ngFor="let state of states| keyvalue" value="{{state.key}}"> {{state.value}} </ion-select-option>
+                             </ion-select>
+                         </ion-item>
+                         <span class="err_msg">{{valid_fun('state_name')}}</span>
+                   </ion-col>
+                   <ion-col size="6">
+                     <ion-item class="slct" no-padding>
+                         <ion-label position="floating" class="font_14">{{ 'SELECT_CITY' | translate }}
+                         <ion-text color="danger">*</ion-text></ion-label>
+                         <ion-select name="city" formControlName="city_name" >
+                         <ion-select-option *ngFor="let city of cities | keyvalue" value="{{city.value}}">{{city.value}} </ion-select-option> 
+                        </ion-select>
+                     </ion-item>
+                     <span class="err_msg">{{valid_fun('city_name')}}</span>
+                   </ion-col>
+                 </ion-row>
+
+
+
+                  
+
+                        
+
+               
+                    <ion-row>
+                      <ion-col size="8" class="mar_top20">
+                        <ion-label>{{'UPLOAD_PASSBOOK' | translate }}</ion-label>
+                      </ion-col>
+                      <ion-col size="4">
+                        <ion-button  (click)="proof_doc()" color="secondary" fill="outline" size="small" [ngClass]="{'bankUpload': bankUpload == true}" style="margin-top: 14px; margin-left: 22px;">{{'UPLOAD' | translate }}</ion-button>
+                      </ion-col>
+                    </ion-row>
+                    <span class="err_msg">{{bank_passbook_err_msg}}</span>
+                    
+                  <ion-button  type="submit" class="submit">{{'SUBMIT_BUTTON' | translate}}</ion-button>
+                  <button  type="submit" class="hidden"></button>
+                  <!-- <ion-button (click)="account()" class="primary_btn" color="danger" style="width: 100%;" fill="outline"> {{'MY_ACCOUNTS' | translate }}</ion-button> -->
+          </form>
+                                      
+    
+     
+  </div>
+
+   <div *ngIf="withdraw_div" class="" style="margin-top: 30px">
+
+ <h4 class="hdg_wal"> <span>  {{'WITHDRAW_REQUEST' | translate}} </span> </h4>
+<p class="hdg_ttl">
+<span>{{'WITHDRAW_REQUEST_TEXT' | translate}}</span>
+  <span>{{'MAXIMUM_LIMIT' | translate}} : {{max_withdraw|currency:'INR'}}</span>
+  <span>{{'MINIMUM_LIMIT' | translate}} : {{min_withdraw|currency:'INR'}}</span>
+</p>
+<p class="title" color="primary" *ngIf="!nobanks && form ">{{'WITHDRAW_CHARGE'| translate}} Rs:{{fee}}/- </p>
+<div style="text-align: center;">
+
+
+<ion-button *ngIf="addWithdrawif" (click)="witForm()" class="primary_btn" color="danger" fill="outline" > {{'WITHDRAW_AMOUNT' | translate }} </ion-button>
+
+</div>
+<div>
+<div class="pad_30" style="padding-top:0px;" *ngIf="addWithdrawif == false">
+              <form  *ngIf="form" [formGroup]="withdrawalForm" (ngSubmit)="withdrawalSubmit(withdrawalForm.value.amount)">
+                <ion-item no-padding>
+                   <ion-label position="floating" class="font_14"> {{'AMOUNT' | translate }} </ion-label>
+                    <ion-input  type="number" formControlName="withdrawal_amount" ></ion-input>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('withdrawal_amount')}}</span>
+                 <ion-item no-padding>
+                   <ion-label>{{'SELECT_BANK' | translate }}</ion-label>
+                    <ion-select  no-padding class="slt_box" formControlName="bank_name"  placeholder="{{'NICK_NAME' | translate }}" >
+                      <ion-select-option value="{{mybank.bank_account_id}}" *ngFor="let mybank of mybanks">{{mybank.nick_name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <span class="err_msg">{{valid_fun('withdrawal_bank_name')}}</span>
+                  <ion-item no-padding *ngIf="nobanks" lines="none">
+                    <ion-row>*{{nobanks_text}}</ion-row>
+                  </ion-item>
+                  <div  *ngIf="withdrawalForm.value.withdrawal_amount>=min_withdraw && !nobanks">
+
+                   <ion-item no-padding>
+                   <ion-label position="floating" class="font_14"> {{'TOTAL_AMOUNT' | translate }} </ion-label>
+                    <ion-input  type="number"  placeholder="Withdraw Amount" readonly [value]="withdrawalForm.value.withdrawal_amount+fee" ></ion-input>
+                  </ion-item>
+                  </div>
+                  <ion-button type="submit" class="submit">{{'WITHDRAW_MONEY' | translate }}</ion-button>
+
+                  <button  type="submit" class="hidden"></button>
+               </form>
+
+               <div *ngIf="!form">
+                <ion-label class="msg_wait">{{'WAIT_FOR_APPROVAL' | translate }}</ion-label>
+                <ion-img src="assets/imgs/ant_loading_profile.gif"></ion-img>
+               </div>
+
+               <div class="history" *ngIf="addWithdrawif == false" (click)="addForm()"> <img src="assets/img/icon_history.svg"> </div>
+  </div>
+
+</div>
+ <div *ngIf="addWithdrawif"  style="margin-top: 20px;">
+          <div id="filter" (click)="filter1()">
+             <img src="assets/img/filter.svg">
+           </div>
+           <div *ngIf="filterwithdraws" class="alpha">
+            <div class="popup_blk">
+              <form [formGroup]="withdrawfilter" (ngSubmit)="filter_withdraw_alert()">
+                <ion-grid no-padding>
+                   <ion-row class="flt_ttl">
+                      <ion-col size="12">
+                        {{'FILTER' | translate}}
+                      </ion-col>
+                    </ion-row>
+                   <ion-row class="row_txt">
+                      <ion-col size="12">
+                          <ion-item no-padding>
+                             <ion-label position="floating">{{'START_DATE' | translate}}</ion-label>
+                 <ion-datetime display-format="YYYY/MM/DD" formControlName="start_date" picker-format="YYYY MMM DD"></ion-datetime>
+                         </ion-item>
+                       </ion-col>
+                  </ion-row>
+                   <ion-row class="row_txt">
+                        <ion-col size="12">
+                           <ion-item no-padding>
+                             <ion-label  position="floating">{{'END_DATE' | translate}}</ion-label>
+                 <ion-datetime display-format="YYYY/MM/DD" formControlName="end_date" picker-format="YYYY MMM DD"></ion-datetime>
+                         </ion-item>
+                         </ion-col>
+                       </ion-row>
+                        <ion-row class="row_txt btm_btns">
+                     <ion-col size="6">
+                   <ion-button class="can_date" (click)="cancel1()">{{'CANCEL_BUTTON' | translate}}</ion-button>
+                  </ion-col>
+                    <ion-col size="6">
+                   <ion-button class="sub_date"  type="submit" >{{'SUBMIT_BUTTON' | translate}}</ion-button>
+                  </ion-col> 
+                </ion-row>
+                </ion-grid>
+              </form>
+              </div>
+           </div>
+           <ion-item  *ngIf="with_msg" color="ionitem" lines="none">
+             <ion-row>*{{with_msg_exist}}</ion-row>
+          </ion-item>
+        <div class="walt_trans" *ngFor="let withdraw of cpy_withdraws">
+
+
+          <ion-grid class="transhis">
+  <ion-row>
+    <ion-col size="8">
+     <p>{{'AMOUNT' | translate}} :{{withdraw.amount|currency:'INR'}}</p>
+          <p>{{'BANK_NAME' | translate}} :{{withdraw.bank_name}}</p>
+          <p>{{'DATE' | translate}} :{{withdraw.date}}</p>
+          <p>{{'REFERENCEID' | translate}} :{{withdraw.reference_number}}</p>
+           <p *ngIf="withdraw.status == 'pending'" > <ion-button  (click)="cancelWithdraw(withdraw.withdraw_id)" class="submit" >{{'CANCEL_BUTTON' | translate}}</ion-button> </p>
+    </ion-col>
+     <ion-col size="4">
+       <div class="mny_hst"> 
+       <p class="red">{{withdraw.status}}</p>
+        
+   </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+    </div>
+     <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="lazywithdraws($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+           </ion-infinite-scroll> -->
+    </div>
+</div>
+</div>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+</ion-content>

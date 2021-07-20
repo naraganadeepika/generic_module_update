@@ -1,0 +1,22 @@
+ion-toolbar {
+    --border-width: 0;
+    --background: #3a4565 !important;
+    --color: white !important;
+
+}
+.pic_div{width: 100%;height: 74px;margin: 0px auto;background: #3a4565;text-align: center;
+    	 position: relative;padding-top: 20px;z-index: 100;}
+
+#dp{color: #fff;position: relative;top: -21px;padding: 5px;border-radius: 50%;background: #0f0f0f;}
+.profile_pic{border-radius: 100%;width: 80px;height: 80px;overflow: hidden;margin: 0px auto;
+              background:#f8f8f8;object-fit: cover;}
+.padding{padding: 35px 15px 0px 15px;}
+.info_icon{
+        position: absolute;
+        top: 30px;
+        z-index: 99;
+        font-size: 20px;
+        color: #8e3030;
+        right: 0px;
+
+    }

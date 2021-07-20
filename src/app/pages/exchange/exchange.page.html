@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Exchange</ion-title>
+    <ion-buttons slot="end" (click)="logout()">
+      <ion-button>
+        <img src="assets/imgs/Export.svg" alt="">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+  <div class="top-item">
+    <ion-item lines="none">
+      <div slot='start' class="left-section">
+        <p>Card Balance</p>
+        <h1>$6500</h1>
+      </div>
+      <div slot='end' class="right-section">
+        <p id="up"> <img src="assets/imgs/Up.svg" alt=""> &nbsp;$3,214</p>
+        <p id="down"> <img src="assets/imgs/Down.svg" alt=""> &nbsp;$3,214</p>
+      </div>
+    </ion-item>
+  </div>
+ <!--  <div class="chart" scrollX="true">
+    <canvas #lineCanvas></canvas>
+  </div> -->
+
+  <div class="chartWrapper ion-padding-vertical">
+    <div class="chartAreaWrapper">
+      <canvas id="myChart" width="700" height="250" #lineCanvas></canvas>
+    </div>
+
+  </div>
+
+  <div class="details" padding-horizontal>
+    <h3>Spending Breakdown</h3>
+
+    <div class="the-list">
+      <ion-item lines="none">
+        <div class="thumb" slot="start">
+          <img src="assets/imgs/shopping.svg" alt="">
+        </div>
+        <ion-label>
+          <h4>Shopping</h4>
+          <p>17 Monday June</p>
+        </ion-label>
+        <div slot="end">
+          <h5>-$79</h5>
+        </div>
+      </ion-item>
+      <ion-item lines="none">
+        <div class="thumb" slot="start">
+          <img src="assets/imgs/Gas.svg" alt="">
+        </div>
+        <ion-label>
+          <h4>Shell</h4>
+          <p>17 Monday June</p>
+        </ion-label>
+        <div slot="end">
+          <h5>-$35</h5>
+        </div>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

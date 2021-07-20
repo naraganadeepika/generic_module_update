@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="request"></ion-back-button>
+    </ion-buttons>
+    <ion-title><span>{{title}} </span>John Doe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="height: 100%">
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%">
+      <div class="money-holder">
+        <div class="input-holder ion-text-center">
+          <div class="sign-holder">
+            <h1>{{unit}}</h1>
+          </div>
+          <ion-input type="tel" value="0.00" class="ion-text-center"></ion-input>
+        </div>
+
+        <div class="unit-holder ion-text-center">
+          <ion-item lines="none">
+            <ion-select multiple="false" class="ion-text-center" placeholder="Select Unit" [(ngModel)]="unit">
+              <ion-select-option value="$" selected>USD</ion-select-option>
+              <ion-select-option value="e">EURO</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="goReview()">
+        Next
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

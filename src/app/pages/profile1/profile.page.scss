@@ -1,0 +1,106 @@
+.pic_div{
+		width: 100%;
+		height: 74px;
+		margin: 0px auto;
+		background: #f0f0f0;
+		text-align: center;
+    position: relative;
+    padding-top: 20px;
+    position: relative;
+    z-index: 100;
+		
+	}
+	.info_icon{
+        position: absolute;
+        top: 30px;
+        z-index: 99;
+        font-size: 20px;
+        color: #8e3030;
+        right: 0px;
+
+    }
+    .padding_20{    padding-top: 20px;}
+    .sc-ion-buttons-md-h {width:26px;color: #ed3431;margin-right: 10px;}
+
+    ion-back-button {font-size:22px; color:#ed3431;}
+
+    .toolbar-md-primary .toolbar-background-md, .toolbar-md-primary .toolbar-background-md  {background:#2a2e43!important;}
+    .ion-md-menu:before, .toolbar-md-primary .bar-button-clear-md, .toolbar-md-primary .bar-button-default-md, .toolbar-md-primary .bar-button-outline-md, .toolbar-md-primary .toolbar-title-md {color:#ed3431;}
+    .button-md {background:#ed3431;}
+   
+
+.scroll-content {
+       padding:10px!important; font-size:14px;}
+.scroll-content form {
+               padding:0px 15px 15px 15px; padding-bottom:60px;  border-radius:6px;}
+
+ion-content{
+    /*--background: #2a2e43 url('../../../assets/img/bld.svg') no-repeat bottom;*/
+
+}
+ion-radio {    margin-bottom: -5px;
+    margin-right: 10px;}
+
+.round {
+  --width: 60px;
+  --height: 60px;
+  --border-radius: 50%;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+.p_tag{
+  font-size: 14px;
+margin: 0px;
+line-height: 20px;
+}
+
+.primary_btn{
+    margin: 0px auto;
+    width: 100%;
+    margin-top: 20px;
+    display: block;    
+    // position: relative;
+    --box-shadow:none;
+    height:40px;
+  }
+.profile_pic{
+			border-radius: 100%;
+			width: 80px;
+			height: 80px;
+      overflow: hidden;
+      margin: 0px auto;
+      background:#f8f8f8;
+      object-fit: cover;
+		}
+.passwordIcon{
+	position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 99
+}
+
+#dp{
+  color: white;
+position: relative;
+top: -21px;
+padding: 5px;
+border-radius: 50%;
+background: #0f0f0f;
+}
+a{
+  color:#7e57ff;
+}
+ion-label{margin: 0px;font-size: 14px!important;}
+.router_link{text-align: center;text-decoration: underline;}
+.text_center{text-align: center;}
+/*ion-back-button {font-size:22px; color:#fff; width:50px; position: absolute; bottom: -24px; left: 50%;  margin-left: -5px;}*/
+ion-list, ion-item {background: none; --background: none;}
+.label-floating {color: #aaa;}
+#help-icon {right: 20px;}
+ion-title {padding-left: 15px;}
+.alert-message.sc-ion-alert-ios {max-height:auto; text-align:left;}
+
+
+
+

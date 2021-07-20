@@ -1,0 +1,71 @@
+ion-toolbar
+{
+    --background: #f8f9f9 !important;
+}
+ion-content 
+{
+    --background: #f8f9f9;
+
+    .top-item
+    {
+        ion-item {
+            --background: transparent;
+            .left-section
+            {
+                p,h3 
+                {
+                    margin: 0 !important;
+                }
+
+                p {
+                    color: #77869e !important;
+                    font-family: 'AvenirH' !important;
+                    font-size: 0.9rem !important;
+                }
+
+                h1 {
+                    color: #042c5c;
+                    font-family: 'AvenirB' !important;
+                    margin-top: 10px !important;
+                }
+            }
+
+            .right-section
+             {
+                font-family: 'AvenirH' !important;
+                #up 
+                {
+                    color: #1bc773;
+                }
+
+                #down
+                 {
+                    color: #f24750;
+                }
+            }
+        }
+    }
+
+  
+
+    .chartWrapper {
+        position: relative;
+          overflow-x: scroll;
+      
+        /* overflow-x: scroll; */
+      }
+      
+      .chartWrapper > canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        width: 100%;
+      }
+      
+      .chartAreaWrapper {
+        width: 800px;
+      }
+
+   
+}

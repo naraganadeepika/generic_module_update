@@ -1,0 +1,175 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+       <ion-back-button text="" defaultHref="profile"></ion-back-button>
+         </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="background2">
+
+	 <div class="pic_div">
+	 	<ion-img src="assets/img/black_ant.svg"  class="profile_pic"></ion-img>
+     <!--  <ion-img [src]="userData.profile_pic != null ? userData.profile_pic : 'assets/img/black_ant.svg'"  class="profile_pic"></ion-img> -->
+      <ion-icon name="camera" (click) = "presentActionSheet()" id="dp"></ion-icon><br>
+     </div>
+
+
+     <ion-list class="padding" >
+      <ion-list>
+   <ion-item lines="none" class="padding_20">
+      <ion-label>{{'CHANGE_PASSWORD' | translate}}:</ion-label>
+       <ion-toggle color="danger"  [(ngModel)]="pwd_div"></ion-toggle>    
+    </ion-item>
+  </ion-list>
+  <br>
+   <form [formGroup]="pwdupdate_Form"  (ngSubmit) = "pwd_update_fun(pwdupdate_Form.value)" *ngIf="pwd_div">
+   <ion-list >
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{'OLD_PASSWORD' | translate}}</ion-label>
+        <ion-input type="password"  formControlName="oldpwd"  name="oldpwd" required ></ion-input>
+      </ion-item>
+      <span class="err_msg">{{pwd_fun('oldpwd')}}</span>
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{'NEW_PASSWORD' | translate}}</ion-label>
+        <ion-input [type]="passwordType" clearOnEdit="false"  formControlName="newpwd"  name="newpwd" required ></ion-input>
+        <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        <ion-icon slot="end" name="information-circle" class="info_icon" (click)="info_fun(msg_div)" *ngIf="info_icon" ></ion-icon>
+      </ion-item>
+      <span class="err_msg">{{pwd_fun('newpwd')}}</span>
+      <ion-item *ngIf="msg_div" lines="none" no-padding>
+        <p>{{'PASSWORD_EXAMPLE' | translate}}</p>
+      </ion-item>
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{'CONFIRM_PASSWORD' | translate}}</ion-label>
+        <ion-input type="password"  formControlName="repwd"  name="repwd" required ></ion-input>
+      </ion-item>
+      <span class="err_msg">{{pwd_fun('repwd')}}</span>
+      <!-- <div padding>
+        <button ion-button color="btncolor" block >Password Update</button>
+      </div> -->
+      <!-- <ion-item lines="none" no-padding> -->
+        <ion-button  type="submit" color="mainbutton"  class="primary_btn" >{{ 'PASSWORD' | translate }} {{ 'UPDATE_BUTTON' | translate }}</ion-button>
+      <!-- </ion-item> -->
+      
+    </ion-list>
+    </form>
+
+
+
+     <form  [formGroup]="update_Form" (ngSubmit)="updateSubmit(update_Form.value)" *ngIf="!pwd_div">
+     	 <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'FIRST_NAME' | translate }}</ion-label>
+        <ion-input type="text" formControlName="fname" name="fname" required="fname_required" [(ngModel)]="userData.first_name" [readonly]="fir_nme != null && fir_nme != '' "></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('fname')}}</span>
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'LAST_NAME' | translate }}</ion-label>
+        <ion-input type="text" formControlName="lname" name="lname" required="lname_required" [(ngModel)]="userData.last_name" [readonly]="lst_nme != null && lst_nme != '' "></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('lname')}}</span>
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input type="text"  formControlName="email" name="email" required="email_required" [(ngModel)]="userData.email" readonly></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('email')}}</span>
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'PHONE' | translate }}</ion-label>
+        <ion-input type="text" formControlName="phn_num" name="phn_num"  maxlength="10" required="phone_required" [(ngModel)]="userData.phone" readonly></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('phn_num')}}</span>
+      
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'DATE_OF_BIRTH' | translate }}</ion-label>
+          <ion-datetime displayFormat="YYYY-MMM-DD" value="" formControlName="dob" [(ngModel)]="userData.date_of_birth" [max]="agelimit"></ion-datetime>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('dob')}}</span>
+      <ion-item lines="none" no-padding color="blackioninput"> 
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <ion-label>{{ 'GENDER' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-radio-group no-padding formControlName="gender" name="gender" [(ngModel)]="userData.gender">
+        <ion-grid>
+        <ion-row  style="padding-left: 5px;">
+         <ion-col>
+            <ion-radio value="male"></ion-radio>
+            <ion-label>{{ 'MALE' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-radio value="female"></ion-radio>
+            <ion-label>{{ 'FEMALE' | translate }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-radio-group>
+    <span class="err_msg">{{valid_fun('gender')}}</span>
+
+      <ion-item  class="slct" no-padding color="blackioninput">
+             <ion-label>{{ 'SELECT_STATE' | translate }}</ion-label>
+             <ion-select (click)="clickst()" formControlName="state" [(ngModel)]="stateId" name="state" (ionChange)="change_st($event)">
+             <ion-select-option *ngFor="let state of states| keyvalue" value="{{state.key}}"> {{state.value}} </ion-select-option>
+             </ion-select>
+             </ion-item>
+      <span class="err_msg">{{valid_fun('state')}}</span>       
+
+             <ion-item class="slct" [disabled]="disable" no-padding color="blackioninput">
+             <ion-label>{{ 'SELECT_CITY' | translate }}</ion-label>
+             <ion-select name="city" formControlName="city" [(ngModel)]="cityId" >
+             <ion-select-option *ngFor="let city of cities | keyvalue" value="{{city.value}}">{{city.value}} </ion-select-option> 
+            </ion-select>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('city')}}</span>
+
+      <ion-item no-padding color="blackioninput">
+        <ion-label lines="none" position="stacked">{{ 'ADDRESS' | translate }}</ion-label>
+        <ion-textarea formControlName="address" name="address" required="address_required"  [(ngModel)]="userData.address"></ion-textarea>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('address')}}</span>
+
+      <ion-item no-padding color="blackioninput">
+        <ion-label lines="none" position="stacked">{{ 'PINCODE' | translate }}</ion-label>
+        <ion-input type="number" formControlName="pin" [(ngModel)]="userData.pin_code"></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('pin')}}</span>
+      <!-- <ion-item no-padding>
+        <ion-label>{{ 'ALLOW_SMS' | translate }}</ion-label>
+        <ion-toggle color="dark" formControlName="allow_sms" [(ngModel)]="userData.allow_sms"></ion-toggle>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label>{{'SHARE_ACTIVITY'| translate }}</ion-label>
+        <ion-toggle color="dark" formControlName="allow_activity" [(ngModel)]="userData.share_activities_to_followers"></ion-toggle>
+      </ion-item> -->
+      <ion-item no-padding color="blackioninput">
+        <ion-label position="floating">{{ 'CURRENT_PASSWORD' | translate }}</ion-label>
+        <ion-input type="password"  formControlName="currentpwd" name="currentpwd" required="currentpwd_required" placeholder="{{'CURRENT_PASSWORD_MSG' | translate}}"></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('currentpwd')}}</span>
+
+      <ion-grid>
+			  <ion-row>
+			    <ion-col class="ion-margin-top">
+			      <div>
+			         <ion-button expand="block" color="mainbutton" type="submit">{{ 'UPDATE_BUTTON' | translate }}
+			           </ion-button>			        
+					 <button  type="submit" class="hidden"></button> 
+			      </div>
+			    </ion-col>
+			  
+			</ion-row>
+		 </ion-grid>
+
+          
+     	
+     </form>
+ </ion-list>
+
+
+
+</ion-content>

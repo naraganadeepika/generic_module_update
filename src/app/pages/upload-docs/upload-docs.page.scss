@@ -1,0 +1,204 @@
+ion-content{
+    --background: #fff;
+
+}
+.doc_top1 {
+   
+    background:#474747; width:100%; padding:1px 10px; box-sizing:border-box;
+}
+
+
+.upload{
+    .fav{font-size:25px;padding: 10px;border: 2px solid rgb(240,240,240);border-radius: 50%;box-shadow: 1px 1px 6px #CCC;}
+
+    ion-img{width: 63px;padding: 6px;border: 2px solid rgb(240,240,240);border-radius: 50%;height: 63px;}
+    .margin_top{margin-top: 15px;}
+    .success_icon{color: #10dc60;}
+    .rejected_icon{color: #f04141;}
+    .pending_icon{color: #FFA500;}
+
+    .success{background: #10dc60;width: 3px;min-height: 20px;margin-left: 28px;}
+    .rejected{background: #f04141;width: 3px;min-height: 20px;margin-left: 28px;}
+    .pending{background: #FFA500;width: 3px;min-height: 20px;margin-left: 28px;}
+    .line{background: #000; width: 3px;min-height: 20px;margin-left: 28px;}
+}
+.reason_msg {
+    margin: 5px 0px;
+    color: #D23839;
+    font-size: 12px;
+}
+.click_div{
+        background: rgba(245, 245, 245,0.1);
+        color: rgb(96, 125, 139);
+    }
+
+.swip_cnt{
+
+    ion-item {--background : none;}
+    .swiper_footer{
+
+        ion-button{margin: 10px auto;display: block;width: 200px;}
+    }
+}
+.sw_blk{background: #f4f4f4;}
+
+
+
+
+.hide {
+        display: none;
+      }
+.yellow{
+    background-color: #FFA500;
+    text-align:center;
+    color: #000;
+    font-size: 14px;
+    padding: 8px 0px;
+
+}
+.red{
+    background-color: #FF0000;
+    text-align:center;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 0px;
+
+}
+.green{
+    background-color: #008000 !important;
+    text-align:center;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 0px;
+}
+ion-toolbar{
+   
+    ion-buttons {
+        margin-left:10px;
+    }
+}
+ion-label {font-size:15px;}
+.blue {
+    background-color: #2a2e43;
+    text-align:center;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 0px;}
+
+.scroll-content {
+        background:#2a2e43;
+        left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+    contain: size style layout;
+    padding: 16px;
+    }
+    .docs {text-align:center; font-size:14px; color:#fff;}
+    .docs img {width:50%;}
+ion-content ion-list
+{
+      background: #fff;
+    border-radius: 0px;
+}
+.doc_top1 p {font-size:14px; text-align:center; line-height:20px; color:#fff;margin: 5px;}
+.doc_top1 p span {/*color:#ed4347;*/ font-weight:bold;}
+ion-item
+{
+ padding-bottom: 2px;
+ // padding-left:18px;
+ font-size:15px;
+ // border-bottom:1px solid #f0f0f0;  
+}
+.err_msg{
+    margin-left: 10px;
+}
+
+ion-item:last-child{
+    border:none;
+}
+
+ion-title {color:#fff!important;}
+.grey
+{
+  background-color: #000;
+    text-align:center;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 0px;
+    margin-right:0px;  
+}
+.submit{background: #ed3431;
+    margin-top: 0px;
+    display: block;
+    clear: both;
+    width: 100%;
+     color: white;
+     text-align: center;
+    position: relative;
+      --box-shadow:none;
+       --background:#ed3431;
+    font-size: 14px;
+    height:40px; text-transform:uppercase;}
+.hide {
+        display: none;
+      }
+      .pan{
+    background-color: yellow!important;
+    text-align:center;
+    color: #000!important;
+    font-size: 14px;
+    padding: 8px 0px;
+
+}
+.adharupload{
+    background-color: yellow!important;
+    text-align:center;
+    color: #000!important;
+    font-size: 14px;
+    padding: 8px 0px;
+
+}
+.upload_row{
+    width: 100%!important;
+}
+.upload_div{
+    width: 50px!important;
+    margin: 5px;
+    font-size: 14px;
+    // text-align: center;
+    padding: 5px;
+    // border: 1px solid #191b18;
+    // background-color: #2a312d;
+    // color: #fff;
+    ion-label{
+        margin-top: 5px;
+    }
+
+}
+
+.rejected_txt{
+    font-size: 14px;
+    color: #544e4e;
+}
+.disabled_option{
+    background: #f7d0d0!important;
+}
+.doc_btm {
+   
+    width:100%; padding:0px 30px; box-sizing:border-box;
+}
+.doc_btm p {font-size:14px; text-align:center; line-height:20px;}
+.doc_btm p span {color:#ed4347;}
+ion-buttons {font-size:22px; color:#fff;}
+ion-footer{
+    background-color: #fff;
+}
+.form{padding: 0px 30px;height: 400px;overflow: scroll;}

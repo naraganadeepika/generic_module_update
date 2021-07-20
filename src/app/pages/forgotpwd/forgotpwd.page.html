@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+  	<ion-buttons slot="start">
+      <ion-back-button  text="" defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'FORGOT_PASSWORD' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="background2">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="11" class="center_div">
+				<p class="forgot">{{'FORGOT_PASSWORD_MESSAGE' | translate}}</p>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="11" class="center_div">
+				<form  [formGroup]="forget_Form" (ngSubmit)="resetpassword()">
+					<ion-list no-padding>
+			            <ion-item color="blackioninput" no-padding >
+			                <ion-label position="floating">{{ 'EMAIL_PHONE_PASSWORD' | translate }}</ion-label>
+        					<ion-input type="text" [(ngModel)]="account.username" formControlName="username"   name="username"  required></ion-input>
+			            </ion-item>
+			            <span class="err_msg">{{valid_fun('username')}}</span>
+			        </ion-list>
+			        <ion-button expand="block" color="mainbutton" type="submit">{{ 'SUBMIT_BUTTON' | translate }}</ion-button><button  type="submit" class="hidden"></button>
+				</form>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="10" class="center_div">
+				<p class="nav_link" *ngIf="resend_button">
+			        <a  (click)="resend()">{{ 'RESEND_CONFIRMATION' | translate }}</a>
+			    </p>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

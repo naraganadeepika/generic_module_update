@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar color="primary">
+         <ion-buttons slot="start">
+             <ion-back-button text="" defaultHref="/social-sharing"></ion-back-button>
+         </ion-buttons>
+         <ion-title>
+          {{ 'INVITED_FRIENDS' | translate }}
+        </ion-title>
+         <ion-list class="user_with_bal" slot="end" >
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+         <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding >
+          <div [className]="user.notification_count > 0 ?'blink':''">
+             <ion-icon id="notification-button" name="notifications" >  </ion-icon>  
+             <ion-badge id="notifications-badge" color="primary" *ngIf="user.notification_count != null">{{user.notification_count}}</ion-badge>
+          </div>
+        </ion-list>
+         <!-- <ion-title>{{'INVITED_FRIENDS' | translate}}</ion-title>
+         <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
+         <!-- <ion-icon name="help-circle" slot="end" class="help" (click)="help()"></ion-icon> -->
+ </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding class="friend_card" color="background3">
+	<ion-item no-padding style="background: #3a4565; --background: #3a4565;  padding-left: 15px; color: #fff">
+		<ion-grid>
+			<ion-row data-step="1" id="step45">
+				<ion-col size="8" >
+					{{'EARNING_THROUGH_FRIENDS' | translate}}
+				</ion-col>
+				<ion-col size="4">{{earned | currency : 'INR'}}</ion-col>				
+			</ion-row>
+		</ion-grid>
+	</ion-item>
+	<ion-item no-padding style="background: #3a4565; --background: #3a4565; padding-left: 15px;  color: #fff">
+		<ion-grid>
+			<ion-row data-step="2" id="step46">
+				<ion-col size="8">
+					{{'TO_BE_EARNED' | translate}}
+					<!-- <ion-icon name="information-circle-outline" style="position: relative; bottom: -2px;" color="success" (click)="info_msg(true)"></ion-icon> -->
+				</ion-col>
+				<ion-col size="4">{{to_be_earned | currency : 'INR'}}</ion-col>				
+			</ion-row>
+		</ion-grid>
+	</ion-item>
+	<ion-card class="show" *ngIf="show_msg">
+		<ion-card-content no-padding>
+			<ion-grid>
+			<ion-row>
+				<ion-col size="11">
+					You will receive your cash bonus once your referral done his/her mobile verification
+				</ion-col>
+				<ion-col size="1">
+					<ion-icon name="close" (click)=info_msg(false)></ion-icon>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		</ion-card-content>
+	</ion-card>
+	<ion-card class="yellow_div" *ngIf="enable_msg">
+		<ion-card-content no-padding>
+			<ion-grid>
+			<ion-row>
+				<ion-col size="3">
+					<div class="person_img">
+						<img src="assets/img/friends.png" alt="" title="">  
+					</div>
+				</ion-col>
+				<ion-col size="8">
+					<ion-label>
+						{{ my_referrals_message | translate}}
+					</ion-label>
+				</ion-col>				
+				<ion-col size="1">
+					<ion-icon name="close" (click)=dismiss()></ion-icon>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		</ion-card-content>
+	</ion-card>
+	<ion-card color="ioncard">
+		<ion-card-content *ngIf="err_msg!=''" class="center_txt">
+				{{err_msg}}
+		</ion-card-content>
+
+		<ion-card-content *ngIf="err_msg==''">
+			<ion-grid data-step="3" id="step47">
+			<ion-row>
+				<ion-col size="6">
+					{{friends_count}} {{'FRIEND_JOINED' | translate}} !
+				</ion-col>
+				<ion-col size="6">
+					{{need_to_join}} {{'NEED_TO_JOIN' | translate}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<div class="myProgress">
+					<div class="myBar" color="secondary" [ngStyle]="{'width': fill(earned,to_be_earned)+'%'}"></div>
+				</div>
+			</ion-row>
+			<ion-row>
+				<ion-col size="8">{{'RECEIVED' | translate}} : {{earned | currency : 'INR'}}</ion-col>
+				<ion-col size="4" *ngIf="to_be_earned>0" >{{to_be_earned| currency : 'INR'}}</ion-col>
+			</ion-row>
+		</ion-grid>
+		</ion-card-content>
+	</ion-card>
+	<ion-card no-padding color="ioncard" *ngFor="let friend of friends">
+		<ion-card-content no-padding>
+			<ion-grid>
+			<ion-row   routerLink="/user-info/{{friend.user_id}}" [routerDirection]="'forward'">
+				<ion-col size="3">
+					<div class="person_img">  
+						<img [src]=" friend.profile_pic != null ? friend.profile_pic : 'assets/img/black_ant.svg'" alt="" title="">
+					</div>
+				</ion-col>
+				<ion-col size="9">
+					<ion-grid>
+						<ion-row>
+							{{friend.user_name}}
+						</ion-row>
+						<ion-row>
+							<div class="myProgress">
+								<div class="myBar" color="secondary" [ngStyle]="{'width': fill_processBar(friend.earned_amount,friend.need_to_earn)+'%'}"></div>
+							</div>
+						</ion-row>
+						<ion-row>
+							<ion-col size="8">{{'RECEIVED' | translate}} : {{friend.earned_amount | currency : 'INR'}}</ion-col>
+							<ion-col size="4" *ngIf="friend.need_to_earn>0">{{friend.need_to_earn | currency : 'INR'}}</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
+<ion-footer class="friendfooter">
+	<ion-button expand="full" color="success" (click)="sharewithOptions()" class="invite">{{'INVITE_MORE_FRIENDS' | translate}}</ion-button>
+</ion-footer>

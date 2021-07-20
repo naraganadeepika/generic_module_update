@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-grid>
+  <ion-row>
+  <ion-col size="1">
+    <ion-buttons  (click)="closeModal()">
+      <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
+  </ion-buttons>
+  </ion-col>
+  <ion-col size="10">
+    <ion-title>{{'CHOOSE_PAYMENT' | translate}} <br/> <span class="adding_amount"> {{'ADDING_AMOUNT' | translate}} <span class="red"> {{ amount |currency:'INR'}} </span> </span> </ion-title>
+    </ion-col>
+   </ion-row>
+</ion-grid>
+   </ion-toolbar>
+ </ion-header>
+
+<ion-content no-padding>
+  <ion-row *ngIf="error_msg != ''">
+    <ion-col class="error_msg_div">
+      {{error_msg}}
+    </ion-col>
+  </ion-row>
+
+<ion-list class="pay_met">
+
+<ion-item no-padding *ngIf="ptm_lnk && check_avalible('paytm')" lines="none" class="bdr_btm">
+<div slot='start' class="person_img"><img (click)="openGateway('paytm')" src="assets/img/paytm_icn.png" alt="" title=""> </div>
+<ion-label>{{'PAYTM' | translate}} <span class="link"  (click)="link()">{{'LINK_ACCOUNT' | translate}}</span> </ion-label>
+</ion-item>
+
+
+  <ion-list no-padding *ngIf="ptm_lnk == false && check_avalible('paytm')" class="no_link bdr_btm">
+  <ion-item-sliding>
+  <ion-item (click)="bal_check('paytm',ptm_mny)" no-padding lines="none">
+<div slot='start' class="person_img"><img src="assets/img/paytm_icn.png" alt="" title=""> </div>
+<ion-label class="">{{'PAYTM' | translate}} <span class="fr" style="margin-left: 10px;"> <ion-icon name="done-all"></ion-icon> </span> <span class="fr">{{ ptm_mny |currency:'INR'}}</span> </ion-label>
+</ion-item>
+<ion-item-options side="end">
+      <ion-item-option (click)="unread('paytm')">{{'REMOVE' | translate}}</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+  <ion-item *ngIf="ptm_pay_show" no-padding lines="none"> 
+  <ion-list class="fl_wth" *ngIf="pay_ptm_wal"> <ion-button (click)="pay_amount('paytm', amount, 0)" no-padding class="pay_btn">{{'PAY_WITH_PAYTM_WALLET' | translate}}</ion-button>  </ion-list>
+  <ion-grid no-padding *ngIf="pay_ptm_wal == false"> 
+  <ion-row no-padding>
+  <ion-col no-padding size="3" class="ion_prc_blk"> {{amount-ptm_mny |currency:'INR'}} </ion-col>
+  <ion-col no-padding size="9"> <ion-button (click)="pay_amount('paytm', ptm_mny, amount-ptm_mny)" no-padding class="pay_btn">{{'PAY_WITH_PAYTM' | translate}}</ion-button> </ion-col>
+  </ion-row>
+  </ion-grid>
+  </ion-item>
+
+</ion-list>
+
+<ion-item no-padding lines="none" *ngIf="phn_lnk && check_avalible('phone_pe')" class="bdr_btm">
+<div slot='start' class="person_img"><img (click)="openGateway('phone_pe')" src="assets/img/pay_icon.png" alt="" title=""></div>
+<ion-label><span (click)="openGateway('phone_pe')">{{'PHONE_PE' | translate}}</span><span class="link"  (click)="link()">{{'LINK_ACCOUNT' | translate}}</span></ion-label>
+</ion-item>
+
+<ion-list no-padding *ngIf="phn_lnk == false  && check_avalible('phone_pe')" class="no_link bdr_btm">
+  <ion-item-sliding>
+  <ion-item (click)="bal_check('phn_pe',phn_wallet_bal)" no-padding lines="none">
+<div slot='start' class="person_img"><img src="assets/img/pay_icon.png" alt="" title=""> </div>
+<ion-label class="">{{'PHONE_PE' | translate}} <span class="fr" style="margin-left: 10px;" [ngClass]="phn_wallet_bal > 0 ? 'done_color' : 'done_no_color'"> <ion-icon name="done-all"></ion-icon> </span> <span class="fr">{{ phn_wallet_bal |currency:'INR'}}</span> </ion-label>
+</ion-item>
+<ion-item-options side="end">
+      <ion-item-option (click)="unread('phn_pe')">{{'REMOVE' | translate}}</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+  <ion-item *ngIf="phn_pay_show" no-padding lines="none"> 
+  <ion-list class="fl_wth" *ngIf="phn_pe_wal"> <ion-button (click)="pay_amount('phn_pe', amount, 0)" no-padding class="pay_btn">{{'PAY_WITH_PHNPE_WALLET' | translate}}</ion-button>  </ion-list>
+  <ion-grid no-padding *ngIf="phn_pe_wal == false"> 
+  <ion-row no-padding>
+  <ion-col no-padding size="3" class="ion_prc_blk"> {{amount-phn_wallet_bal |currency:'INR'}} </ion-col>
+  <ion-col no-padding size="9"> <ion-button (click)="pay_amount('phn_pe', phn_wallet_bal, amount-phn_wallet_bal)" no-padding class="pay_btn">{{'PAY_WITH_PHNPE' | translate}}</ion-button> </ion-col>
+  </ion-row>
+  </ion-grid>
+  </ion-item>
+
+<ion-button color="success" *ngIf="phne_pay_button" (click)="phone_pe()">{{'PAY_USING_PHNPE' | translate}}</ion-button>
+</ion-list>
+
+<ion-item no-padding lines="none"  *ngIf="check_avalible('google_pay')" (click)="openGateway('google_pay')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/g_pay_icon.png" alt="" title=""> </div>
+<ion-label>{{'GOOGLE_PAY' | translate}}</ion-label>
+</ion-item>
+<ion-item no-padding lines="none" *ngIf="check_avalible('amazon_pay')"  (click)="openGateway('amazon_pay')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/amazon_pay_icon.png" alt="" title=""> </div>
+<ion-label>{{'AMAZON_PAY' | translate}}</ion-label>
+</ion-item>
+<ion-item no-padding lines="none" *ngIf="check_avalible('instamojo')" (click)="openGateway('instamojo')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/instamojo.jpeg" alt="instamojo" title="instamojo"> </div>
+<ion-label>{{'INSTAMOJO' | translate}}</ion-label>
+</ion-item>
+
+<ion-item no-padding lines="none" *ngIf="check_avalible('razorpay')" (click)="openGateway('razorpay')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/razorpay.png" alt="razorpay" title="razorpay"> </div>
+<ion-label>{{'RAZORPAY' | translate}}</ion-label>
+</ion-item>
+
+<ion-item no-padding lines="none" *ngIf="check_avalible('cashfree')" (click)="openGateway('cashfree')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/cashfree.png" alt="cashfree" title="cashfree"> </div>
+<ion-label>{{'CASHFREE' | translate}}</ion-label>
+</ion-item>
+
+<ion-item no-padding lines="none" *ngIf="check_avalible('easebuzz')" (click)="openGateway('easebuzz')" class="bdr_btm">
+<div slot='start' class="person_img"> <img src="assets/img/easebuzz.png" alt="easebuzz" title="easebuzz"> </div>
+<ion-label>{{'EASEBUZZ' | translate}}</ion-label>
+</ion-item>
+</ion-list>
+</ion-content>

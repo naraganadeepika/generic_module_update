@@ -1,0 +1,55 @@
+ion-buttons {font-size:22px; color:#fff;}
+.help{
+color:#fff;
+font-size:22px;
+padding-right:20px;
+}
+ion-content{
+--background: #f4f4f4
+}
+.offer{
+color:#6886bc;
+background:#d4d4d4;
+}
+.expire{
+background:#d5a8a4;
+color:#f4f4f4;
+}
+
+.content{
+text-align:center !important;
+}
+.help {margin-left:10px;}
+.nav{
+   background: #fff;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+}
+.sig_tab {background:#3a4565; color:#fff;}
+.sig_tab  ion-segment-button {color:#fff}
+
+.segment-button-checked ion-label {
+    opacity: 1;
+}
+ion-segment-button ion-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0px;
+    opacity: 0.4;
+}
+
+
+.cupon_cla {box-shadow:none; }
+ion-card  {box-shadow:none; }
+.warning_div{
+    margin-top: 30px;font-size:15px;color:#3a4565;display: block;text-align: center;
+    ion-button{margin-top: 20px;}
+    }
+.share_icn{width: 163px;margin: 0px auto;display: block;margin-top: 20px;}
+.disabled{opacity: 0.7;}
+.reward{text-align: center;
+    line-height: 30px;}
+    .text_center{text-align: center;}
+    .no-padding{padding: 0px;}

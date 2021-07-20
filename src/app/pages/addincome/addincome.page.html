@@ -1,0 +1,102 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Income</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="money-holder">
+    <ion-item lines="none">
+      <div class="start-slot" slot="start">
+        <h1>{{unit}}</h1>
+      </div>
+      <ion-input type="tel" value="0.00"></ion-input>
+    </ion-item>
+    <div class="unit-holder">
+      <ion-item text-center lines="none">
+        <ion-select multiple="false" placeholder="Select Unit" [(ngModel)]="unit">
+          <ion-select-option value="$" selected>USD</ion-select-option>
+          <ion-select-option value="e">EURO</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+
+  <div class="the-form ion-padding-horizontal">
+    <div class="detail-item">
+      <ion-label>Transaction Date</ion-label>
+      <ion-item>
+        <ion-datetime displayFormat="DDDD. DD MMM, YYYY"
+          monthShortNames="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, dec" placeholder="SELECT DATE"
+          text-left></ion-datetime>
+      </ion-item>
+    </div>
+    <div class="detail-item">
+
+      <ion-label>Category</ion-label>
+      <div class="cat-holder">
+        <ion-radio-group>
+          <div class="rad-item ion-text-center">
+            <ion-item class="ion-text-center">
+              <img src="assets/imgs/transport.svg" alt="">
+              <ion-radio value="transport"></ion-radio>
+            </ion-item>
+            <ion-label>Transport</ion-label>
+          </div>
+          <div class="rad-item ion-text-center">
+            <ion-item class="ion-text-center">
+              <img src="assets/imgs/foods.svg" alt="">
+              <ion-radio value="foods"></ion-radio>
+            </ion-item>
+            <ion-label>Foods</ion-label>
+          </div>
+          <div class="rad-item ion-text-center">
+            <ion-item class="ion-text-center">
+              <img src="assets/imgs/shopping1.svg" alt="">
+              <ion-radio value="shopping"></ion-radio>
+            </ion-item>
+            <ion-label>Shopping</ion-label>
+          </div>
+          <div class="rad-item ion-text-center">
+            <ion-item class="ion-text-center">
+              <img src="assets/imgs/bill1.svg" alt="">
+              <ion-radio value="bill"></ion-radio>
+            </ion-item>
+            <ion-label>Bills</ion-label>
+          </div>
+          <div class="rad-item ion-text-center">
+            <ion-item class="ion-text-center">
+              <img src="assets/imgs/tax.svg" alt="">
+              <ion-radio value="taxs"></ion-radio>
+            </ion-item>
+            <ion-label>Taxs</ion-label>
+          </div>
+
+
+        </ion-radio-group>
+      </div>
+
+    </div>
+    <div class="detail-item">
+      <ion-label>Notes</ion-label>
+      <ion-item lines="none">
+        <ion-textarea rows='5'>
+
+        </ion-textarea>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="showSuccess()">
+        Save
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

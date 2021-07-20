@@ -1,0 +1,122 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+             <ion-menu-button></ion-menu-button>
+         </ion-buttons>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end" routerLink="/edit-profile">
+      <ion-button>
+        <ion-icon style="color: #ffffff;" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="background-holder"></div>
+  <div class="top-card ion-text-center ion-padding-vertical">
+    <div class="img-holder">
+      <ion-avatar>
+        <img src="assets/imgs/ion-wizard.png" alt="">
+      </ion-avatar>
+
+    </div>
+    <div class="details">
+      <h5>{{user.username}}<span> <img *ngIf="kyc_status == 'VERIFIED'" src="assets/imgs/verified.svg" alt=""></span> </h5>
+      <p>{{user.referral_code}}</p>
+    </div>
+    <div class="ion-padding-horiozntal">
+      <div class="badge-holder">
+        <div class="badge">
+          <img src="assets/imgs/badge1.svg">
+        </div>
+        <div class="badge">
+          <img src="assets/imgs/badge2.svg">
+        </div>
+        <div class="badge">
+          <img src="assets/imgs/badge3.svg">
+        </div>
+        <div class="badge">
+          <img src="assets/imgs/badge4.svg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-section ion-padding">
+    <div class="general">
+      <h5>GENERAL</h5>
+      <div class="gen-list">
+        <ion-item lines="none">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/settings.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>Profile Settings</h2>
+            <p>Update and modify your profile</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/icn-security.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>Privacy</h2>
+            <p>Change your password</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/notification.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>Notifications</h2>
+            <p>Change your notification settings</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" routerLink="/upload-docs" routerDirection="forward">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/notification.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>KYC Status</h2>
+            <p>Your KYC 
+              <span class="textcolor1" *ngIf="kyc_status == 'VERIFIED'" slot="end"><ion-icon name="checkmark-circle" ></ion-icon>{{'VERIFIED' | translate }}</span>
+                <span class="textcolor3" *ngIf="kyc_status == 'UPLOAD_KYC'" slot="end">
+                <ion-icon name="add-circle"></ion-icon>{{'UPLOAD_KYC' | translate }}</span>
+                 <span class="textcolor2" *ngIf="kyc_status == 'UNDER_REVIEW'" slot="end">
+                 <ion-icon name="clock"></ion-icon>{{'UNDER_REVIEW' | translate }}</span>
+                <span class="textcolor3" *ngIf="kyc_status == 'REJECTED'" slot="end">
+                <ion-icon name="close-circle"></ion-icon>{{'REJECTED' | translate }}</span>
+              </p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none" routerLink="/suspend-account" routerDirection="forward">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/notification.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>{{'SUSPEND_ACCOUNT' | translate }}</h2>
+            <p>Change your account settings</p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </div>
+
+    <div class="chart">
+      <h5>CHART</h5>
+      <div class="chart-list">
+        <ion-item lines="none">
+          <div class="thumb" slot="start">
+            <img src="assets/imgs/chartsmall.svg" alt="">
+          </div>
+          <ion-label>
+            <h2>Show Volumes</h2>
+            <p>Edit graphics</p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+</ion-content>

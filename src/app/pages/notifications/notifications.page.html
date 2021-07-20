@@ -1,0 +1,217 @@
+<ion-header>
+  <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+             <ion-back-button text="" defaultHref="/home" style="color:#fff"></ion-back-button>
+         </ion-buttons>
+        <!-- <ion-title>{{'NOTIFICATIONS' | translate}}</ion-title> -->
+        <ion-title>
+          {{ 'NOTIFICATIONS' | translate }}         
+        </ion-title>
+         <!-- <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list> -->
+   </ion-toolbar>
+</ion-header>
+
+<ion-content color="background3">
+   
+   <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="value">
+    <ion-segment-button value="notes">
+      <ion-label  id="notification-button" >{{'NOTIFICATIONS' | translate}}
+        <span *ngIf="notifications_count > 0" [className]="notifications_count > 0 ?'blink':''"> ({{notifications_count}}) </span>
+        <!-- <ion-icon class="blink" name="star"> -->
+        <!-- <ion-badge id="notifications-badge" color="primary">{{notifications_count}}</ion-badge> -->
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="offers">
+      <ion-label>{{'OFFERS'| translate}}
+        <!-- <ion-badge id="notifications-badge" color="primary">{{offers_count}}</ion-badge> -->
+        <span *ngIf="offers_count > 0" [className]="offers_count > 0 ?'blink':''"> ({{offers_count}}) </span>
+        <!-- <span *ngIf="offers_count > 0">  <ion-icon class="blink" name="star"></ion-icon> </span> -->
+      </ion-label>
+    </ion-segment-button>
+     <ion-segment-button value="coupons">
+      <ion-label>{{'COUPONS'| translate}}
+        <!-- <ion-badge id="notifications-badge" color="primary">{{coupons_count}}</ion-badge> -->
+        <span *ngIf="coupons_count > 0" [className]="coupons_count > 0 ?'blink':''"> ({{coupons_count}}) </span>
+        <!-- <span *ngIf="coupons_count > 0">  <ion-icon class="blink" name="star"></ion-icon> </span> -->
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="value == 'notes'">
+<div *ngIf="!no_notification">
+    <ion-row class="title_bg today_blk">
+      <ion-label>{{'TODAY' | translate }}</ion-label>
+    </ion-row>
+
+  <ion-list class="today_blk">
+      <ion-grid  *ngIf="no_tdy == false">
+        <ion-row>
+          <ion-col size="2">
+            <ion-icon name="notifications-off" color="medium" size="large"></ion-icon> 
+          </ion-col>
+          <ion-col>
+            {{'NO_NOTES_TODAY'| translate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="today.length > 0">
+      <ion-item  *ngFor="let today_note of today">
+          <ion-grid>
+            <ion-row (click)="goto_page(today_note.notification_type)">
+              <ion-col>
+               <p>{{today_note.title}}</p>
+               <span [innerHTML]="today_note.description"></span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+            </ion-row>
+          </ion-grid>
+
+      </ion-item>
+    </div>
+  </ion-list>
+
+
+  <div>
+    <ion-row class="title_bg">
+      <ion-label>{{'OLDER' | translate }}</ion-label>
+    </ion-row>
+  </div>
+  
+  <ion-list>
+         <ion-grid  *ngIf="older.length < 1">
+        <ion-row>
+          <ion-col size="2">
+            <ion-icon name="notifications-off" color="medium" size="large"></ion-icon> 
+          </ion-col>
+          <ion-col>
+            {{'NO_NOTES_OLDER'| translate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        <div *ngIf="older.length > 0">
+        <ion-item *ngFor="let older_note of older">
+          <ion-grid>
+            <!-- (click)="goto_page(older_note.notification_type)" -->
+            <ion-row >
+              <ion-col>
+               <p>{{older_note.title}}
+                <ion-note color="light" class="fR" style="font-size: 10px">{{older_note.date}}</ion-note></p>
+                <span [innerHTML]="older_note.description"></span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-item>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+      </div>        
+    </ion-list>
+  </div>
+
+    <div *ngIf="no_notification">
+      <ion-grid  no-padding  class="warning_div">
+        <ion-row>
+          <ion-col>
+                 {{no_notification_message}}<br>
+            <img src="assets/img/rewards_offers.svg" class="share_icn"><br>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+</div> 
+
+<div *ngIf="value == 'offers'">
+  <ion-list no-padding>
+      <ion-grid color="ionitem2" *ngIf="offers.length < 1" class="warning_div">
+        <ion-row>
+<!--           <ion-col size="2">
+            <ion-icon name="notifications-off" color="medium" size="large"></ion-icon> 
+          </ion-col> -->
+          <ion-col>
+            {{'NO_OFFERS' | translate}}<br>
+            <img src="assets/img/rewards_offers.svg" class="share_icn"><br>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="offers.length > 0">
+      <ion-item  *ngFor="let offer of offers">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12"> 
+                  <p>{{offer.title}}
+                <ion-note color="light" class="fR" style="font-size: 10px">{{offer.date}}</ion-note></p>
+                  <span [innerHTML]="offer.description"></span>
+              </ion-col>
+            </ion-row>           
+          </ion-grid>
+      </ion-item>
+       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadOffersData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </ion-list>
+  </div>
+
+  <div *ngIf="value == 'coupons'">
+ <ion-list no-padding>
+      <ion-grid color="ionitem2" *ngIf="coupons.length < 1" >
+        <ion-row class="warning_div">
+         {{'NO_COUPONS' | translate }}<br>
+            <img src="assets/img/rewards_offers.svg" class="share_icn"><br>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="coupons.length > 0">
+      <ion-item  *ngFor="let coupon of coupons">
+          <ion-grid>
+            <ion-row routerLink="/rewards-offers" routerDirection="forward">
+              <ion-col size="2">
+                <ion-icon name="ribbon" color="success" size="large"></ion-icon>
+              </ion-col>
+              <ion-col size="10">
+               <ion-row *ngIf="coupon.title != null && coupon.coupon_type == 'percentage' ">
+               {{'USE_COUPON' | translate }} {{coupon.coupon_code}} {{'TO_GET_UPTO' | translate }} {{coupon.percentage}}% {{'DISCOUNT_UPTO' | translate }} {{coupon.amount | currency:'INR'}}/- ({{'ONLY_FOR'| translate }} {{coupon.title}}).
+              </ion-row>
+              <ion-row *ngIf="coupon.title != null && coupon.coupon_type == 'amount' ">
+               {{'USE_COUPON' | translate }} {{coupon.coupon_code}} {{'TO_GET_UPTO' | translate }}{{coupon.amount | currency:'INR'}} {{'DISCOUNT' | translate }}  ({{'ONLY_FOR'| translate }}{{coupon.title}}).
+              </ion-row>
+              <ion-row *ngIf="coupon.title != null && coupon.coupon_type == 'free_contest' ">
+                {{'USE_COUPON' | translate }} {{coupon.coupon_code}} {{'FREE_CONTEST'| translate }}({{'ONLY_FOR'| translate }} {{coupon.title}}) {{'FOR_FREE'| translate }}
+              </ion-row>
+              <ion-row *ngIf="coupon.title == null && coupon.coupon_type == 'percentage' ">
+                {{'USE_COUPON' | translate }} {{coupon.coupon_code}} {{'TO_GET_UPTO' | translate }}{{coupon.percentage}}% {{'DISCOUNT_UPTO' | translate }} {{coupon.amount| currency:'INR'}}/-
+              </ion-row>
+              <ion-row *ngIf="coupon.title == null && coupon.coupon_type == 'amount' ">
+               {{'USE_COUPON' | translate }} {{coupon.coupon_code}} {{'TO_GET_UPTO' | translate }} {{coupon.amount| currency:'INR'}} {{'DISCOUNT' | translate }}
+              </ion-row>
+              <ion-row *ngIf="coupon.title == null && coupon.coupon_type == 'free_contest' ">
+                {{'USE_COUPON' | translate }} {{coupon.coupon_code}}  {{'FREE_CONTEST1' | translate }}
+              </ion-row>
+             </ion-col>
+            </ion-row>           
+          </ion-grid>
+      </ion-item>
+      <!--  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadCouponsData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+    </div>
+  </ion-list>
+  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+    
+</ion-content>

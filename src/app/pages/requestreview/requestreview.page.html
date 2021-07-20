@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="request"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="review-holder ion-padding">
+    <div class="review-card ion-text-center">
+      <ion-badge color="primary" mode="ios">$20.00 USD</ion-badge>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/imgs/josie.png" alt="">
+        </ion-avatar>
+        <ion-label>
+          <h2 text-wrap>Jessy Neila</h2>
+          <p>jeessy@abc.com</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <div class="start-slot" slot="start">
+          <ion-button fill="none">
+            <ion-icon slot="icon-only" name="add" color="primary"></ion-icon>
+          </ion-button>
+        </div>
+        <ion-input type="text" placeholder="Add a note"></ion-input>
+        <ion-button fill="none" slot="end">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+  </div>
+
+  <div class="details" *ngIf="typee=='send'">
+    <ion-item>
+      <div class="thumb" slot="start">
+        <img src="assets/imgs/visa.svg" alt="">
+      </div>
+      <ion-label>
+        <h2>Visa</h2>
+        <p>Debit ****1234</p>
+      </ion-label>
+      <ion-button fill="none" slot="end">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <h5 slot="start">
+        Amount in USD
+      </h5>
+      <h6 slot="end">$5.00 USD</h6>
+    </ion-item>
+    <ion-item>
+      <h5 slot="start">
+        Transaction fees
+      </h5>
+      <h6 slot="end">$0.00 USD</h6>
+    </ion-item>
+    <ion-item>
+      <h5 slot="start">
+        Payment Receved
+      </h5>
+      <h6 slot="end">In Seconds</h6>
+    </ion-item>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="showModal()">
+        {{typee}} now&nbsp;<ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

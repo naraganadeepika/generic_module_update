@@ -1,0 +1,51 @@
+.walt_trans {}
+// .walt_trans:nth-child(even) {background: rgba(42,46,67,0.08);}
+// .walt_trans:nth-child(odd) {z-index: 9;background: #fff;}
+.walt_trans p {padding-bottom:0px; margin-bottom:0px; margin-top:3px; font-size:14px;}
+.bonushistory{
+// span{display: block;}
+// span{font-size: 14px;padding-bottom: 5px;color: #6b6b6b;}
+p{font-size: 13px;display:block;padding-bottom: 5px;}
+}
+.text_center{text-align: center;}
+.text_left{text-align: left;}
+.text_right{text-align: right;}
+.red {color:#de5f66;}
+.green {color:green;}
+.gray{color: #6b6b6b;}
+.message{position: absolute;bottom: 0px;}
+.margin{margin: 0px;}
+h6{color: #6b6b6b;font-weight: 600;}
+.inline{display: inline-block;padding-left: 5px;}
+.error_message{color: #6b6b6b;font-weight: 400;padding: 10px;line-height: 30px;text-align: center;}
+.top_invite { margin:0px; box-shadow:none; border-radius:0px; color: #6b6b6b;}
+.top_invite a {color:#fff!important;}
+
+
+ion-segment{background: #474747;color: #fff;text-align: center;
+	 .checked{--color: #fff;color: #fff;}
+ion-segment-button{
+	
+      --color: #fff;height: 0px;}
+}
+.segment-button-checked{color: #FFF}
+
+.font_14{--font-size: 14px;font-size: 14px;}
+.medium{color: #6b6b6b;}
+
+
+.walt_trans ion-item:nth-child(even){--background: #F0F0F0!important;}
+.walt_trans .transhis{
+    font-family: "AvenirH" !important;
+    h5, h4{padding-top: 0px;margin-top: 0px;margin-bottom: 0px;font-family: "AvenirH" !important;}
+    p{font-family: "AvenirH" !important;color: #77869E !important;font-weight: normal;font-size: 12px}
+
+}
+ion-thumbnail{
+    width: 12%;
+    img{
+        width: 40px;
+        height: 40px;
+        margin-top: 8px;
+    }
+}

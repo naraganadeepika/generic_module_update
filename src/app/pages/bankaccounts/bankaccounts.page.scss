@@ -1,0 +1,31 @@
+.transhis, .transhis span {text-align:left; display:inline-block; font-size:14px;}
+.pad_30 {padding:30px;}
+
+
+.walt_trans:nth-child(odd) {
+  background: #f6f4f4;
+}
+
+ion-back-button {font-size:22px; color:#ed3431;}
+
+.walt_trans p {padding-bottom:0px; margin-bottom:0px; margin-top:5px;}
+ion-back-button {color:#fff}
+
+.txt_red{color:red}
+
+.user_with_bal{
+    margin-right: 5px;
+}
+ion-content{--background: #f0f0f0;}
+ion-list{background: none;}
+ion-card{ background: #fff;}
+.bank_card{
+	ion-label{font-size: 14px;}
+	.follow{float: right;}
+	box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 4px 6px 0 rgba(0, 0, 0, 0.05);--margin-top: 0px;
+   --margin-bottom: 0px;margin-top: 0px;margin-bottom: 0px;
+	
+	ion-img{width: 35px;}
+
+}
+.ios .list-ios{padding: 10px 0px;}

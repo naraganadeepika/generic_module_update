@@ -1,0 +1,32 @@
+ion-searchbar
+{
+    --background:transparent;
+    --clear-button-color: var(--ion-color-primary);
+}
+
+ion-item{
+   .start-slot
+   {
+        margin-right: 0 !important;
+   }
+
+   h3
+   {
+       color:  #042C5C !important;
+   }
+
+   p
+   {
+       color: #77869E !important;
+       font-family: 'AvenirR'!important;
+   }
+
+
+   .end-slot
+   {
+       margin: 0 !important;
+       ion-badge{
+           font-weight: lighter !important;
+       }
+   }
+}

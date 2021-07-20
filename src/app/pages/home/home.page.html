@@ -1,0 +1,130 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+             <ion-menu-button></ion-menu-button>
+         </ion-buttons>
+    <ion-title>Your Budgets</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="viewNotifications()" size="large">
+        <ion-icon style="color: #ffffff;" name="notifications"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="background-holder">
+
+  </div>
+  <div class="top-card absolute ion-text-center ion-padding-vertical">
+    <ion-row class="top-row">
+      <ion-col size="auto" class="ion-text-left">
+        <p>for <strong> Axess Platinum</strong> Card</p>
+      </ion-col>
+      <ion-col class="ion-text-right" id="right-col">
+        <p>Add Budget</p>
+      </ion-col>
+    </ion-row>
+    <ngx-gauge [type]="gaugeType" size="250" [value]="gaugeValue" [label]="gaugeLabel" [prepend]="gaugePrependText"
+      thick="12" cap="round" foregroundColor="#f59629">
+
+    </ngx-gauge>
+
+    <div class="guage-top-content absolute ion-text-center">
+      <img src="assets/imgs/card.svg" alt="">
+      <p>You are spent</p>
+    </div>
+    <div class="precentage-row">
+      <ion-row>
+        <ion-col class="col-left ion-text-left">
+          <p>0%</p>
+        </ion-col>
+        <ion-col class="col-right ion-text-right">
+          <p>100%</p>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+
+  <div class="bottom-section ">
+    <ion-row class="btns-holder">
+      <ion-col>
+        <ion-button expand="block">
+          <img src="assets/imgs/send.svg" alt="">
+          &nbsp;Send Money
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block">
+          <img src="assets/imgs/calculation.svg" alt="">
+          &nbsp;Calculation
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <div class="details">
+      <div class="the-title ion-padding-horizontal">
+        <h3>Transactions</h3>
+      </div>
+     
+      <div class="segments-holder">
+        <ion-segment (ionChange)="segmentChanged($event)" [value]="category">
+          <ion-segment-button value="day">
+            <ion-label>Day</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="weeek">
+            <ion-label>Week</ion-label>
+          </ion-segment-button>
+          <ion-segment-button  value="month">
+            <ion-label>Month</ion-label>
+          </ion-segment-button>
+          <ion-segment-button  value="year">
+            <ion-label>Year</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <div class="list-holder ion-padding-horizontal">
+        <div class="the-list" *ngIf="category == 'day'">
+          <ion-item lines="none">
+            <div class="thumb" slot="start">
+              <img src="assets/imgs/Gas.svg" alt="">
+            </div>
+            <ion-label>
+              <h4>Shell</h4>
+              <p>17 Monday June</p>
+            </ion-label>
+            <div slot="end">
+              <h5>-$35</h5>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="thumb" slot="start">
+              <img src="assets/imgs/shopping.svg" alt="">
+            </div>
+            <ion-label>
+              <h4>Amazon</h4>
+              <p>17 Monday June</p>
+            </ion-label>
+            <div slot="end">
+              <h5>-$79</h5>
+            </div>
+          </ion-item>
+          <ion-item lines="none">
+            <div class="thumb" slot="start">
+              <img src="assets/imgs/Bill.svg" alt="">
+            </div>
+            <ion-label>
+              <h4>Vodafone</h4>
+              <p>17 Monday June</p>
+            </ion-label>
+            <div slot="end">
+              <h5>-$35</h5>
+            </div>
+          </ion-item>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</ion-content>

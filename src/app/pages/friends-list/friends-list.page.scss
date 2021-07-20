@@ -1,0 +1,40 @@
+ion-buttons {font-size:22px; color:#fff;}
+.help{
+	color:#fff;
+	font-size:22px;
+	padding-right:20px;
+}
+ion-content{
+		--background: #f4f4f4
+}
+ion-item{
+	--background: #f4f4f4
+}
+ion-card{
+	--background: #fff
+}
+// ion-footer{
+// 	background: #f4f4f4
+// }
+.invite{
+	margin-left:30px;
+	margin-right:30px;
+	margin-bottom:10px;
+}
+ion-card {box-shadow:none;}
+// .yellow_div {background:#fbf9e6; border:1px solid #eeecd8}
+.show {background: ghostwhite;border: 1px solid #88bbad;}
+.person_img {width:60px; overflow:hidden; height:60px; margin:0px;margin-top:5px; border-radius:100%;}
+.person_img img {width:100%;}
+.myProgress{
+    width: 100%;
+  background-color: #eee;
+  border-radius:5px;
+}
+.myBar {
+  width: 10%;
+  height: 8px;
+  background-image: linear-gradient(to bottom right, red, yellow);
+  border-radius:5px;
+}
+.help {margin-left:10px;}

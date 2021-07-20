@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+  	<ion-buttons slot="start">
+      <ion-back-button  text="" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title><span>{{ 'LOGIN_TITLE' | translate }}</span></ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <img src="assets/imgs/Addcard.svg" alt="">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="background2">
+
+	<ion-grid>
+		<ion-row>
+			<ion-col size="4" class="center_div">
+				<ion-img src="assets/images/red_logo.png" class="logo_in_form"></ion-img>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="11" class="center_div">
+				<form [formGroup]="login_Form" no-padding (ngSubmit)="doLogin()">
+					<ion-list no-padding>
+			            <ion-item no-padding  color="blackioninput">
+			                <ion-label  position="floating">{{ 'EMAIL_OR_PHONE' | translate }}</ion-label>
+			                <ion-input type="text" formControlName= "username"  name="username" (ionChange)="change()"></ion-input>
+			            </ion-item>
+			            <span class="err_msg" *ngIf="username_err != ''">{{username_err}}</span>
+			            <ion-item color="blackioninput">
+			                <ion-label  position="floating">{{ 'PASSWORD' | translate }}</ion-label>
+			                <ion-input [type]="passwordType" formControlName= "pwd"  name="pwd" clearOnEdit="false" autocomplete="off" (ionChange)="pwd_change()"></ion-input>
+			                <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+			            </ion-item>
+			            <span class="err_msg" *ngIf="pwd_err != ''">{{pwd_err}}</span>
+			        </ion-list>
+			        <ion-button expand="block" color="mainbutton" type="submit">{{ 'LOGIN_BUTTON' | translate }}</ion-button>			        
+			        <button  type="submit" class="hidden"></button> 
+				</form>
+			</ion-col>
+		</ion-row>
+		<ion-row no-padding>
+			<ion-col class="center_txt">
+			<p class="nav_link">	
+				<a  routerLink="/forgotpwd" routerDirection="forward">
+                <b>{{ 'FORGOT_PASSWORD' | translate }}</b></a>
+            </p>
+			<p class="nav_link">
+              <a  routerLink="/signup" routerDirection="forward">{{ 'SIGNUP_MESSAGE' | translate }} <br> <b><span>{{ 'SIGNUP' | translate }}</span></b></a>
+        	</p>
+        	<p class="nav_link"><u><a  [routerLink]="" routerDirection="forward" (click)="resend_confirmation()">
+                <b>{{ 'EMAIL_REVERIFY' | translate }}</b></a></u></p>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col class="doc_top">
+				<p>  {{ 'SIGN_UP_ACC_MSG' | translate }}  <span (click)="privacy()"> {{ 'SIGN_UP_ACC_MSG1' | translate }}  </span>  {{ 'SIGN_UP_ACC_MSG2' | translate }}  <span (click)="terms()">  {{ 'SIGN_UP_ACC_MSG3' | translate }}  </span></p>
+
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+	
+
+</ion-content>

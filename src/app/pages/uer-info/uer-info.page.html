@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+        <ion-buttons no-padding slot="start">
+          <ion-back-button text="" defaultHref="/refer"></ion-back-button>
+       </ion-buttons>
+    <ion-title>
+        {{user_data.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+<ion-card>
+  <ion-card-content>
+     <ion-item lines="none" no-padding>
+       <ion-grid  no-padding>
+       <ion-row>
+         <ion-col size="3">
+         <ion-img class="img_size" [src]="user_data.profile_pic != null ? user_data.profile_pic : 'assets/img/black_ant.svg'" alt="" > </ion-img>
+        </ion-col>
+         <ion-col size="7">
+           <p class="usr_name"> {{user_data.name}} </p>
+            <p class="phone"> {{ 'PHONE' | translate }}: {{user_data.phone}} </p>
+         </ion-col>
+
+       </ion-row>
+       </ion-grid>
+     </ion-item>
+    <ion-grid class="loca" no-padding>
+      <ion-row>
+        <ion-col> {{user_data.state}}</ion-col>
+        <ion-col style="text-align: right;"> <span class="lite_clr">{{ 'PLAYING_SINCE' | translate }}</span> {{user_data.playing_since}}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card-content>
+</ion-card>
+
+ 
+</ion-content>

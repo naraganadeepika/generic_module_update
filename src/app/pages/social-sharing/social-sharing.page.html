@@ -1,0 +1,134 @@
+<ion-header>
+    <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start" style="color: #fff">
+      <ion-back-button text="" defaultHref="/tabs/settings"></ion-back-button>
+    </ion-buttons> -->
+    <ion-buttons slot="start">
+             <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+          {{ 'INVITE_FRIENDS' | translate }}
+         </ion-title>
+         <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+    <!-- <ion-title>{{ 'INVITE_FRIENDS' | translate }}</ion-title> -->
+    <!-- <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
+    <!-- <ion-list class="not_fic_icon">
+      <ion-icon  ios="ios-wallet" md="md-wallet"></ion-icon><br>
+      {{ 100 |currency:'INR'}}
+    </ion-list> -->
+    <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+      <div [className]="user.notification_count > 0 ?'blink':''">
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
+     </ion-list >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding  color="background">
+  <ion-card class="top_invite"  color="primary" >
+    <ion-card-content style="text-align:center">
+    <ion-grid>
+    <ion-row>
+    <ion-col>{{ 'SHARE_INVI_CODE' | translate }}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style="font-size: 22px; padding: 0px;"><ion-label><b>{{user.referral_code}}</b></ion-label></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" data-step="1" id="step42">
+   <ion-button color="success" (click)="shareViaWhatsapp(user.referral_code)" >{{ 'INVITE_WAPP' | translate }}</ion-button>
+ </ion-col>
+ </ion-row>
+ <ion-row>
+   <ion-col size="12" data-step="2" id="step43">
+    <a (click)="sharewithOptions(user.referral_code)"><ion-icon name="share" class="shr"></ion-icon> {{ 'MORE_OPTIONS' | translate }}</a>
+  </ion-col>
+  </ion-row>
+ </ion-grid>
+ </ion-card-content>
+  </ion-card>
+  <ion-row style="background: #f0f0f0; padding: 5px 0px;">
+    <ion-col style="text-align: center; font-size: 14px;"><a (click)="working()" style="color: #3a4565"> {{ 'HOW_IT_WORKS' | translate }}</a></ion-col>
+    <ion-col style="text-align: center; font-size: 14px;"><a (click)="rules()" style="color: #3a4565"> {{ 'RULES_FAIRPLAY' | translate }}</a></ion-col>
+  </ion-row>
+  <ion-card color="ioncard">
+    <ion-card-content>
+    <ion-grid>
+      <!-- <ion-row>
+        <ion-col>
+          <ion-button color="success" expand="full" shape="round" (click)="get_contacts()" style="width: 240px; margin: 0px auto;">{{'INVITE_VIA_PHONEBOOK' | translate }}</ion-button>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <ion-item color="ionitem3" [routerLink]="" (click)="get_contacts()" lines="none" style="font-size: 14px;">
+              <ion-icon ios="ios-contacts" md="md-contacts" style="margin-right: 10px;"></ion-icon>
+                  {{'INVITE_VIA_PHONEBOOK' | translate}}
+            <ion-icon name="arrow-dropright" slot="end"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="success_msg != ''" class="phone_div">
+    <ion-col>
+      <span class="fR" (click)="cancel()"><b>X</b></span>
+      {{ success_msg | translate }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col><ion-label><b>{{ 'INVITE_REGISTER' | translate }}</b></ion-label></ion-col>
+  </ion-row>
+  
+      <form  [formGroup]="invite_Form_email" (ngSubmit)="join()" >
+
+        <ion-row data-step="3" id="step44">
+          <ion-col size="12">
+             <ion-item no-padding color="ioninput">
+                    <ion-label position="floating" class="font_14">Enter Email Address </ion-label>
+                    <ion-input  type="text" formControlName="email"   name="email"   required></ion-input>
+                  </ion-item>
+             
+       
+               <span class="err_msg">{{valid_fun('email')}}</span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="err_msg != ''" class="msg_div">
+          <ion-col>
+            <span class="fR" (click)="cancel()"><b>X</b></span>
+            {{ err_msg }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <p>{{ 'NOTE' | translate }} {{ 'NOTE_TXT' | translate }}</p><p>(e.g:example@gmail.com,tester@gmail.com)</p>
+        </ion-row>
+        <ion-row class="buttons">
+          <ion-col size="6">
+         <ion-button color="mainbutton"    (click)="cancel()">{{'CANCEL_BUTTON' | translate}}</ion-button>
+       </ion-col>
+         <ion-col size="6">
+          <ion-button color="medium"   type="submit"><ion-icon name="mail" ></ion-icon> {{'SEND_BUTTON' | translate}}</ion-button>
+        </ion-col>
+        </ion-row>
+    </form>
+      
+ </ion-grid>
+ </ion-card-content>
+  </ion-card>
+  <ion-card no-padding class="ioncard">
+    <ion-card-header no-padding>
+        <ion-item color="ionitem" lines="none" style="font-size: 14px;text-align: center;" *ngIf="no_friends_enable">
+                <p>   {{no_friends}}</p>
+        </ion-item>
+        <ion-item color="ionitem" routerLink="/friends-list" lines="none" style="font-size: 14px;" *ngIf="!no_friends_enable">
+            <ion-icon name="person-add" style="margin-right: 10px;"></ion-icon>
+                  {{'TOTAL_FRIENDS_JOINED' | translate}}  
+            <span class="count" slot="end">{{total}}</span>
+            <ion-icon name="arrow-dropright" slot="end"></ion-icon>
+        </ion-item>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

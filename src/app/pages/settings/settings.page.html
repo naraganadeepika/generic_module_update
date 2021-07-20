@@ -1,0 +1,192 @@
+<ion-header>
+  <ion-toolbar color = "primary">
+         <ion-buttons slot="start">
+             <ion-menu-button></ion-menu-button>
+         </ion-buttons>
+        <!-- <ion-title>{{'SETTINGS_TITLE' | translate}}</ion-title>
+        <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
+        <ion-title class="top_margin fL">
+          {{ 'SETTINGS_TITLE' | translate }}
+         
+        </ion-title>
+         <ion-list class="user_with_bal fR">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+        <ion-list slot="end" class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <div [className]="user.notification_count > 0 ?'blink':''">
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
+     </ion-list >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="background3">
+    <div class="scroll-content">
+      <ion-list no-padding class="no_bg">
+
+
+        <ion-item-group class="item_group_styles" style="margin-top: 5px;">
+
+          <ion-item  color="ionitem" data-step="7"  id="step20">
+            <ion-icon name="swap-horizontal-outline" class="color1 icon_shape"></ion-icon>
+            <ion-label>{{'CHANGE_LANGUAGE' | translate}}</ion-label>
+            <ion-select [value]="selectedLang" (ionChange)="languageChanged($event)">
+                <ion-select-option value="en">English</ion-select-option>
+                <ion-select-option value="hnd">हिंदी</ion-select-option>
+                <ion-select-option value="tel">తెలుగు</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item  color="ionitem" lines="none" (click)="themeService.themeMode()">
+          <ion-icon name='color-fill' class="color4 icon_shape" slot="start"></ion-icon>
+          <ion-label>Dark Mode</ion-label>
+          <ion-toggle color="success" [(ngModel)]="darkMode" slot="end"></ion-toggle>
+      </ion-item>
+        <!-- <ion-item  color="light" lines="none" >
+          <ion-icon name='color-fill' class="color4 icon_shape" slot="start"></ion-icon>
+          <ion-label>Dark Mode</ion-label>
+          <ion-toggle color="success" (ionChange)="themeService.onClick($event)" slot="end"></ion-toggle>
+      </ion-item> -->
+
+
+      
+        </ion-item-group>
+
+
+        <ion-item-group class="item_group_styles">
+          <ion-item  color="ionitem" (click)="appcheck()" data-step="9"  id="step22">
+            <ion-icon slot="start" name="logo-google-playstore" class="color6 icon_shape"></ion-icon>
+                {{'APP_UPDATE_CHECK' | translate}}
+            <ion-note slot="end">V{{version.__zone_symbol__value}}</ion-note>
+          </ion-item>
+          <!-- <ion-item [routerLink]="" (click)="help_desk('whatsapp-updates')"  data-step="5"  id="step18">
+            <ion-icon name="logo-whatsapp" class="color2 icon_shape"></ion-icon>
+                 {{'WHATSAPP_UPDATES' | translate}}
+            <ion-icon name="arrow-dropright" slot="end"></ion-icon>
+          </ion-item> -->
+
+          <ion-item  color="ionitem" *ngIf="allow"> 
+            <ion-icon slot="start" name="notifications" class="color3 icon_shape"></ion-icon>
+                 {{'ALLOW_SMS' | translate}}
+            <ion-toggle color="success" slot="end" [(ngModel)]="allow.allow_sms"  (ionChange)="allow_ACTIVITY($event)"></ion-toggle>
+          </ion-item>
+          <ion-item  color="ionitem" *ngIf="allow">
+            <ion-icon slot="start" name="share" class="color1 icon_shape"></ion-icon>
+                 {{'SHARE_ACTIVITY' | translate}}
+            <ion-toggle color="success" slot="end" [(ngModel)]="allow.share_activities_to_followers" (ionChange)="allow_ACTIVITY($event)"></ion-toggle>     
+            <!-- <ion-icon name="arrow-dropright" slot="end"></ion-icon> -->
+          </ion-item>
+
+          
+          <ion-item   color="ionitem" lines="none"> 
+            <ion-icon slot="start" name="key" class="color4 icon_shape"></ion-icon>
+                {{'GOOGLE_2FA' | translate}}
+            <ion-toggle slot="end"  (ionChange)="google2fa($event)" [(ngModel)]="enabled"></ion-toggle>
+          </ion-item>
+          <ion-item color="ionitem" *ngIf="g2fdiv" no-padding>
+
+
+            <div *ngIf="enable_2fa == 'false'" class="goog">
+            <!--   <div class="g2f"> -->
+                  <ion-item color="ionitem">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="8">
+                          <ion-label>{{key  | slice:0:10}}***</ion-label>
+                        </ion-col>
+                         <ion-col size="4">
+                          <ion-icon name="copy" class="fR"  (click)="copy(key)"></ion-icon>
+                        </ion-col>
+                      </ion-row>   
+                      </ion-grid>             
+                  </ion-item>
+                  <ion-item lines="none" color="ionitem">
+                   <a class="redcolor" (click)="new_google2fa()">{{'GENERATE_NEW_KEY' | translate}}</a>
+                  </ion-item>
+
+                  <form [formGroup]="google2fa_Form"  (ngSubmit) = "enable2fa(google2fa_Form.value)" >
+                       <ion-item no-padding  color="ionitem">
+                          <ion-label position="floating">{{'VERIFY_CODE_TEXT' | translate}}</ion-label>
+                          <ion-input type="text"  formControlName="key"  name="key" required ></ion-input>
+                        </ion-item>
+                        <ion-item no-padding lines="none"  color="ionitem">
+                          <ion-row style="width:100%; margin-bottom: 15px;">
+                            <ion-col size="6">
+                                <ion-button  color="danger" fill="solid" size="small" class="primary_btn" (click)="cancel()">{{ 'CANCEL_BUTTON' | translate }}</ion-button>
+                            </ion-col>
+                            <ion-col size="6">
+                                <ion-button  type="submit" color="dark" fill="solid" size="small" class="primary_btn" >{{ 'SUBMIT_BUTTON' | translate }}</ion-button>
+                            </ion-col>
+                          </ion-row>
+                        </ion-item>
+                  </form>
+<!--               </div>-->
+             </div>
+
+            <div class="goog" *ngIf="enable_2fa == 'true'" >
+              <div class="g2f">
+                 <form [formGroup]="google2fa_Form"  (ngSubmit) = "enable2fa(google2fa_Form.value)" >
+                    <ion-item no-padding>
+                      <ion-label position="floating">{{'VERIFY_CODE_TEXT' | translate}}</ion-label>
+                      <ion-input type="text"  formControlName="key"  name="key" required ></ion-input>
+                    </ion-item>
+                    <ion-item  no-padding lines="none">
+                      <ion-row>
+                          <ion-col size="6">
+                            <ion-button  color="danger" fill="solid" size="small" class="primary_btn" (click)="cancel()">{{ 'CANCEL_BUTTON' | translate }}</ion-button>
+                          </ion-col>
+                          <ion-col size="6">
+                            <ion-button  type="submit" color="dark" fill="solid" size="small" class="primary_btn" >{{ 'SUBMIT_BUTTON' | translate }}</ion-button>
+                          </ion-col>
+                      </ion-row>
+                    </ion-item>
+                  </form>
+              </div>
+            </div>
+          </ion-item>
+
+        </ion-item-group>
+
+        <ion-item-group class="item_group_styles">
+            <ion-item   color="ionitem" [routerLink]="" (click)="help_desk('help')" data-step="6"  id="step19">
+              <ion-icon slot="start" name="help" class="color5 icon_shape"></ion-icon>
+                {{'HELP_DESK' | translate}}
+             <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+            </ion-item>
+            <ion-item  color="ionitem" [routerLink]="" (click)="help_desk('jobs')" data-step="10"  id="step23">
+                <ion-icon slot="start" name="people-circle-outline" class="color6 icon_shape"></ion-icon>
+                  {{'JOBS' | translate}}
+                <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+              </ion-item>
+            <ion-item  color="ionitem" [routerLink]="" (click)="help_desk('about')" data-step="11"  id="step24">
+                <ion-icon slot="start" name="information-circle" class="color1 icon_shape"></ion-icon>
+                  {{'ABOUT_US' | translate}}
+                  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+            </ion-item>
+            <ion-item  color="ionitem" [routerLink]="" lines="none" (click)="help_desk('terms')" data-step="13" id="step26" >
+                <ion-icon slot="start" name="newspaper-outline" class="color2 icon_shape"></ion-icon>
+                  {{'TERMS_CONDITIONS' | translate}}
+                  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+              </ion-item>
+        </ion-item-group>
+
+        <ion-item-group class="item_group_styles">
+          <ion-item  color="ionitem" [routerLink]="" lines="none" (click) = "logoutConfirm()" data-step="14" id="step27" >
+                    <ion-icon slot="start" name="log-out" class="color4 icon_shape"> </ion-icon>
+                        {{ 'LOGOUT_BUTTON' | translate }}
+          </ion-item>
+        </ion-item-group>
+
+
+
+
+
+        <!-- <ion-item  (click)="help_desk('social-sharing')"  data-step="1"  id="step14">
+            <ion-icon name="person-add"></ion-icon>
+                  {{'INVITE_FRIENDS' | translate}}
+              <ion-icon name="arrow-dropright" slot="end"></ion-icon>
+        </ion-item> -->
+
+      </ion-list>
+    </div>
+</ion-content>

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="primary">
+
+  <ion-img src="assets/img/white_logo.png" class="logo_in_form1"></ion-img>
+<h2 class="creat_ttl"> {{ 'ENTER_PIN' | translate }} </h2>
+<p class='create_txt'> {{'CREATE_PIN_TXT' | translate }} </p>
+  <ion-grid style="text-align: center;">
+    <ion-row style="margin-top: 30px; height: 30px;">
+      <ion-col class="stars" *ngFor="let val of connectedCspList">
+        <ion-img src="assets/img/ball.png" style=" margin-top: -15px;height: 45px;"></ion-img>
+          <!-- <ion-icon name="tennisball" size="small" style="margin-bottom: 7px;"></ion-icon> -->
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-bottom: 50px;">
+      <ion-col class="bor"> <div> a </div> </ion-col>
+      <ion-col class="bor"> <div> a </div> </ion-col>
+      <ion-col class="bor">  <div>a </div> </ion-col>
+      <ion-col class="bor"> <div> a </div> </ion-col>
+      <ion-col class="bor"> <div> a </div></ion-col>
+      <ion-col class="bor"> <div> a </div> </ion-col>
+    </ion-row>
+     </ion-grid>
+     
+</ion-content>
+<ion-footer>
+   <ion-grid class="numbers" no-padding>
+    <ion-row>
+      <ion-col (click)="keyclick(1)">
+        <div class="num"> 1 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(2)">
+        <div class="num"> 2 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(3)">
+        <div class="num"> 3 </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col (click)="keyclick(4)">
+        <div class="num"> 4 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(5)">
+        <div class="num"> 5 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(6)">
+        <div class="num"> 6 </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col (click)="keyclick(7)">
+        <div class="num">  7 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(8)">
+        <div class="num">  8 </div>
+      </ion-col>
+      <ion-col (click)="keyclick(9)">
+        <div class="num">  9 </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col >
+      </ion-col>
+      <ion-col (click)="keyclick(0)">
+        <div class="num">  0 </div>
+      </ion-col>
+      <ion-col style="line-height: 40px; color: #fff;" (click)="backspace()">
+        <div class="num"><ion-icon name="backspace" style="font-size: 20px;margin-top: 15px"></ion-icon></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

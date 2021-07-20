@@ -1,0 +1,114 @@
+<ion-header>
+	<ion-toolbar color="primary">
+  	<ion-buttons no-padding slot="start">
+          <ion-back-button text="" defaultHref="/wallet"></ion-back-button>
+       </ion-buttons>
+        <ion-title>{{'WINNING_AMOUNT' | translate }}</ion-title>
+        <!-- <ion-list no-lines class="user_with_bal pad_10" slot="end">
+          <span><small>{{user.username}}</small></span>
+          
+          <span class="font_12"><ion-icon name="wallet"></ion-icon>&nbsp;{{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list> -->
+         <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding >
+          <div [className]="user.notification_count > 0 ?'blink':''">
+             <ion-icon id="notification-button" name="notifications" >  </ion-icon>  
+             <ion-badge id="notifications-badge" color="primary" *ngIf="user.notification_count != null">{{user.notification_count}}</ion-badge>
+          </div>
+        </ion-list>
+
+  </ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event.detail.value)" value="summary">
+  <ion-segment-button value="summary">
+    <ion-label>{{'SUMMARY' | translate}}</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="history">
+    <ion-label>{{'HISTORY' | translate }}</ion-label>
+  </ion-segment-button>
+</ion-segment>
+</ion-header>
+
+<ion-content color="background">
+	<ion-grid *ngIf="winning_summary_err!=''">
+    <ion-row>
+	    <ion-col class="center_txt">
+	    	<ion-img src="assets/img/rewards_offers.svg" class="share_icn"></ion-img><br>
+	    	<p  class="error_message"> {{winning_summary_err}} </p>
+	    </ion-col>
+	</ion-row>
+	</ion-grid>
+
+
+	<div  *ngIf="winning_view">
+
+
+		<ion-list class="walt_trans"  text-wrap lines="none" no-padding > 
+
+          <ion-item   lines="none" *ngFor="let winning of winning_summary" class="transhis">
+            <ion-thumbnail slot="start">
+              <img [src]="winning.transaction_type == 'withdraw' ? 'assets/imgs/withdraw.svg':'assets/imgs/winning_amount.svg' ">
+            </ion-thumbnail>
+            <ion-label>
+              <h4><b>{{'CONTEST' | translate }}: {{winning.contest_name}}</b></h4>
+              <p>{{winning.match}}</p>
+              <p>{{'TEAM' | translate }}: {{winning.team_name}}</p>
+            </ion-label>
+            <div slot="end" class="font_14 right_txt">
+              
+              <h5 class="success_txt">
+               <span >+{{winning.amount | currency:'INR'}}</span></h5>
+               <small>{{'RANK' | translate }}: #{{winning.rank}}</small><br>
+              <small>{{winning.date | date:'MMM d, y'}}</small>
+            </div>
+          </ion-item>
+        </ion-list>
+
+	
+
+		<ion-infinite-scroll threshold="100px" (ionInfinite)="lazySummary($event)">
+    	<ion-infinite-scroll-content loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      	</ion-infinite-scroll-content>
+       	</ion-infinite-scroll>
+	</div>
+
+	<ion-grid *ngIf="winning_history_err!=''">
+    <ion-row>
+	    <ion-col class="center_txt">
+	    	<ion-img src="assets/img/rewards_offers.svg" class="share_icn"></ion-img><br>
+	    	<p  class="error_message"> {{winning_history_err}} </p>
+	    </ion-col>
+	</ion-row>
+	</ion-grid>
+
+	<div  *ngIf="!winning_view">
+
+		<ion-list class="walt_trans"  text-wrap lines="none" no-padding > 
+
+          <ion-item   lines="none" *ngFor="let winning of winning_history;" class="transhis">
+            <ion-thumbnail slot="start">
+              <img [src]="winning.transaction_type == 'withdraw' ? 'assets/imgs/withdraw.svg':'assets/imgs/winning_amount.svg' ">
+            </ion-thumbnail>
+            <ion-label>
+              <h4><b>{{winning.transaction_type | titlecase}}</b></h4>
+              <p>#{{winning.reference_id}}</p>
+            </ion-label>
+            <div slot="end" class="font_14 right_txt">
+              
+              <h5 [className]="winning.action == 'credit' ? 'success_txt' : 'red'">
+		    	<span *ngIf="winning.action == 'credit'">+</span>
+		    	<span *ngIf="winning.action != 'credit'">-</span>
+		    	{{winning.amount | currency:'INR'}}</h5>
+              <small>{{winning.date | date:'MMM d, y'}}</small>
+            </div>
+          </ion-item>
+        </ion-list>
+
+
+		<ion-infinite-scroll threshold="100px" (ionInfinite)="lazyHistory($event)">
+    	<ion-infinite-scroll-content loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      	</ion-infinite-scroll-content>
+       	</ion-infinite-scroll>
+	</div>
+
+</ion-content>

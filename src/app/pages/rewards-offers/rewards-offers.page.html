@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar color="primary">
+         <ion-buttons slot="start">
+             <ion-back-button text="" defaultHref="/home"></ion-back-button>
+         </ion-buttons>
+         <ion-title >{{ 'REWARDS_OFFERS' | translate }}</ion-title>
+         <ion-list class="user_with_bal" slot="end">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+
+         <ion-list slot="end" class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <div [className]="user.notification_count > 0 ?'blink':''">
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
+     	</ion-list >
+         <!-- <ion-title>{{ 'REWARDS_OFFERS' | translate }}</ion-title>
+         <ion-icon slot="end"  name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
+         <!-- <ion-icon name="help-circle" slot="end" class="help" (click)="help()"></ion-icon> -->
+ </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding class="friend_card" color="background3">
+
+  <ion-segment class="sig_tab"  (ionChange)="segmentChanged($event)" value="my">
+		  <ion-segment-button value="my" checked data-step="1" id="step77">
+		    <ion-label>{{ 'MY_COUPONS' | translate }}</ion-label>
+		  </ion-segment-button>
+		  <ion-segment-button value="get" data-step="2" id="step78">
+		    <ion-label>{{ 'GET_COUPONS' | translate }}</ion-label>
+		  </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="type=='my' && no_coupons" class="warning_div">
+
+  	{{ 'NO_COUPON_YET' | translate }}<br>
+		<img src="assets/img/rewards_offers.svg" class="share_icn"><br>
+		<!-- {{ 'OPPORTUNITY' | translate }}<br>
+		<ion-button  (click)="coupon()" style="margin: 0px auto;margin-top: 20px" fill="outline" color="success">{{ 'GET_COUPONS' | translate }}</ion-button>
+ -->
+  </div>
+
+  <div *ngIf="type=='my' && active_coupons.length > 0" class="warning_div">
+  	<div *ngFor="let active_coupon of active_coupons">
+  	<ion-card color="ioncard" no-padding class="cupon_cla">
+		<ion-card-content no-padding>
+			<ion-grid no-padding>
+				<ion-row>
+					<!-- <ion-col size="4">
+						image
+					</ion-col> -->
+					<ion-col>
+						<ion-grid>
+							<!-- <ion-row>
+								<ion-label><b>{{active_coupon.amount | currency:'INR'}}</b></ion-label>
+							</ion-row> -->
+							<ion-row *ngIf="active_coupon.competition != null">
+								<ion-col><ion-label><b>{{ active_coupon.competition }}</b></ion-label></ion-col>
+							</ion-row>
+
+							<ion-row *ngIf="active_coupon.competition != null && active_coupon.coupon_type == 'percentage' ">
+								<ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}}</b> {{'TO_GET_UPTO' | translate }} <b>{{active_coupon.percentage}}%</b> {{'DISCOUNT_UPTO' | translate }} <b>{{active_coupon.amount | currency:'INR'}}</b> ({{'ONLY_FOR'| translate }} {{active_coupon.competition}}).</ion-col>
+							</ion-row>
+							<ion-row *ngIf="active_coupon.competition != null && active_coupon.coupon_type == 'amount' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{active_coupon.amount}} </b>{{'DISCOUNT' | translate }}  ({{'ONLY_FOR'| translate }} {{active_coupon.competition}}).</ion-col>
+							</ion-row>
+							<ion-row *ngIf="active_coupon.competition != null && active_coupon.coupon_type == 'free_contest' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}} </b>{{'FREE_CONTEST'| translate }} ({{'ONLY_FOR'| translate }} <b>{{active_coupon.competition}})</b> {{'FOR_FREE'| translate }}</ion-col>
+							</ion-row>
+							<ion-row *ngIf="active_coupon.competition == null && active_coupon.coupon_type == 'percentage' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{active_coupon.percentage}}%</b> {{'DISCOUNT_UPTO' | translate }}  <b>{{active_coupon.amount| currency:'INR'}}</b></ion-col>
+							</ion-row>
+							<ion-row *ngIf="active_coupon.competition == null && active_coupon.coupon_type == 'amount' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{active_coupon.amount| currency:'INR'}}</b> {{'DISCOUNT' | translate }}</ion-col>
+							</ion-row>
+							<ion-row *ngIf="active_coupon.competition == null && active_coupon.coupon_type == 'free_contest' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{active_coupon.coupon_code}}   </b>{{'FREE_CONTEST1' | translate }}</ion-col>
+							</ion-row>
+							<ion-row><ion-col>
+								<small>*{{ 'ONE_TIME_USE' | translate }}</small></ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col class="offer" size="4" routerLink="/offer-details/{{active_coupon.id}}">
+						<ion-label ><b>{{ 'OFFER_DETAILS' | translate }}</b></ion-label>
+					</ion-col>
+					<ion-col class="expire">
+						<ion-icon style="position: relative; bottom: -2px;" name="alert" color="danger"></ion-icon>
+						<ion-label > {{'EXPIRES_ON' | translate }}  {{active_coupon.expiry_date | date:'MMM d, y'}}</ion-label>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+	</ion-card>
+</div>
+</div>
+<div *ngIf="type=='my' && inactive_coupons.length > 0">
+  	<ion-card color="ioncard" no-padding class="disabled cupon_cla" *ngFor="let inactive_coupon of inactive_coupons">
+		<ion-card-content no-padding class="no-padding">
+			<ion-grid no-padding class="text_center">
+				<ion-row>
+					<!-- <ion-col size="4">
+						image
+					</ion-col> -->
+					<ion-col size="12">
+						<ion-grid>
+							<!-- <ion-row>
+								<ion-label><b>{{inactive_coupon.amount | currency:'INR'}}</b></ion-label>
+							</ion-row> -->
+							<ion-row *ngIf="inactive_coupon.competition != null">
+								<ion-col><ion-label><b>{{ inactive_coupon.competition }}</b></ion-label></ion-col>
+							</ion-row>
+
+							<ion-row *ngIf="inactive_coupon.competition != null && inactive_coupon.coupon_type == 'percentage' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}}</b> {{'TO_GET_UPTO' | translate }}  <b>{{inactive_coupon.percentage}}%</b> {{'DISCOUNT_UPTO' | translate }}   <b>{{inactive_coupon.amount | currency:'INR'}} </b>({{'ONLY_FOR'| translate }} {{inactive_coupon.competition}}).</ion-col>
+							</ion-row>
+							<ion-row *ngIf="inactive_coupon.competition != null && inactive_coupon.coupon_type == 'amount' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{inactive_coupon.amount| currency:'INR'}}</b> {{'DISCOUNT' | translate }}  ({{'ONLY_FOR'| translate }} {{inactive_coupon.competition}}).</ion-col>
+							</ion-row>
+							<ion-row *ngIf="inactive_coupon.competition != null && inactive_coupon.coupon_type == 'free_contest' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}} </b>{{'FREE_CONTEST'| translate }} ({{'ONLY_FOR'| translate }}{{inactive_coupon.competition}}) {{'FOR_FREE'| translate }}</ion-col>
+							</ion-row>
+							<ion-row *ngIf="inactive_coupon.competition == null && inactive_coupon.coupon_type == 'percentage' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{inactive_coupon.percentage}}%</b> {{'DISCOUNT_UPTO' | translate }} <b>{{inactive_coupon.amount| currency:'INR'}}</b></ion-col>
+							</ion-row>
+							<ion-row *ngIf="inactive_coupon.competition == null && inactive_coupon.coupon_type == 'amount' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}} </b>{{'TO_GET_UPTO' | translate }} <b>{{inactive_coupon.amount | currency:'INR'}}</b> {{'DISCOUNT' | translate }}</ion-col>
+							</ion-row>
+							<ion-row *ngIf="inactive_coupon.competition == null && inactive_coupon.coupon_type == 'free_contest' "><ion-col>
+								{{'USE_COUPON' | translate }} <b>{{inactive_coupon.coupon_code}}</b>  {{'FREE_CONTEST1' | translate}}</ion-col>
+							</ion-row>
+							<ion-row><ion-col>
+								<small>*{{ 'ONE_TIME_USE' | translate }}</small></ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col class="offer" size="4" routerLink="/offer-details/{{inactive_coupon.id}}">
+						<ion-label ><b>{{ 'OFFER_DETAILS' | translate }}</b></ion-label>
+					</ion-col>
+					<ion-col class="expire">
+						<ion-icon style="position: relative; bottom: -2px;" name="alert" color="danger"></ion-icon>
+						<ion-label > Expired on {{inactive_coupon.expiry_date}}</ion-label>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+	</ion-card>
+</div>
+
+  <div *ngIf="type=='get'">
+
+  	<ion-card no-padding color="ioncard3">
+  	<!-- <div class="nav" (click)="coupon()">
+  		<ion-label>{{ 'HAVE_COUPON' | translate }}</ion-label>
+  		<ion-icon style="position: relative; bottom: -3px;" name="arrow-dropright" slot="end"></ion-icon>
+  	</div> -->
+  	<p class="reward">{{ 'REWARD_MSG' | translate }}</p>
+  </ion-card>
+  </div>
+  
+  </ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+             <ion-back-button text="" defaultHref="/home"></ion-back-button>
+     </ion-buttons>
+    <!-- <ion-title>{{'OFFER_DETAILS' | translate }}</ion-title> -->
+    <ion-title class="top_margin fL">
+          {{ 'OFFER_DETAILS' | translate }}
+         
+        </ion-title>
+         <ion-list class="user_with_bal fR">
+          {{user.username}}<br>
+          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
+         </ion-list>
+    <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
+        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
+        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge>
+     </ion-list >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="summary != '' ">
+    <ion-label><b>{{'SUMMARY' | translate }}:</b></ion-label>
+    <p>{{summary.point1}}</p>
+    <p>{{summary.point2}}</p>
+  </div>
+  <div>
+    <p [innerHTML]="data"></p>
+  </div>
+</ion-content>

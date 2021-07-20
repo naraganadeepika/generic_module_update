@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+  	<ion-buttons slot="start">
+      <ion-back-button  text="" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title><span>{{ 'SIGNUP_TITLE' | translate }}</span></ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <img src="assets/imgs/Addcard.svg" alt="">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="background2">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="11" class="center_div">
+				<form [formGroup]="signup_Form" no-padding (ngSubmit)="signupSubmit(signup_Form.value)">
+					<ion-list no-padding>
+			            <ion-item no-padding color="blackioninput">
+			                <ion-label position="floating">{{ 'FIRST_NAME' | translate }}</ion-label>
+                			<ion-input type="text" formControlName="fname" name="name" required></ion-input>
+			            </ion-item>
+			            <span class="err_msg">{{valid_fun('fname')}}</span>
+		              <ion-item no-padding color="blackioninput">
+		                <ion-label position="floating">{{ 'LAST_NAME' | translate }}</ion-label>
+		                <ion-input type="text" formControlName="lname" name="lname" required></ion-input>
+		              </ion-item>
+		              <span class="err_msg">{{valid_fun('lname')}}</span>
+		              <ion-item no-padding color="blackioninput">
+		                <ion-label position="floating">{{ 'EMAIL' | translate }}</ion-label>
+		                <ion-input type="email" formControlName="email" name="email" required autocomplete="off" [(ngModel)]="email"></ion-input>
+		              </ion-item>
+		              <span class="err_msg">{{valid_fun('email')}}</span>
+		              <ion-item no-padding color="blackioninput">
+		                <ion-label position="floating">{{ 'PHONE' | translate }}</ion-label>
+		                <ion-input type="number" formControlName="phn_num" name="phn_num" minlength="10" required autocomplete="off"></ion-input>
+		              </ion-item>
+		              <span class="err_msg">{{valid_fun('phn_num')}}</span>
+		              <ion-item no-padding color="blackioninput">
+		                <ion-label position="floating">{{ 'PASSWORD' | translate }}</ion-label>
+		                <ion-input [type]="passwordType" clearOnEdit="false" formControlName="pwd" name="pwd" required></ion-input>
+		                <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+		                <ion-icon name="information-circle" class="info_icon" (click)="info_fun(msg_div)" *ngIf="info_icon" ></ion-icon>
+		              </ion-item>
+		              <span class="err_msg">{{valid_fun('pwd')}}</span>
+		              <ion-item *ngIf="msg_div" lines="none" no-padding>
+		                <p>{{ 'PASSWORD_ERROR' | translate }} <br>{{ 'PASSWORD_EXAMPLE' | translate }}</p>
+		              </ion-item>
+		              <ion-item no-padding color="blackioninput">
+		                <ion-label position="floating">{{ 'CONFIRM_PASSWORD' | translate }}</ion-label>
+		                <ion-input  [type]="passwordType"  formControlName="c_pwd" name="c_pwd" required ></ion-input>
+		              </ion-item>
+		              <span class="err_msg">{{valid_fun('c_pwd')}}</span>
+			            <ion-item no-padding color="blackioninput">
+			                <ion-label position="floating">
+			                  <small>{{ 'GET_SIGNUP_BONUS_MESSAGE' | translate }}</small>
+			                </ion-label>
+			                <ion-input type="text" formControlName="referral_code" name="referral_code"></ion-input>
+			            </ion-item>
+			              <span class="err_msg">{{valid_fun('referral_code')}}</span>
+			        </ion-list>
+			        <ion-button expand="block" color="mainbutton" type="submit">{{ 'SIGNUP_BUTTON' | translate }}</ion-button>			        
+			        <button  type="submit" class="hidden"></button> 
+				</form>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col class="doc_top">
+				<p>  {{ 'SIGN_UP_ACC_MSG' | translate }}  <span (click)="privacy()"> {{ 'SIGN_UP_ACC_MSG1' | translate }}  </span>  {{ 'SIGN_UP_ACC_MSG2' | translate }}  <span (click)="terms()">  {{ 'SIGN_UP_ACC_MSG3' | translate }}  </span></p>
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

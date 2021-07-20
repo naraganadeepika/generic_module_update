@@ -1,0 +1,54 @@
+<ion-content>
+  <ion-grid style="height: 100%">
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%">
+      <div class="the-holder ion-padding" >
+        <ion-row class="title-row">
+          <ion-col size="8" class="ion-text-left">
+            <h4>Add Transaction</h4>
+          </ion-col>
+          <ion-col size="4" class="ion-text-right" (click)="dismiss()">
+            <p>Cancel</p>
+          </ion-col>
+        </ion-row>
+        <div class="the-grid">
+          <ion-row class="cat-row ion-text-center">
+            <ion-col size="6" class="cat-col">
+              <ion-button  fill="none" expand="block" (click)="goreqMoney()">
+                <ion-label>
+                    <img src="assets/imgs/category-icons/request.svg" alt="">
+                  <p>Request</p>
+                </ion-label>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6" class="cat-col">
+              <ion-button t fill="none" (click)="goSendMoney()">
+                <ion-label>
+                    <img src="assets/imgs/category-icons/send.svg" alt="">
+                  <p>Send</p>
+                </ion-label>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row class="cat-row ion-text-center">
+              <ion-col size="6" class="cat-col">
+                <ion-button  fill="none" expand="block" (click)="goAddtransaction()">
+                  <ion-label>
+                      <img src="assets/imgs/category-icons/addincome.svg" alt="">
+                    <p>Add Income</p>
+                  </ion-label>
+                </ion-button>
+              </ion-col>
+              <ion-col size="6" class="cat-col">
+                <ion-button  fill="none">
+                  <ion-label>
+                      <img src="assets/imgs/category-icons/addexpense.svg" alt="">
+                    <p>Add Expense</p>
+                  </ion-label>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

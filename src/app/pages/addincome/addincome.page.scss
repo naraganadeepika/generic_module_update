@@ -1,0 +1,63 @@
+.money-holder
+{
+    ion-item{
+            margin: 0 auto;
+            width: 250px;
+        .start-slot
+        {
+            display: flex;
+            align-items: center;
+            h1
+            {
+                margin: 0 !important;
+            }
+        }
+        
+
+        ion-input{
+            font-size: 2.5rem !important;
+        }
+    }
+}
+
+.unit-holder
+{
+    ion-item{
+
+       
+        ion-select{
+            margin-left: 30% !important;
+        }
+    }
+}
+
+
+.the-form
+{
+    .detail-item
+    {
+        margin: 15px 0 !important;
+        ion-label
+        {
+         font-size: .9rem !important;
+         color: #77869E !important;
+     }
+
+     ion-textarea
+     {
+         --background:#dfe7f5;
+     }
+     
+
+    
+       
+    }
+}
+
+ion-footer
+{
+    ion-button
+    {
+        height: 50px !important;
+    }
+}
