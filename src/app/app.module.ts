@@ -35,7 +35,7 @@ import { Contacts } from '@ionic-native/contacts/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { PaymentModalPage } from './pages/payment-modal/payment-modal.page';
+// import { PaymentModalPage } from './pages/payment-modal/payment-modal.page';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { Market } from '@ionic-native/market/ngx';
 import { AuthGuardService} from './providers/auth-guard/auth-guard.service';
@@ -61,8 +61,8 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  declarations: [AppComponent,PaymentModalPage],
-  entryComponents: [PaymentModalPage],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [
   BrowserModule, 
   IonicModule.forRoot(),
