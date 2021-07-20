@@ -63,13 +63,13 @@ export class AppComponent {
   }
   darktheme()
   {
-    localStorage.setItem('dark-theme',JSON.stringify(false));
+    localStorage.setItem('dark-theme',JSON.stringify(true));
            var value =JSON.parse(localStorage.getItem('dark-theme'));
   
-      if (value == true) {
-        console.log(value);
-        this.themeService.themeMode();
-      }
+      // if (value == true) {
+      //   console.log(value);
+      //   this.themeService.themeMode();
+      // }
   }
 
     initializeApp() {

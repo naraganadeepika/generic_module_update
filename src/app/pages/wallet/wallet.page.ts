@@ -102,11 +102,11 @@ export class WalletPage implements OnInit {
   touched_amountForm:boolean=false;
   touched_bankForm:boolean=false;
   touched_withdrawalForm:boolean=false;
-  private amountForm : FormGroup;
-  private bankForm: FormGroup;
-  private withdrawalForm:FormGroup;
-  private transactionfilter:FormGroup;
-  private withdrawfilter:FormGroup;
+  public amountForm : FormGroup;
+  public bankForm: FormGroup;
+  public withdrawalForm:FormGroup;
+  public transactionfilter:FormGroup;
+  public withdrawfilter:FormGroup;
   constructor(
     public alertController: AlertController,
     private iab: InAppBrowser,

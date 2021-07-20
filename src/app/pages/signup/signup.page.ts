@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
+  email:any;
   account:any = { fname: '', lname: '', phn: '', eid: '', pwd: '' };
   alert_Data = {header:'',img:'',message:''};
 	public signup_Form: FormGroup;

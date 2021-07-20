@@ -34,7 +34,7 @@ export class UploadDocsPage  {
   datemaxlimit = new Date().getFullYear()+50;
   dateminlimit = new Date().getFullYear()+'-'+this.get_Month();
 
-  private bankForm: FormGroup;
+  public bankForm: FormGroup;
   submitted:boolean =false;
   touched_bankForm:boolean=false;
   bank_passbook_err_msg:any = '';

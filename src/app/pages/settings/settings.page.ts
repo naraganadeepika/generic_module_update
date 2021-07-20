@@ -11,7 +11,6 @@ import { isCordovaAvailable } from '../../providers/is-cordova-available'
 import { environment } from '../../../environments/environment';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Market } from '@ionic-native/market/ngx';
-import { ThemeService } from './../../providers/theme/theme.service';
 
 
 @Component({
@@ -52,7 +51,6 @@ export class SettingsPage implements OnInit {
     public market:Market,
     private iab: InAppBrowser,
     public errorService:ErrorService,
-        private themeService: ThemeService
 
     ) { 
       this.user.get_settings_data().subscribe((resp:any)=>{
@@ -62,7 +60,6 @@ export class SettingsPage implements OnInit {
         // this.errorService.errorsMethod(err);
       })
 
-            this.darkMode = this.themeService.darkMode;
 
     }
 

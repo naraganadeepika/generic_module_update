@@ -42,12 +42,8 @@
 		                <ion-label position="floating">{{ 'PASSWORD' | translate }}</ion-label>
 		                <ion-input [type]="passwordType" clearOnEdit="false" formControlName="pwd" name="pwd" required></ion-input>
 		                <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-		                <ion-icon name="information-circle" class="info_icon" (click)="info_fun(msg_div)" *ngIf="info_icon" ></ion-icon>
 		              </ion-item>
 		              <span class="err_msg">{{valid_fun('pwd')}}</span>
-		              <ion-item *ngIf="msg_div" lines="none" no-padding>
-		                <p>{{ 'PASSWORD_ERROR' | translate }} <br>{{ 'PASSWORD_EXAMPLE' | translate }}</p>
-		              </ion-item>
 		              <ion-item no-padding color="blackioninput">
 		                <ion-label position="floating">{{ 'CONFIRM_PASSWORD' | translate }}</ion-label>
 		                <ion-input  [type]="passwordType"  formControlName="c_pwd" name="c_pwd" required ></ion-input>

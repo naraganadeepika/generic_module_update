@@ -59,11 +59,7 @@ const routes: Routes = [
         loadChildren: () => import('../pages/wallet/wallet.module').then( m => m.WalletPageModule),
         canActivate: [AuthGuardService]
       },
-      {
-        path: 'faqs',
-        loadChildren: () => import('../pages/faqs/faqs.module').then( m => m.FaqsPageModule),
-        canActivate: [AuthGuardService]
-      },
+      
       {
         path: 'questions',
         loadChildren: () => import('../pages/questions/questions.module').then( m => m.QuestionsPageModule),
