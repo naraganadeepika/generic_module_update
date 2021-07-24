@@ -1,31 +1,4 @@
-<ion-header>
-    <ion-toolbar color="primary">
-    <!-- <ion-buttons slot="start" style="color: #fff">
-      <ion-back-button text="" defaultHref="/tabs/settings"></ion-back-button>
-    </ion-buttons> -->
-    <ion-buttons slot="start">
-             <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-          {{ 'INVITE_FRIENDS' | translate }}
-         </ion-title>
-         <ion-list class="user_with_bal" slot="end">
-          {{user.username}}<br>
-          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
-         </ion-list>
-    <!-- <ion-title>{{ 'INVITE_FRIENDS' | translate }}</ion-title> -->
-    <!-- <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
-    <!-- <ion-list class="not_fic_icon">
-      <ion-icon  ios="ios-wallet" md="md-wallet"></ion-icon><br>
-      {{ 100 |currency:'INR'}}
-    </ion-list> -->
-    <ion-list class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
-      <div [className]="user.notification_count > 0 ?'blink':''">
-        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
-        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
-     </ion-list >
-  </ion-toolbar>
-</ion-header>
+<app-headertwo [title]="'INVITE_FRIENDS' | translate" [backpath]="'/home'" [isparent]="'true'" [display]="'bell'"></app-headertwo>
 
 <ion-content no-padding  color="background">
   <ion-card class="top_invite"  color="primary" >
@@ -123,7 +96,7 @@
         <ion-item color="ionitem" lines="none" style="font-size: 14px;text-align: center;" *ngIf="no_friends_enable">
                 <p>   {{no_friends}}</p>
         </ion-item>
-        <ion-item color="ionitem" routerLink="/friends-list" lines="none" style="font-size: 14px;" *ngIf="!no_friends_enable">
+        <ion-item color="ionitem" lines="none" style="font-size: 14px;" *ngIf="!no_friends_enable">
             <ion-icon name="person-add" style="margin-right: 10px;"></ion-icon>
                   {{'TOTAL_FRIENDS_JOINED' | translate}}  
             <span class="count" slot="end">{{total}}</span>

@@ -49,7 +49,7 @@ export class TranslationService implements TranslateLoader {
     
     getTranslation(): Observable<any> {
 
-    return this.http.get(environment.path+'/get_language_files?lang='+localStorage.getItem('LANG'))
+    return this.http.get(environment.path+'/get_language_files?language='+localStorage.getItem('LANG'))
     .pipe(map((response: JSON) => {
     return response;
     }));

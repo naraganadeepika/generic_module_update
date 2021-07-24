@@ -8,6 +8,8 @@ import { SocialSharingPageRoutingModule } from './social-sharing-routing.module'
 
 import { SocialSharingPage } from './social-sharing.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { HeadersharedModule } from '../../components/headershared.module';
+
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     TranslateModule,
     ReactiveFormsModule,
-    SocialSharingPageRoutingModule
+    SocialSharingPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [SocialSharingPage]
 })

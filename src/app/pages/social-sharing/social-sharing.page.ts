@@ -49,7 +49,11 @@ export class SocialSharingPage implements OnInit {
     this.invite_Form_email = this.formBuilder.group({
         email: new FormControl('', Validators.compose([Validators.required])),
       });
-    this.getData();
+    
+  }
+
+  ionViewWillEnter(){
+   this.getData();
   }
 
   //get count of friends joined
@@ -74,7 +78,7 @@ export class SocialSharingPage implements OnInit {
         {
           this.user.referral_code=resp.invitation_token;
           this.no_friends_enable=false;
-          this.total=resp.total;
+          this.total=resp.invited_users_count;
           loading.dismiss();
         }
 

@@ -86,7 +86,7 @@ export class EditProfilePage implements OnInit {
  }
 
 
- ngAfterViewInit(){  //get user details
+ ionViewWillEnter(){  //get user details
 
  this.user.profileData().subscribe((resp:any)=>{
  this.userData=resp;
@@ -97,7 +97,7 @@ export class EditProfilePage implements OnInit {
  this.states=this.allstates_cities.states;
  this.cityId = this.userData.selected_city;
  var  year: number = new Date().getFullYear();
- this.agelimit=year-this.userData.age_limit ;
+ // this.agelimit=year-this.userData.age_limit ;
   // if(this.userData.profile_pic!=null){
   //         this.imgPreview =this.userData.profile_pic;
   //       }
@@ -132,7 +132,7 @@ export class EditProfilePage implements OnInit {
         fname: new FormControl(this.userData.firstName, Validators.compose([Validators.minLength(3),Validators.pattern('^[A-Za-z0-9- _.@$&*]+$')])),
         lname: new FormControl(this.userData.lastName, Validators.compose([Validators.minLength(3),Validators.pattern('^[A-Za-z0-9- _.-@$&*]+$')])),
         email: new FormControl(this.userData.email, Validators.compose([Validators.minLength(0),Validators.pattern("[a-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})")])),
-        phn_num: new FormControl(this.userData.phone, Validators.compose([Validators.minLength(10),Validators.maxLength(10),Validators.pattern('^([6|7|8|9])[0-9]+$')])),
+        phn_num: new FormControl(this.userData.phone, Validators.compose([Validators.minLength(10),Validators.maxLength(10)])),
         state: new FormControl('',Validators.compose([Validators.required])),
         city: new FormControl('',Validators.compose([Validators.required])),
         address:new FormControl('',this.userData.address),
@@ -210,17 +210,17 @@ if(this.click) {
             this.account ={firstName:values.fname, lastName: values.lname,email:values.email,phone: values.phn_num,address:values.address,city:this.cityId,state:this.stateId,currentpwd:values.currentpwd,gender:values.gender,allow_sms:values.allow_sms,share_activities_to_followers:values.allow_activity,pin:values.pin,dob:birthdate[0]};
           this.user.proUpdate(this.account).subscribe((resp:any)=>{
         loading.dismiss();
-        if(typeof(resp)=='string'){
+        // if(typeof(resp)=='string'){
 
-            this.update_Form.reset();
-            this.update_Form_touched = false;
-            this.user.presentsuccessAlert(this.translate.instant('PROFILE_UPDATED'));
-            this.disable=false;
-            this.user.selected_state=this.account.state;
+        //     this.update_Form.reset();
+        //     this.update_Form_touched = false;
+        //     this.user.presentsuccessAlert(this.translate.instant('PROFILE_UPDATED'));
+        //     this.disable=false;
+        //     this.user.selected_state=this.account.state;
             
-            this.ngAfterViewInit();
-            return;
-        }
+        //     this.ionViewWillEnter();
+        //     return;
+        // }
         
           if(resp.code == 12){
             if(resp.excluded_states != "" && resp.excluded_states != null){
@@ -238,13 +238,13 @@ if(this.click) {
             this.user.presentfailAlert(this.translate.instant(resp.message),'<ion-img src="assets/imgs/warning.png">');
             return;
           }
-          if(resp.code == 0){
+          if(typeof(resp)=='string'){
             this.update_Form.reset();
             this.disable=false;
             this.user.selected_state=this.account.state;
             this.update_Form_touched = false;
-            this.ngAfterViewInit();
-            this.user.presentsuccessAlert(this.translate.instant(resp.message));
+            this.ionViewWillEnter();
+            this.user.presentsuccessAlert(this.translate.instant(resp));
           }
         },(err)=>{
         loading.dismiss();
@@ -289,14 +289,14 @@ if(this.click) {
             this.pwd_div=false;
             this.user.presentsuccessAlert(this.translate.instant('PASSWORD_UPDATED'));
             this.pwdupdate_Form.reset();
-            this.ngAfterViewInit();
+            this.ionViewWillEnter();
             return;
           }
           if(resp.code == 0){
             this.pwdupdate_Form.reset();
             this.pwd_div=false;
             this.user.presentsuccessAlert(this.translate.instant(resp.message));
-            // this.ngAfterViewInit();
+            // this.ionViewWillEnter();
           }
           },(err)=>{
             loading.dismiss();
@@ -439,7 +439,7 @@ async up_load_pic(imageData){
                         this.user.upload_pic(this.regData0).subscribe((resp:any) => { 
                         loading.dismiss();         
                         this.user.presentsuccessAlert(this.translate.instant('IMAGE_UPDATED'));
-                        this.ngAfterViewInit();
+                        this.ionViewWillEnter();
                       }, (err) => {
                          loading.dismiss(); 
                          this.errorService.errorsMethod(err)

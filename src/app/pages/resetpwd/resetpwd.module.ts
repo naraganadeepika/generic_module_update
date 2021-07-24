@@ -10,6 +10,8 @@ import { ResetpwdPageRoutingModule } from './resetpwd-routing.module';
 
 import { ResetpwdPage } from './resetpwd.page';
 
+import { HeadersharedModule } from '../../components/headershared.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { ResetpwdPage } from './resetpwd.page';
     ReactiveFormsModule,
     TranslateModule,
     IonicModule,
-    ResetpwdPageRoutingModule
+    ResetpwdPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [ResetpwdPage]
 })

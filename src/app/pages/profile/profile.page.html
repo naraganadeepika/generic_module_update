@@ -1,16 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-             <ion-menu-button></ion-menu-button>
-         </ion-buttons>
-    <ion-title>Profile</ion-title>
-    <ion-buttons slot="end" routerLink="/edit-profile">
-      <ion-button>
-        <ion-icon style="color: #ffffff;" name="create"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-headertwo [title]="'PROFILE' | translate" [backpath]="'/profile'" [isparent]="'true'" [display]="'editprofile'"></app-headertwo>
 
 <ion-content>
   <div class="background-holder"></div>

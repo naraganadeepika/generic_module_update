@@ -1,16 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-  	<ion-buttons slot="start">
-      <ion-back-button  text="" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title><span>{{ 'SIGNUP_TITLE' | translate }}</span></ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <img src="assets/imgs/Addcard.svg" alt="">
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-headerone [title]="'SIGNUP' | translate" [backpath]="'/login'"></app-headerone>
 
 <ion-content color="background2">
 	<ion-grid>

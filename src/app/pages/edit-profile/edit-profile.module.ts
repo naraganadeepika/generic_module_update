@@ -8,6 +8,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EditProfilePageRoutingModule } from './edit-profile-routing.module';
 
 import { EditProfilePage } from './edit-profile.page';
+import { HeadersharedModule } from '../../components/headershared.module';
+
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { EditProfilePage } from './edit-profile.page';
     IonicModule,
     TranslateModule,
     ReactiveFormsModule,
-    EditProfilePageRoutingModule
+    EditProfilePageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [EditProfilePage]
 })

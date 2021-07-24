@@ -31,44 +31,14 @@
           </ion-grid>
         </ion-item>
 
-          <ion-menu-toggle auto-hide="false">
+      <ion-menu-toggle auto-hide="false">
 
-            <ion-item-group>
-              <ion-item-divider>
-                <ion-label>My Accounts</ion-label>
-              </ion-item-divider>
-
-               <ion-item no-padding *ngIf="!user.user_suspend && kyc_status" routerLink="/profile" [routerDirection]="'forward'" lines="none">
-              <ion-icon   style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="person"> </ion-icon>
-              <ion-label style="font-size: 14px;" class="clr_w" >{{'MY_INFO' | translate }}</ion-label>
-              <small class="textcolor1" *ngIf="kyc_status == 'VERIFIED'" slot="end"><ion-icon name="checkmark-circle" ></ion-icon>{{'VERIFIED' | translate }}</small>
-                <small class="textcolor3" *ngIf="kyc_status == 'UPLOAD_KYC'" slot="end">
-                <ion-icon name="add-circle"></ion-icon>{{'UPLOAD_KYC' | translate }}</small>
-                 <small class="textcolor2" *ngIf="kyc_status == 'UNDER_REVIEW'" slot="end">
-                 <ion-icon name="clock"></ion-icon>{{'UNDER_REVIEW' | translate }}</small>
-                <small class="textcolor3" *ngIf="kyc_status == 'REJECTED'" slot="end">
-                <ion-icon name="close-circle"></ion-icon>{{'REJECTED' | translate }}</small>
-            </ion-item>
-
-             <ion-item  no-padding *ngIf="user.user_suspend" routerLink="/suspend-account" [routerDirection]="'forward'" lines="none">
-              <ion-icon   style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="person"> </ion-icon>
-              <ion-label style="font-size: 14px;" class="clr_w" >{{'MY_INFO' | translate }}</ion-label>
-            </ion-item>
-
-              <ion-item  no-padding routerLink="/wallet" [routerDirection]="'forward'"   lines="none">
-              <ion-icon  style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="wallet"> </ion-icon>
-              <ion-label style="font-size: 14px;" class="clr_w">{{'MY_BALANCE' | translate }}</ion-label>
-              <small slot="end" class="wallet_balance">{{ user.wallet_balance | currency:'INR'}}</small>
-              
-            </ion-item>
-            </ion-item-group>
-
-               <ion-item-group>
-              <ion-item-divider>
+        <ion-item-group>
+            <ion-item-divider>
                 <ion-label>Offers</ion-label>
-              </ion-item-divider>
+             </ion-item-divider>
 
-                <ion-item  no-padding routerLink="/rewards-offers" [routerDirection]="'forward'" lines="none">
+            <ion-item  no-padding routerLink="/rewards-offers" [routerDirection]="'forward'" lines="none">
               <ion-icon  style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="gift"> </ion-icon>
               <ion-label style="font-size: 14px;" class="clr_w">{{'MY_REWARDS_OFFERS' | translate }}</ion-label>
             </ion-item>
@@ -78,24 +48,23 @@
               <ion-label style="font-size: 14px;" class="clr_w" >{{ 'REFER' | translate }}</ion-label>
             </ion-item>
 
-
             <ion-item no-padding routerLink="/friends-list" [routerDirection]="'forward'" lines="none">
               <ion-icon   style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="person-add"> </ion-icon>
               <ion-label style="font-size: 14px;" class="clr_w" >{{'MY_REFERRALS' | translate }}</ion-label>
             </ion-item>
-            </ion-item-group>
+        </ion-item-group>
 
-            <ion-item-group>
-              <ion-item-divider>
+        <ion-item-group>
+            <ion-item-divider>
                 <ion-label>Account Settings</ion-label>
-              </ion-item-divider>
+            </ion-item-divider>
 
-                <ion-item  no-padding routerLink="/suspend-account" [routerDirection]="'forward'" lines="none">
+            <ion-item  no-padding routerLink="/suspend-account" [routerDirection]="'forward'" lines="none">
               <ion-icon  style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="power"> </ion-icon>
               <ion-label style="font-size: 14px;" class="clr_w">{{'SUSPEND_ACCOUNT' | translate }}</ion-label>
             </ion-item>
 
-           <ion-item  no-padding routerLink="/settings" [routerDirection]="'forward'" lines="none">
+            <ion-item  no-padding routerLink="/settings" [routerDirection]="'forward'" lines="none">
               <ion-icon   style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="settings-outline"> </ion-icon>
               <ion-label style="font-size: 14px;" class="clr_w" >{{ 'SETTINGS_TITLE' | translate }}</ion-label>
             </ion-item>
@@ -104,25 +73,14 @@
               <ion-icon style="font-size: 16px; color: #d3d3d3!important;"  class="clr_w" slot="start" name="log-out"> </ion-icon>
               <ion-label style="font-size: 14px;" class="clr_w" >{{ 'LOGOUT_BUTTON' | translate }}</ion-label>
             </ion-item>
-            </ion-item-group>
+         </ion-item-group>
 
+          <ion-item color="ionitem4" no-padding  lines="none" *ngIf="version" class="version_txt" lines="none">
+          <ion-label class="version_txt" >Version {{ version.__zone_symbol__value }}</ion-label>
+        </ion-item>
 
+        </ion-menu-toggle>
 
-
-          
-
-            
-           
-          
-
-            
-
-            <ion-item color="ionitem4" no-padding  lines="none" *ngIf="version" class="version_txt" lines="none">
-              <ion-label class="version_txt" >Version {{ version.__zone_symbol__value }}</ion-label>
-            </ion-item>
-
-
-          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>

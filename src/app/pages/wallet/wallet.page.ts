@@ -975,7 +975,7 @@ async proof_doc() {
         // console.log("hello")
            this.localNotifications.schedule({
             id: 1,
-           title: this.translate.instant('ANT11_NOTIFICATION'),
+           title: this.translate.instant('NOTIFICATION'),
            text: data,
            //data: { mydata: data },
            trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+       <ion-menu-button *ngIf="isparent=='true'"></ion-menu-button>
+      <ion-back-button  text="" defaultHref='{{backpath}}' *ngIf="isparent=='false'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+     <ion-buttons slot="end" *ngIf="display=='bell'">
+      <ion-button (click)="viewNotifications()" size="large">
+        <ion-icon style="color: #ffffff;" name="notifications"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" (click)="editprofile()" *ngIf="display=='editprofile'">
+      <ion-button>
+        <ion-icon style="color: #ffffff;" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <!-- <ion-buttons slot="end">
+      <ion-button>
+        <img src="assets/imgs/Addcard.svg" alt="">
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>

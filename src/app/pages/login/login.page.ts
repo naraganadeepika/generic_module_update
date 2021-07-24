@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl,Validators,FormGroup } from '@angular/forms';
-import { NavController, AlertController,MenuController } from '@ionic/angular';
+import { NavController, AlertController,MenuController,LoadingController } from '@ionic/angular';
 import { ToastersService, 
 	UserService, 
 	LoadingService,
@@ -19,11 +19,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoginPage implements OnInit {
 	public login_Form : FormGroup;
-	account: { email: string, password: string, player_id:string,source:string } = {
+	account: { email: string, password: string, player_id:string,source:string,login_type:any } = {
 	    email: '',
 	    password: '',
 	    player_id: localStorage.getItem('playerID'),
-	    source:'app'
+	    source:'Mobile App',
+	    login_type:''
 	};
 	username_err:any='';
 	pwd_err:any='';
@@ -44,7 +45,8 @@ export class LoginPage implements OnInit {
 		private toaster:ToastersService,
 		private alert_: AlertsService,
 		private navCtrl:NavController,
-		private alertCtrl:AlertController
+		private alertCtrl:AlertController,
+		public loadingCtrl: LoadingController,
 		) { }
 
   	ngOnInit(){
@@ -113,6 +115,7 @@ export class LoginPage implements OnInit {
 
 
 	async doLogin() {
+		  this.account.login_type='password';
 	    this.username_err ='';
 	    this.pwd_err = '';
 	    this.account.password = this.login_Form.get('pwd').value;
@@ -149,6 +152,7 @@ export class LoginPage implements OnInit {
 		           	    resp.message='Verify OTP';
 		              	this.toaster.warning_presentToast(this.translate.instant(resp.message));
 		              	localStorage.setItem('phn_num', resp.phone);
+		              	localStorage.setItem('need_to_update_phone',resp.need_to_update_phone);
 		              	this.navCtrl.navigateRoot('verifyotp');
 		          }
 
@@ -281,5 +285,99 @@ resend_confirmation(){
 	          this.toaster.warning_presentToast(this.translate.instant('CORDOVA_UNAVAILABLE'));
 	        } 
 	  }	
+
+	  async login_with_otp(){
+
+      this.username_err ='';
+		   const loading = await this.loadingCtrl.create({
+		       spinner: null,
+		      message: '',
+		    }); 
+
+		   var user = this.login_Form.get('username').value;
+		  
+		   var em = new RegExp(/^([a-z]{1}[a-z0-9._%+-]{1,}@[a-z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}))+$/);
+       var phn= new RegExp(/^(([6|7|8|9]{1})[0-9]{9})/);
+       if(user==''){
+         this.username_err = this.translate.instant('USERNAME_REQUIRED');
+       }
+
+       if( !em.test(user) && !phn.test(user))
+      {
+         this.login_Form.get('username').setErrors({serverValidationError: true});
+         if(!phn.test(user)){
+         
+          this.username_err = this.translate.instant('PHONE_PATTERN');
+          return false;
+        }
+          else if(!em.test(user))
+        {
+          this.username_err = this.translate.instant('EMAIL_PATTERN');
+            // this.user.presentToast(this.translate.instant('USERNAME_PATTERN'));
+            return false;
+        }
+      }
+
+          loading.present();
+        this.user.login_resend_otp(this.account.email).subscribe((resp:any) => {
+          loading.dismiss();
+
+          if(resp.code==14){
+	        		this.alert_Data.header='';
+	        		this.alert_Data.img ='server_not_found';
+	        		this.alert_Data.message=this.translate.instant(resp.message);
+	        		this.alert_.presentAlert(this.alert_Data);
+	        	}
+	        	else if(resp.code==4){
+              this.alert_Data.header='';
+	        		this.alert_Data.img ='warning';
+	        		this.alert_Data.message=this.translate.instant(resp.message);
+	        		this.alert_.presentAlert(this.alert_Data);
+             
+            }
+
+             else if(resp.code == 7)
+		           {
+		           	    
+		           	    localStorage.setItem('email', resp.email);
+		           	    resp.message='Verify OTP';
+		              	this.toaster.warning_presentToast(this.translate.instant(resp.message));
+		              	localStorage.setItem('phn_num', resp.phone);
+		              	this.navCtrl.navigateRoot('verifyotp');
+		          }
+
+		          else{
+		          	 localStorage.setItem('email', user);
+		          	 this.alert_Data.header='';
+				          this.alert_Data.img ='success';
+				          this.alert_Data.message=this.translate.instant(resp);
+				          this.alert_.presentAlert(this.alert_Data);
+		          	this.navCtrl.navigateRoot('login-otp');
+		          }
+
+
+        }, (err) => {
+         loading.dismiss();
+         if(err.error=="UNCONFIRMED_MESSAGE"){
+           this.username_err = this.translate.instant(err.error)
+           // this.user.presentToast(this.translate.instant(err.error));
+           this.presentPrompt();
+         }
+         else if(err.error=="INVALID_USER")
+         {
+           this.username_err = this.translate.instant(err.error)
+           // this.user.presentToast(this.translate.instant(err.error));
+         }
+         else
+        {
+          this.errorService.errorsMethod(err)
+        }
+        
+        
+      });
+
+
+		}
+
 
 }

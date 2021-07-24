@@ -15,10 +15,10 @@ token_stor:any;
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
    if(localStorage.getItem('token') != null) {
      if (this.isAuthenticated()) { 
-         this.user.get_wallet_balance().subscribe((resp:any) => {
-           this.user.username = localStorage.getItem('username');
-           this.user.wallet_balance = resp.balance;
-          }) 
+         // this.user.get_wallet_balance().subscribe((resp:any) => {
+         //   this.user.username = localStorage.getItem('username');
+         //   this.user.wallet_balance = resp.balance;
+         //  }) 
          return true;      
        } else {
            if(localStorage.getItem('pinstatus') == null){
@@ -32,7 +32,7 @@ token_stor:any;
     }else{
       if(localStorage.getItem('pinstatus') == null || localStorage.getItem('pinstatus') == undefined)
         {
-          this.navCtrl.navigateRoot('welcome');
+          this.navCtrl.navigateRoot('/');
         }
       else{
         // alert('els aut');

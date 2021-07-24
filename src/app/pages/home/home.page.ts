@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   constructor(private navCtrl:NavController) { }
 
   ngOnInit() {
+     localStorage.removeItem('need_to_update_phone');
   }
 
   segmentChanged(ev: any) {

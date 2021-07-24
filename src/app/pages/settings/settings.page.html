@@ -1,25 +1,4 @@
-<ion-header>
-  <ion-toolbar color = "primary">
-         <ion-buttons slot="start">
-             <ion-menu-button></ion-menu-button>
-         </ion-buttons>
-        <!-- <ion-title>{{'SETTINGS_TITLE' | translate}}</ion-title>
-        <ion-icon slot="end" name="information-circle" (click)="startTour()" id="help-icon"></ion-icon> -->
-        <ion-title class="top_margin fL">
-          {{ 'SETTINGS_TITLE' | translate }}
-         
-        </ion-title>
-         <ion-list class="user_with_bal fR">
-          {{user.username}}<br>
-          <span><ion-icon name="wallet"></ion-icon> {{ user.wallet_balance | currency:'INR'}}</span>
-         </ion-list>
-        <ion-list slot="end" class="not_fic_icon" (click)="toggle()" slot="end" no-padding>
-        <div [className]="user.notification_count > 0 ?'blink':''">
-        <ion-icon id="notification-button" name="notifications">  </ion-icon>  
-        <ion-badge id="notifications-badge" color="primary">{{user.notification_count}}</ion-badge></div>
-     </ion-list >
-  </ion-toolbar>
-</ion-header>
+<app-headertwo [title]="'SETTINGS_TITLE' | translate" [backpath]="'/home'" [isparent]="'true'" [display]="'bell'"></app-headertwo>
 
 <ion-content color="background3">
     <div class="scroll-content">
@@ -32,9 +11,7 @@
             <ion-icon name="swap-horizontal-outline" class="color1 icon_shape"></ion-icon>
             <ion-label>{{'CHANGE_LANGUAGE' | translate}}</ion-label>
             <ion-select [value]="selectedLang" (ionChange)="languageChanged($event)">
-                <ion-select-option value="en">English</ion-select-option>
-                <ion-select-option value="hnd">हिंदी</ion-select-option>
-                <ion-select-option value="tel">తెలుగు</ion-select-option>
+               <ion-select-option *ngFor="let language of languages" value="{{language}}"> {{language}} </ion-select-option>
             </ion-select>
           </ion-item>
          <!--  <ion-item  color="ionitem" lines="none" (click)="themeService.themeMode()">
@@ -100,9 +77,20 @@
                       </ion-row>   
                       </ion-grid>             
                   </ion-item>
-                  <ion-item lines="none" color="ionitem">
-                   <a class="redcolor" (click)="new_google2fa()">{{'GENERATE_NEW_KEY' | translate}}</a>
-                  </ion-item>
+
+                   <ion-grid>
+                    <ion-row>
+                      <ion-col size="5">
+                        <a (click)="new_google2fa()" class="underline redcolor">{{'GENERATE_NEW_KEY' | translate}}</a>
+                      </ion-col>
+                      <ion-col size="2">
+                        {{'OR' | translate}}
+                      </ion-col>
+                      <ion-col size="5">
+                          <a color="primary" (click)="new_qr_code_google2fa()" class="underline redcolor">{{'GENERATE_QR_CODE' | translate}}</a>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
 
                   <form [formGroup]="google2fa_Form"  (ngSubmit) = "enable2fa(google2fa_Form.value)" >
                        <ion-item no-padding  color="ionitem">
@@ -125,6 +113,9 @@
 
             <div class="goog" *ngIf="enable_2fa == 'true'" >
               <div class="g2f">
+
+               
+
                  <form [formGroup]="google2fa_Form"  (ngSubmit) = "enable2fa(google2fa_Form.value)" >
                     <ion-item no-padding>
                       <ion-label position="floating">{{'VERIFY_CODE_TEXT' | translate}}</ion-label>

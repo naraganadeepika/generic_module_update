@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FormBuilder,FormControl,Validators,FormGroup } from '@angular/forms';
 import { NavController, AlertController,MenuController, LoadingController } from '@ionic/angular';
-import { ToastersService, 
-  UserService, 
-  LoadingService,
-  ErrorService, 
-  AlertsService} from './providers';
-
-
-import {ThemeService  } from './providers/theme/theme.service';
-
+import { ToastersService, UserService, LoadingService,ErrorService, AlertsService} from './providers';
+import { ThemeService  } from './providers/theme/theme.service';
 import { isCordovaAvailable } from './providers/is-cordova-available'
 import { environment } from '../environments/environment';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -55,7 +47,6 @@ export class AppComponent {
     public market:Market,
     private themeService:ThemeService
 
-
   ) {
     this.initializeApp();
     this.translateLanguage();
@@ -72,39 +63,38 @@ export class AppComponent {
       // }
   }
 
-    initializeApp() {
-
-    this.platform.ready().then(() => {
-      if (this.platform.is('cordova')) {
-        this.version =  this.appVersion.getVersionNumber();
+  initializeApp() {
+     this.platform.ready().then(() => {
+     if(this.platform.is('cordova')) {
+          this.version =  this.appVersion.getVersionNumber();
           this.statusBar.overlaysWebView(false);
           this.statusBar.backgroundColorByHexString('#ED3833');
           this.statusBar.styleLightContent();
           this.statusBar.styleBlackTranslucent();
           this.statusBar.show();
-
       }
-      this.splashScreen.hide();
-      this.appcheck();
-      
-      this.pushNotifications();
-  });
+          this.splashScreen.hide();
+          this.appcheck();
+          this.pushNotifications();
+      });
   }
+
   translateLanguage()
   {
-    this.translate.setDefaultLang('en');
-    var lang=localStorage.getItem('LANG');
-    if(lang!=null){
-     this.translate.use(lang);
-    }
-  else
+     this.translate.setDefaultLang('english');
+     var lang=localStorage.getItem('LANG');
+     if(lang!=null){
+       this.translate.use(lang);
+      }
+     else
       {
-      lang='en';
-      localStorage.setItem('LANG','en');
+        lang='english';
+        localStorage.setItem('LANG','english');
       } 
-  }
-   async appcheck()
-  {
+   }
+
+  async appcheck()
+   {
     if(isCordovaAvailable())
        {
          this.version =  this.appVersion.getVersionNumber();
@@ -112,29 +102,24 @@ export class AppComponent {
          // console.log(this.version.__zone_symbol__value);
           const loading = await this.loadingCtrl.create({
            spinner: null,
-          message: '',
+           message: '',
         }); 
          loading.present();
-        this.user.version().subscribe((resp:any) => {
+         this.user.version().subscribe((resp:any) => {
           // console.log(resp);
           loading.dismiss();
         if(resp.os=="android")
         {
           this.new_version = resp.android_version;
-
           if(this.version_check(this.version.__zone_symbol__value,resp.android_version))
             {
                 if(resp.force_update){
                   this.forceUpdate(resp.android_app_url);
                 }else{
                   this.AppUPDAte(resp.android_app_url);
-                }
-
-
-                 
-               
+                } 
              
-              }
+             }
         }
         else if(resp.os=="ios")
         {
@@ -147,7 +132,7 @@ export class AppComponent {
                   this.AppUPDAte(resp.android_app_url);
                 }
             }
-        }
+         }
          },(err)=>{
            loading.dismiss();
            if(err.status==0 && err.statusText == "Unknown Error"){
@@ -157,31 +142,29 @@ export class AppComponent {
             return;
            }           
            // this.errorService.errorsMethod(err)
-         })
-       }
-  }
+           })
+         }
+     }
 
     async forceUpdate(url) {
-
-    const alert = await this.alertCtrl.create({
-      header:'Latest version available',
-      message: 'Update this version '+this.new_version+' now?',
-      keyboardClose:false,
-      backdropDismiss:false,
-      buttons: [
-      {
-          text: '',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            this.forceUpdate(url);
-            this.platform.backButton.subscribe(() => {this.forceUpdate(url);});
-          }
-        },
+      const alert = await this.alertCtrl.create({
+        header:'Latest version available',
+        message: 'Update this version '+this.new_version+' now?',
+        keyboardClose:false,
+        backdropDismiss:false,
+        buttons: [
+         {
+            text: '',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              this.forceUpdate(url);
+              this.platform.backButton.subscribe(() => {this.forceUpdate(url);});
+            }
+         },
          {
           text: this.translate.instant('UPDATE_BUTTON'),
           handler: () => {
-            
             this.urlOpen(url);           
           }
         }
@@ -190,23 +173,21 @@ export class AppComponent {
     await alert.present();
     }
 
-      async AppUPDAte(url) {
-    const alert = await this.alertCtrl.create({
-      header:'Latest version available',
-      message: 'Do you want to update this version '+this.new_version+' now?',
-      buttons: [
-        {
-          text:  this.translate.instant('CANCEL_BUTTON'),
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-          }
-        }, {
-          text: this.translate.instant('UPDATE_BUTTON'),
-          handler: () => {
-            this.urlOpen(url);
-             
-            
+    async AppUPDAte(url) {
+       const alert = await this.alertCtrl.create({
+        header:'Latest version available',
+        message: 'Do you want to update this version '+this.new_version+' now?',
+        buttons: [
+         {
+            text:  this.translate.instant('CANCEL_BUTTON'),
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+            }
+         }, {
+           text: this.translate.instant('UPDATE_BUTTON'),
+           handler: () => {
+            this.urlOpen(url); 
           }
         }
       ]
@@ -260,7 +241,7 @@ export class AppComponent {
             localStorage.clear();
             localStorage.setItem('tutorialComplete', JSON.stringify(true));
             localStorage.setItem('LANG', lang);
-           this.navCtrl.navigateRoot('welcome');
+           this.navCtrl.navigateRoot('');
           },(err)=>{
             this.errorService.errorsMethod(err)
           })

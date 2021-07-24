@@ -10,6 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { HeadersharedModule } from '../../components/headershared.module';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +20,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
     IonicModule,
     TranslateModule,
     ReactiveFormsModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [LoginPage]
 })

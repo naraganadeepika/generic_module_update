@@ -8,6 +8,10 @@ import { HomePageRoutingModule } from './home-routing.module';
 // import { NgxGaugeModule } from 'ngx-gauge';
 import { HomePage } from './home.page';
 
+import { HeadersharedModule } from '../../components/headershared.module';
+import { TranslateModule } from '@ngx-translate/core';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +19,8 @@ import { HomePage } from './home.page';
     IonicModule,
     HomePageRoutingModule,
     // NgxGaugeModule,
+    HeadersharedModule,
+    TranslateModule
   ],
   declarations: [HomePage]
 })

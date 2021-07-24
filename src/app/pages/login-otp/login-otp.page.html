@@ -1,0 +1,39 @@
+<app-headerone [title]="'LOGIN_VERIFY_OTP' | translate" [backpath]="'/login'"></app-headerone>
+
+<ion-content class="ion-padding" >
+    <div class="splash-logo">
+      <div class="otp_img"> 
+       <!--  <img src="assets/img/otp.svg">  --></div>
+     <!--  <h2>{{ 'Mobile_Verification' | translate }}</h2> -->
+      <p class="dnt_w">{{ 'LOGIN_OTP_TEXT' | translate }}</p>
+      <p>{{'OTP_SUCCESS' | translate}} {{phone_number}}</p>
+    </div>
+   
+    <form [formGroup]="otpForm" (ngSubmit)="verifyotp()">
+      <ion-item color = "theme">
+        <ion-label position="floating">{{ 'ENTER_OTP' | translate }}</ion-label>
+        <ion-input type="text" appIntegerInput formControlName="otp" name='otp' [value]='OTP' [(ngModel)]='OTP'></ion-input>
+      </ion-item>
+      <span class="err_msg">{{valid_fun('otp')}}</span>
+      <br>
+      <ion-button type="submit" class="submit" >{{'VERIFY_BUTTON' | translate }}</ion-button>
+      
+    </form>
+     <!-- <ion-item   lines="none" > -->
+          <!--<p class="nav_link" (click)="resendotp()" style="color:var(--ion-color-secondary);" slot="end">{{ 'RESEND_OTP' | translate }}</p>-->
+
+          <!-- <div *ngIf="!resend" class="ion-text-end" slot="end"> -->
+             <!--  <p>OTP Expire in <countdown  #cd  (event)="handleEvent($event)" [config]="{ leftTime: 120 , format: 'm:s' ,demand:false   }" ></countdown></p>
+            </div>
+            <div class="ion-text-end res_otp" slot="end">
+              <a class="resend" *ngIf="resend" (click)="resendotp()">Resend Otp</a>
+            </div>
+
+          
+          </ion-item> -->
+    <div class="res_otp">
+      <a  (click)="resendOtp()" *ngIf="hidevalue==true">{{ 'RESEND_OTP' | translate }}</a>
+      <p *ngIf="hidevalue==false" class="bg">{{'OTP_WILL_EXPIRES_IN' | translate}} {{clockDisplay}}</p>
+
+    </div>
+</ion-content>

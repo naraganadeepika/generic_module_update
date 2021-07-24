@@ -11,6 +11,9 @@ import { VerifyotpPageRoutingModule } from './verifyotp-routing.module';
 
 import { VerifyotpPage } from './verifyotp.page';
 
+import { HeadersharedModule } from '../../components/headershared.module';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +21,8 @@ import { VerifyotpPage } from './verifyotp.page';
     IonicModule,
     TranslateModule,
     ReactiveFormsModule,
-    VerifyotpPageRoutingModule
+    VerifyotpPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [VerifyotpPage]
 })

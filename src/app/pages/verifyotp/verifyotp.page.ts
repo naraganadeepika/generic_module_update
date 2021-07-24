@@ -27,7 +27,17 @@ export class VerifyotpPage implements OnInit {
 	  old_numb:string;last:string;
 	  otpForm: FormGroup;
 	  otpForm_touched:boolean = false;
-
+    need_to_update_phone:any;
+     maxTime: any=120;
+      timer:any;
+       hidevalue:boolean=true;
+    OTP:any;
+    OTPmessage:any;
+     seconds;
+  minutes;
+  hours;
+  clockDisplay: string;
+  interval: number;
   	constructor(
 		public user:UserService,
 		private iab: InAppBrowser,
@@ -42,9 +52,12 @@ export class VerifyotpPage implements OnInit {
 		private navCtrl:NavController
 		) { }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.old_numb = localStorage.getItem('phn_num');
     this.last = this.old_numb;
+    this.need_to_update_phone=localStorage.getItem('need_to_update_phone');
+    console.log(this.last);
+     this.StartTimer();
   }
   ngOnInit()
   {
@@ -162,9 +175,45 @@ export class VerifyotpPage implements OnInit {
 		this.alert_Data.img ='success';
 		this.alert_Data.message=this.translate.instant(resp);
 		this.alert_.presentAlert(this.alert_Data);
+            this.hidevalue=false;
+            this.maxTime=120;
+            this.StartTimer();
           },(err) => {
              this.errorService.errorsMethod(err)
             });
+  }
+
+
+  StartTimer(){
+    this.timer = setTimeout(x => 
+      {
+          if(this.maxTime <= 0) { }
+          this.maxTime -= 1;
+
+          if(this.maxTime>0){
+            this.hidevalue = false;
+            if (this.maxTime % 60 < 10) {
+              this.seconds = '0' + parseInt("" + this.maxTime % 60);
+            } else {
+              this.seconds = '' + parseInt((this.maxTime % 60).toString());
+            }
+            if (this.maxTime / 60 < 10) {
+              this.minutes = '0' + parseInt("" + this.maxTime / 60, 10);
+            } else {
+              this.minutes = '' + parseInt((this.maxTime / 60).toString(), 10);
+            }
+            if (this.minutes >= 60) {
+               this.minutes = parseInt("" + this.minutes % 60);
+             }
+            this.clockDisplay = this.minutes + "m:" + this.seconds + "s";
+                  this.StartTimer();
+                }
+          
+          else{
+              this.hidevalue = true;
+          }
+
+      }, 1000);
   }
 
 

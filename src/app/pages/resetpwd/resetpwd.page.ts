@@ -23,6 +23,20 @@ export class ResetpwdPage implements OnInit {
 	passwordType: string = 'password';
   	passwordIcon: string = 'eye-outline';
   	info_icon:any =false;
+     timer:any;
+  // maxTime:number=120;
+  hidevalue:boolean=true;
+  OTP:any;
+  OTPmessage:any;
+  // minutes:number;
+
+  seconds;
+  minutes;
+  hours;
+  clockDisplay: string;
+  interval: number;
+
+  maxTime: any=120;
   	alert_Data = {header:'',img:'',message:''};
 
   	constructor(
@@ -63,6 +77,10 @@ export class ResetpwdPage implements OnInit {
           }
   	}
 
+    ionViewDidEnter(){
+      this.StartTimer();
+    }
+
   	 //reset password form submission
 
   	async resetpassword(values) 
@@ -81,12 +99,12 @@ export class ResetpwdPage implements OnInit {
           phone_number:localStorage.getItem('phone_number')
           }
           this.loading_.presentLoading();
-        this.user.resetpassword(account).subscribe((resp:any) => {
+          this.user.resetpassword(account).subscribe((resp:any) => {
           this.loading_.dismissLoading();
-        this.alert_Data.header='';
-		this.alert_Data.img ='success';
-		this.alert_Data.message=this.translate.instant(resp);
-		this.alert_.presentAlert(this.alert_Data);
+          this.alert_Data.header='';
+		      this.alert_Data.img ='success';
+		      this.alert_Data.message=this.translate.instant(resp);
+		      this.alert_.presentAlert(this.alert_Data);
         localStorage.removeItem('phone_number')
         this.navCtrl.navigateRoot('login');  
       
@@ -100,11 +118,14 @@ export class ResetpwdPage implements OnInit {
     resendotp()
 	   {
 	   var account={username:localStorage.getItem('phone_number')}
-	   this.user.forgetpassword(account).subscribe((resp:any) => {
-	   	this.alert_Data.header='';
-		this.alert_Data.img ='success';
-		this.alert_Data.message=this.translate.instant(resp);
-		this.alert_.presentAlert(this.alert_Data);
+	    this.user.forgetpassword(account).subscribe((resp:any) => {
+            this.hidevalue=false;
+            this.maxTime=120;
+            this.StartTimer();
+      	   	this.alert_Data.header='';
+      		  this.alert_Data.img ='success';
+      		  this.alert_Data.message=this.translate.instant(resp);
+      		  this.alert_.presentAlert(this.alert_Data);
 	   this.navCtrl.navigateRoot('resetpwd');
 
 	   }, err=> {
@@ -160,6 +181,38 @@ export class ResetpwdPage implements OnInit {
       }
         return '';
     }
+  }
+
+  StartTimer(){
+    this.timer = setTimeout(x => 
+      {
+          if(this.maxTime <= 0) { }
+          this.maxTime -= 1;
+
+          if(this.maxTime>0){
+            this.hidevalue = false;
+            if (this.maxTime % 60 < 10) {
+              this.seconds = '0' + parseInt("" + this.maxTime % 60);
+            } else {
+              this.seconds = '' + parseInt((this.maxTime % 60).toString());
+            }
+            if (this.maxTime / 60 < 10) {
+              this.minutes = '0' + parseInt("" + this.maxTime / 60, 10);
+            } else {
+              this.minutes = '' + parseInt((this.maxTime / 60).toString(), 10);
+            }
+            if (this.minutes >= 60) {
+               this.minutes = parseInt("" + this.minutes % 60);
+             }
+            this.clockDisplay = this.minutes + "m:" + this.seconds + "s";
+                  this.StartTimer();
+                }
+          
+          else{
+              this.hidevalue = true;
+          }
+
+      }, 1000);
   }
 
 }

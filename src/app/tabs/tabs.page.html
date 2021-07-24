@@ -1,36 +1,42 @@
-<ion-fab vertical="bottom" horizontal="end" edge slot="fixed">
+<!-- <ion-fab vertical="bottom" horizontal="end" edge slot="fixed">
   <ion-fab-button (click)="openAddTransactionModal()">
     <ion-icon name="cart-outline"></ion-icon>
   </ion-fab-button>
-</ion-fab>
+</ion-fab> -->
 <ion-tabs>
   <ion-tab-bar color="tabs" slot="bottom">
     <!-- tab="home" -->
 
     <ion-tab-button  routerLinkActive="active" routerLink="/home" >
       <ion-icon [name]="router.url== '/home'? 'hardware-chip':'hardware-chip-outline'"></ion-icon>
-      <ion-label>{{ 'TAB1_TITLE' | translate }}</ion-label>
+      <ion-label>{{ 'HOME' | translate }}</ion-label>
     </ion-tab-button>
-    <ion-tab-button routerLinkActive="active" routerLink="/wallet">
+    <!-- <ion-tab-button routerLinkActive="active" routerLink="/wallet">
       <ion-icon [name]="router.url== '/wallet'? 'wallet':'wallet-outline'"></ion-icon>
       <ion-label>{{ 'WALLET' | translate }}</ion-label>
-    </ion-tab-button>
-    <ion-tab-button  routerLinkActive="active" routerLink="/mining">
-      <ion-icon [name]="router.url== '/mining'? 'cloudy':'cloudy-outline'" ></ion-icon>
-      <ion-label>Mining</ion-label>
-    </ion-tab-button>
-    <ion-tab-button routerLinkActive="active" routerLink="/profile">
-      <ion-icon [name]="router.url== '/profile'? 'people':'people-outline'" ></ion-icon>
-      <ion-label>Merchants</ion-label>
-    </ion-tab-button>
-    <ion-tab-button  routerLinkActive="active" routerLink="/exchange">
-     <ion-icon  [name]="router.url== '/exchange'? 'swap-horizontal':'swap-horizontal-outline'" ></ion-icon>
-      <ion-label>Exchange</ion-label>
-    </ion-tab-button>
-    <!-- <ion-tab-button routerLinkActive="active" routerLink="/refer">
+    </ion-tab-button> -->
+    <ion-tab-button routerLinkActive="active" routerLink="/refer">
         <ion-icon name="people-outline"></ion-icon>
       <ion-label>{{ 'REFER' | translate }}</ion-label>
+    </ion-tab-button>
+
+     <ion-tab-button routerLinkActive="active" routerLink="/settings">
+        <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>{{ 'SETTINGS_TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+   <!--  <ion-tab-button  routerLinkActive="active" routerLink="/mining">
+      <ion-icon [name]="router.url== '/mining'? 'cloudy':'cloudy-outline'" ></ion-icon>
+      <ion-label>Mining</ion-label>
     </ion-tab-button> -->
+    <!-- <ion-tab-button routerLinkActive="active" routerLink="/profile">
+      <ion-icon [name]="router.url== '/profile'? 'people':'people-outline'" ></ion-icon>
+      <ion-label>Merchants</ion-label>
+    </ion-tab-button> -->
+    <!-- <ion-tab-button  routerLinkActive="active" routerLink="/exchange">
+     <ion-icon  [name]="router.url== '/exchange'? 'swap-horizontal':'swap-horizontal-outline'" ></ion-icon>
+      <ion-label>Exchange</ion-label>
+    </ion-tab-button> -->
+    
 
    <!--  <ion-tab-button routerLinkActive="active" routerLink="/settings">
         <ion-icon name="settings-outline"></ion-icon>

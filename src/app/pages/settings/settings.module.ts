@@ -8,6 +8,8 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { HeadersharedModule } from '../../components/headershared.module';
+
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    TranslateModule,
-    SettingsPageRoutingModule
+    TranslateModule.forChild(),
+    SettingsPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [SettingsPage]
 })

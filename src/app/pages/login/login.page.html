@@ -1,16 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-  	<ion-buttons slot="start">
-      <ion-back-button  text="" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title><span>{{ 'LOGIN_TITLE' | translate }}</span></ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <img src="assets/imgs/Addcard.svg" alt="">
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-headerone [title]="'LOGIN_TITLE' | translate" [backpath]="'/'"></app-headerone>
 
 <ion-content color="background2">
 
@@ -36,8 +24,16 @@
 			            </ion-item>
 			            <span class="err_msg" *ngIf="pwd_err != ''">{{pwd_err}}</span>
 			        </ion-list>
-			        <ion-button expand="block" color="mainbutton" type="submit">{{ 'LOGIN_BUTTON' | translate }}</ion-button>			        
-			        <button  type="submit" class="hidden"></button> 
+			       <div>
+              <ion-row>
+                <ion-col>
+                <ion-button class="submit" color="primary" type="submit">{{ 'LOGIN_TITLE' | translate }}</ion-button>
+                </ion-col>
+                <ion-col>
+                 <ion-button  class="submit" color="primary" (click)="login_with_otp()">{{ 'OTP_BUTTON' | translate }}</ion-button>
+               </ion-col>
+              </ion-row> 
+            </div>
 				</form>
 			</ion-col>
 		</ion-row>

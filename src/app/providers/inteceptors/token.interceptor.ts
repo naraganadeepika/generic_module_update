@@ -84,7 +84,7 @@ element:any;
             var lang=localStorage.getItem('LANG');
             if(lang == null)
             {
-              lang='en';
+              lang='english';
             }
             localStorage.clear();
             localStorage.setItem('tutorialComplete', JSON.stringify(true));

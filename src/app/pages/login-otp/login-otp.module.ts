@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { LoginOtpPageRoutingModule } from './login-otp-routing.module';
 
-import { ProfilePage } from './profile.page';
+import { LoginOtpPage } from './login-otp.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { HeadersharedModule } from '../../components/headershared.module';
 
@@ -16,10 +16,11 @@ import { HeadersharedModule } from '../../components/headershared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,
-    ProfilePageRoutingModule,
-    HeadersharedModule
+    LoginOtpPageRoutingModule,
+     TranslateModule,
+     ReactiveFormsModule,
+     HeadersharedModule
   ],
-  declarations: [ProfilePage]
+  declarations: [LoginOtpPage]
 })
-export class ProfilePageModule {}
+export class LoginOtpPageModule {}

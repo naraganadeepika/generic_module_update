@@ -1,11 +1,4 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-       <ion-back-button text="" defaultHref="profile"></ion-back-button>
-         </ion-buttons>
-    <ion-title>Edit Profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-headertwo [title]="'EDITPROFILE' | translate" [backpath]="'/profile'" [isparent]="'false'" [display]="'bell'"></app-headertwo>
 
 <ion-content color="background2">
 
@@ -82,7 +75,7 @@
       
       <ion-item no-padding color="blackioninput">
         <ion-label position="floating">{{ 'DATE_OF_BIRTH' | translate }}</ion-label>
-          <ion-datetime displayFormat="YYYY-MMM-DD" value="" formControlName="dob" [(ngModel)]="userData.date_of_birth" [max]="agelimit"></ion-datetime>
+          <ion-datetime displayFormat="YYYY-MMM-DD" value="" formControlName="dob" [(ngModel)]="userData.date_of_birth" ></ion-datetime>
       </ion-item>
       <span class="err_msg">{{valid_fun('dob')}}</span>
       <ion-item lines="none" no-padding color="blackioninput"> 
@@ -111,7 +104,7 @@
     </ion-radio-group>
     <span class="err_msg">{{valid_fun('gender')}}</span>
 
-      <ion-item  class="slct" no-padding color="blackioninput">
+      <ion-item  >
              <ion-label>{{ 'SELECT_STATE' | translate }}</ion-label>
              <ion-select (click)="clickst()" formControlName="state" [(ngModel)]="stateId" name="state" (ionChange)="change_st($event)">
              <ion-select-option *ngFor="let state of states| keyvalue" value="{{state.key}}"> {{state.value}} </ion-select-option>
@@ -119,7 +112,7 @@
              </ion-item>
       <span class="err_msg">{{valid_fun('state')}}</span>       
 
-             <ion-item class="slct" [disabled]="disable" no-padding color="blackioninput">
+             <ion-item  [disabled]="disable"  >
              <ion-label>{{ 'SELECT_CITY' | translate }}</ion-label>
              <ion-select name="city" formControlName="city" [(ngModel)]="cityId" >
              <ion-select-option *ngFor="let city of cities | keyvalue" value="{{city.value}}">{{city.value}} </ion-select-option> 
@@ -156,7 +149,7 @@
 			  <ion-row>
 			    <ion-col class="ion-margin-top">
 			      <div>
-			         <ion-button expand="block" color="mainbutton" type="submit">{{ 'UPDATE_BUTTON' | translate }}
+			         <ion-button expand="block" color="primary" type="submit">{{ 'UPDATE_BUTTON' | translate }}
 			           </ion-button>			        
 					 <button  type="submit" class="hidden"></button> 
 			      </div>

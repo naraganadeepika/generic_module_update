@@ -23,7 +23,7 @@ export class SubmitpinPage implements OnInit {
     const queryParams = this.activeRoute.snapshot.queryParams;
     
     this.returnUrl = queryParams.returnUrl;
-    // console.log(this.returnUrl);
+    console.log(this.returnUrl);
     if(this.returnUrl==undefined){
       this.returnUrl = 'home';
     }
@@ -65,11 +65,11 @@ enter(){
     var email = localStorage.getItem('email');
 
       this.user.pinsubmit(this.res, email).subscribe((resp:any)=> {
-          localStorage.setItem('token', JSON.stringify(resp.session.jwt));
-          localStorage.setItem('enable_2fa',resp.session.enable_2fa);
+          localStorage.setItem('token', JSON.stringify(resp.jwt));
+          // localStorage.setItem('enable_2fa',resp.session.enable_2fa);
           var enable_2fa = localStorage.getItem('enable_2fa');
-          this.user.username = resp.session.user_name;
-          localStorage.setItem('username',resp.session.user_name);
+          // this.user.username = resp.session.user_name;
+          // localStorage.setItem('username',resp.session.user_name);
               if(enable_2fa === 'true')
               {
               this.presentPrompt();
@@ -146,7 +146,7 @@ async presentPrompt() {
     localStorage.clear();
     //this.storage.clear();
     localStorage.setItem('tutorialComplete', JSON.stringify(true));
-    this.navCtrl.navigateRoot("/welcome");
+    this.navCtrl.navigateRoot("/");
   }
 
   //side menu before login

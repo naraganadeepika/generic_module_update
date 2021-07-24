@@ -9,6 +9,8 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup.page';
 
+import { HeadersharedModule } from '../../components/headershared.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +18,7 @@ import { SignupPage } from './signup.page';
     ReactiveFormsModule,
     IonicModule,
     TranslateModule,
+    HeadersharedModule,
     SignupPageRoutingModule
   ],
   declarations: [SignupPage]

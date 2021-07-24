@@ -1,11 +1,4 @@
-<ion-header>
-  <ion-toolbar color="primary">
-  	<ion-buttons slot="start">
-      <ion-back-button  text="" defaultHref="/login"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ 'VERIFY_OTP' | translate }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-headerone [title]="'VERIFY_OTP' | translate" [backpath]="'/login'"></app-headerone>
 
 <ion-content>
 	<ion-grid>
@@ -16,10 +9,10 @@
 			</ion-col>
 		</ion-row>
 			
-		<ion-row *ngIf='!very' (click)="change_num()">
+		<ion-row  (click)="change_num()" *ngIf="need_to_update_phone==true">
 			<ion-col size='11' class="center_div mobileNumber" >
-				<span class="dnum"> {{last}} </span>
-      			<span class="edit_icn"> <ion-icon ios="ios-create" md="md-create"></ion-icon> </span>
+				<span class="dnum"> {{last}}</span>
+      			<span class="edit_icn"> <ion-icon name="create" ></ion-icon> </span>
 			</ion-col>
 		</ion-row>
 		<ion-row>
@@ -37,4 +30,11 @@
 			</ion-col>
 		</ion-row>
 	</ion-grid>
+
+	<div class="res_otp">
+      <a  (click)="resendOtp()" *ngIf="hidevalue==true">{{ 'RESEND_OTP' | translate }}</a>
+      <p *ngIf="hidevalue==false" class="bg">{{'OTP_WILL_EXPIRES_IN' | translate}} {{clockDisplay}}</p>
+
+    </div>
+    
 </ion-content>

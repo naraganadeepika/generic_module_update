@@ -37,6 +37,7 @@ export class SettingsPage implements OnInit {
   new_version:any;
   allow:any;
   darkMode: any;
+  languages:[];
 
   constructor(private navCtrl:NavController,
         private platform: Platform,
@@ -50,7 +51,7 @@ export class SettingsPage implements OnInit {
     private clipboard: Clipboard,
     public market:Market,
     private iab: InAppBrowser,
-    public errorService:ErrorService,
+    public errorService:ErrorService
 
     ) { 
       this.user.get_settings_data().subscribe((resp:any)=>{
@@ -65,6 +66,10 @@ export class SettingsPage implements OnInit {
 
   ionViewWillEnter()
   {
+
+    this.user.available_languages().subscribe((resp:any) => {
+      this.languages=resp;
+    });
     if(localStorage.getItem('LANG') != null )
     {
       this.selectedLang = localStorage.getItem('LANG');
@@ -244,7 +249,7 @@ export class SettingsPage implements OnInit {
     localStorage.setItem('LANG',this.lang);
     this.loader();
     this.user.translateLanguage();
-    
+    this.translate.use(this.lang);    
     this.ionViewWillEnter();
     this.ngOnInit();
   }
@@ -357,7 +362,7 @@ export class SettingsPage implements OnInit {
 
 
 
-            this.navCtrl.navigateRoot('welcome');
+            this.navCtrl.navigateRoot('');
           },(err)=>{
             this.errorService.errorsMethod(err)
 
@@ -410,6 +415,23 @@ new_google2fa()
                },(err)=>{
                 this.errorService.errorsMethod(err)
                });
+  }
+
+   async new_qr_code_google2fa()
+  {
+    const loading = await this.loadingCtrl.create({
+           spinner: null,
+          message: '',
+        }); 
+         loading.present();
+         this.user.send_qr_url().subscribe((resp:any)=>{
+           this.key=resp.secret_key;
+           this.user.presentfailAlert(this.translate.instant('GOOGLE_2FA_QRCODE'),'<ion-img src="'+resp.qr_link+'">');
+        loading.dismiss();
+      },err=>{
+        this.errorService.errorsMethod(err);
+      })
+
   }
 
  // alert for enable or dissable google 2fa
@@ -533,7 +555,7 @@ new_google2fa()
    }
    async showAlert(msg) {
     const alert = await this.alertController.create({
-      header: this.translate.instant('ANT11_NOTIFICATION'),
+      header: this.translate.instant('NOTIFICATION'),
       message: msg,
       buttons:[this.translate.instant('OK_BUTTON')]
     });

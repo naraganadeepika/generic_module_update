@@ -9,6 +9,8 @@ import { ForgotpwdPageRoutingModule } from './forgotpwd-routing.module';
 
 import { ForgotpwdPage } from './forgotpwd.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { HeadersharedModule } from '../../components/headershared.module';
+
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     IonicModule,
     TranslateModule,
-    ForgotpwdPageRoutingModule
+    ForgotpwdPageRoutingModule,
+    HeadersharedModule
   ],
   declarations: [ForgotpwdPage]
 })

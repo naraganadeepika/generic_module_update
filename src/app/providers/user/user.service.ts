@@ -151,6 +151,22 @@ export class UserService {
     });
     return seq;
   }
+
+
+   login_resend_otp(email)
+  {
+    let data={
+       email:email,
+       login_with_otp:'true'
+    }
+      let seq = this.api.post('resend_otp',data).pipe(share());
+    seq.subscribe((res: any) => {     
+    }, err => {
+      //console.error('ERROR', err);
+    });
+    return seq;
+  }
+
    //update phone
   changeNumber(email,phone)
   {
@@ -289,7 +305,7 @@ deposit_summary(page)
 
 getFriendsCount()
 {
- let seq = this.api.get('invite_friends').pipe(share());
+ let seq = this.api.get('invited_friends_count').pipe(share());
          seq.subscribe((res: any) => {
    
     }, err => {
@@ -507,7 +523,7 @@ cash_free_status(data)
    return seq;
   }
     profileData(){
-     let seq = this.api.get('triggers/getUserInfo','').pipe(share());
+     let seq = this.api.get('user_info','').pipe(share());
     seq.subscribe((res: any) => {     
     }, err => {
       //console.error('ERROR', err);
@@ -522,7 +538,7 @@ cash_free_status(data)
 
   proUpdate(value){
      var data = {
-         user:{
+         profile:{
              email:value.email,
              first_name:value.firstName,
              last_name:value.lastName,
@@ -539,7 +555,7 @@ cash_free_status(data)
              pin_code:value.pin
            }
        };
-     let seq = this.api.put('registration',data).pipe(share());
+     let seq = this.api.put('profile',data).pipe(share());
       seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
     }, err => {
@@ -552,15 +568,14 @@ cash_free_status(data)
 
    pwdUpdate(data){
        let details={
-         user:{
+         profile:{
            password:data.newPassword,
-           password_confirmation:data.repeatPassword,
-           current_password:data.oldPassword,
+           current_password:data.oldPassword
          }
        };
        // let reqOpts;
        //  reqOpts = this.api._initializeReqOpts(reqOpts,this.token);
-       let seq = this.api.put("registration",details).pipe(share());
+       let seq = this.api.put("/profile/password",details).pipe(share());
         seq.subscribe((res: any) => {
         // If the API returned a successful response, mark the user as logged in
       }, err => {
@@ -576,12 +591,13 @@ cash_free_status(data)
 
   upload_pic(pic:any){
     let data={
-      user:{
-        profile_pic:pic.base64file,
-        file_name:pic.filename
+      image:{
+        base64:pic.base64file,
+        filename:pic.filename,
+        content_type:'image/png'
       }
     }
-      let seq = this.api.put('upload_profile_pic', data).pipe(share());
+      let seq = this.api.put('upload_image', data).pipe(share());
     seq.subscribe((res: any) => {     
     }, err => {
       //console.error('ERROR', err);
@@ -608,7 +624,7 @@ cash_free_status(data)
     pinsubmit(pin, email){
 
     var data = {session: {
-      user_name:email,
+      email:email,
       pin:pin,
       login_type:'pin'
     }
@@ -1064,18 +1080,57 @@ async presentfailAlert(msg,img) {
 
 }
 translateLanguage()
-  {
-    this.translate.setDefaultLang('en');
+ {
+   // this.getTranslation();
     var lang=localStorage.getItem('LANG');
-    if(lang!=null){
-     this.translate.use(lang);
-    }
-  else
-      {
-      lang='en';
-      localStorage.setItem('LANG','en');
-      } 
+   if(lang!=null){
+     this.translate.setDefaultLang(lang);
+    this.translate.use(lang);
+   }
+ else
+     {
+     lang='english';
+      this.translate.setDefaultLang(lang);
+      this.translate.use(lang);
+       localStorage.setItem('LANG','english');
+     }
+ }
+
+
+  send_qr_url()
+     {
+       let seq = this.api.get('generate_new_qr_code').pipe(share());
+         seq.subscribe((res: any) => {
+         }, err => {
+           //console.error('ERROR', err);
+         });
+
+         return seq;
+     }
+
+     available_languages()
+  {
+    let seq = this.api.get('available_languages').pipe(share());
+      seq.subscribe((res: any) => {
+      }, err =>{
+          //console.error('ERROR', err);
+       });
+        return seq;
+  
   }
+
+  get_language_files(lang){
+   
+   let seq = this.api.get('get_language_files?language='+lang).pipe(share());
+         seq.subscribe((res: any) => {
+
+   }, err => {
+     //console.error('ERROR', err);
+   });
+
+   return seq;
+
+ }
 
 
   
