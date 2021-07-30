@@ -46,7 +46,7 @@ token_stor:any;
 isAuthenticated(): boolean {
 
       this.token_stor = JSON.parse(localStorage.getItem("token"));
-      if(this.token_stor != null) {
+      if(this.token_stor != null && this.token_stor!= undefined ) {
 
         if(JSON.parse(localStorage.getItem('mobile_status')) == false)
                 {

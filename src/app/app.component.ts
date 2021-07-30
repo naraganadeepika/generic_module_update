@@ -289,11 +289,11 @@ export class AppComponent {
  get_summary()
   {
       if(this.auth.isAuthenticated()){
-        this.user.over_all_kyc_status().subscribe((resp:any)=>{
-         this.kyc_status=resp.kyc;
-        },err=>{
-          // this.errorService.errorsMethod(err);
-        })
+        // this.user.over_all_kyc_status().subscribe((resp:any)=>{
+        //  this.kyc_status=resp.kyc;
+        // },err=>{
+        //   // this.errorService.errorsMethod(err);
+        // })
       }
       this.user.get_user_summary().subscribe((resp:any) => {
         // console.log(resp)
@@ -302,8 +302,8 @@ export class AppComponent {
           this.user.user_suspend = true;
         }
         
-        this.user.username=resp.user_name;
-        this.user.user_pic=resp.profile_pic;
+        this.user.username=resp.first_name;
+        this.user.user_pic=resp.image;
         this.user.referral_code=resp.referral_code;
         this.user.user_level=resp.level;
         this.user.followees_count=resp.followees_count;

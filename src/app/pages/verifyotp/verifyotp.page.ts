@@ -57,6 +57,7 @@ export class VerifyotpPage implements OnInit {
     this.last = this.old_numb;
     this.need_to_update_phone=localStorage.getItem('need_to_update_phone');
     console.log(this.last);
+    this.maxTime=120;
      this.StartTimer();
   }
   ngOnInit()
@@ -137,9 +138,9 @@ export class VerifyotpPage implements OnInit {
           {
             localStorage.setItem('phn_num', data.number);
             this.alert_Data.header='';
-			this.alert_Data.img ='success';
-			this.alert_Data.message=this.translate.instant(resp);
-			this.alert_.presentAlert(this.alert_Data);
+			      this.alert_Data.img ='success';
+			      this.alert_Data.message=this.translate.instant(resp);
+			      this.alert_.presentAlert(this.alert_Data);
             this.old_numb = localStorage.getItem('phn_num');
             this.last = '******'+this.old_numb.slice(-4);
           }
@@ -166,7 +167,10 @@ export class VerifyotpPage implements OnInit {
 
   ionViewWillLeave() {
     this.menu.enable(true);
+    this.maxTime=0;
   }
+
+  // resend otp 
   resendOtp()
   {
     var email = localStorage.getItem('email');
@@ -182,8 +186,8 @@ export class VerifyotpPage implements OnInit {
              this.errorService.errorsMethod(err)
             });
   }
-
-
+  
+  // the otp timer calculations will be done
   StartTimer(){
     this.timer = setTimeout(x => 
       {
@@ -216,7 +220,7 @@ export class VerifyotpPage implements OnInit {
       }, 1000);
   }
 
-
+ // validations
   valid_fun(filed){
     if(!this.otpForm.touched && !this.otpForm_touched){
       return '';

@@ -120,6 +120,7 @@ export class SocialSharingPage implements OnInit {
    }
   cancel()
    {
+     console.log('hi');
      this.invite_Form_email.reset();
      this.err_msg = '';
      this.success_msg='';

@@ -166,6 +166,8 @@ export class ForgotpwdPage implements OnInit {
   ionViewWillLeave() {
     this.menu.enable(true);
   }
+
+  // validations
   valid_fun(filed){
     var em = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     var phn= new RegExp(/^(([6|7|8|9])[0-9]{9})$/);

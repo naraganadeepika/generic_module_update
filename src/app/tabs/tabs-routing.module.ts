@@ -67,6 +67,8 @@ const routes: Routes = [
       { path: 'download-statement',loadChildren: () => import('../pages/download-statement/download-statement.module').then( m => m.DownloadStatementPageModule),canActivate: [AuthGuardService]},
       
       { path: 'edit-profile',loadChildren: () => import('../pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule), canActivate: [AuthGuardService]},
+      
+      { path: 'faqs', loadChildren: () => import('../pages/faqs/faqs.module').then( m => m.FaqsPageModule),canActivate: [AuthGuardService]},
  
       { path: 'intro',loadChildren: () => import('../pages/intro/intro.module').then( m => m.IntroPageModule)},
             

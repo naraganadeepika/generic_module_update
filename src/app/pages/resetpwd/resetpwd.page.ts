@@ -64,6 +64,8 @@ export class ResetpwdPage implements OnInit {
         
     },{validator:this.checkPwd('newpassword','confirmpassword')});
   	}
+
+    // checking is that new password and confirm password same or not
   	checkPwd(newpassword,confirmpassword){
     return (group: FormGroup) => {
             let passwordInput = group.controls[newpassword],
@@ -76,8 +78,10 @@ export class ResetpwdPage implements OnInit {
             }
           }
   	}
-
-    ionViewDidEnter(){
+    
+    // setting the timer to 2mins
+    ionViewWillEnter(){
+      this.maxTime=120;
       this.StartTimer();
     }
 
@@ -115,6 +119,7 @@ export class ResetpwdPage implements OnInit {
      }
      
     }
+    // otp resending
     resendotp()
 	   {
 	   var account={username:localStorage.getItem('phone_number')}
@@ -132,6 +137,7 @@ export class ResetpwdPage implements OnInit {
 	   this.errorService.errorsMethod(err)
 	   })
 	   }
+     // validations
     valid_fun(filed){
     if(!this.pwdupdate_Form.touched){
       return '';
@@ -182,7 +188,7 @@ export class ResetpwdPage implements OnInit {
         return '';
     }
   }
-
+ // here the otp expire timer calculations will be done
   StartTimer(){
     this.timer = setTimeout(x => 
       {
@@ -213,6 +219,10 @@ export class ResetpwdPage implements OnInit {
           }
 
       }, 1000);
+  }
+  // on page leave setting the timer to 0
+  ionViewWillLeave(){
+     this.maxTime=0;
   }
 
 }

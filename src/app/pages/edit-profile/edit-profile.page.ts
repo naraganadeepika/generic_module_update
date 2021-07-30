@@ -470,7 +470,7 @@ async up_load_pic(imageData){
     this.navCtrl.navigateForward("notifications");
   }
 
-
+// validations
   valid_fun(filed){
     this.pwdupdate_Form.touched = false;
     if(!this.update_Form.touched && !this.update_Form_touched){

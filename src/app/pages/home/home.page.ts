@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController,Platform } from '@ionic/angular';
+import { isCordovaAvailable } from '../../providers/is-cordova-available'
 
 @Component({
   selector: 'app-home',
@@ -17,20 +18,12 @@ export class HomePage implements OnInit {
  
   
 
-  constructor(private navCtrl:NavController) { }
-
+  constructor(private navCtrl:NavController, private plt: Platform) { //local notifications
+    }
   ngOnInit() {
      localStorage.removeItem('need_to_update_phone');
   }
 
-  segmentChanged(ev: any) {
-    this.category = ev.detail.value;
-    console.log(this.category);
-  }
-
-  viewNotifications()
-  {
-    this.navCtrl.navigateForward('notifications');
-  }
+  
 
 }

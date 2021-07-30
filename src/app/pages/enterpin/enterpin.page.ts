@@ -55,7 +55,7 @@ if(this.connectedCspList.length > 0){
 }
 }
 
-//submit form
+//submit form when 6 digits are entered
 
 async enter(){
  

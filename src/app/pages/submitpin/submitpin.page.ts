@@ -19,6 +19,7 @@ export class SubmitpinPage implements OnInit {
     public user:UserService, 
     public errorService:ErrorService,
     private toaster:ToastersService,
+   
     ) {
     const queryParams = this.activeRoute.snapshot.queryParams;
     
@@ -65,6 +66,14 @@ enter(){
     var email = localStorage.getItem('email');
 
       this.user.pinsubmit(this.res, email).subscribe((resp:any)=> {
+         
+         if(resp.code==4){
+           this.toaster.warning_presentToast(this.translate.instant(resp.message));
+           this.res='';
+           this.connectedCspList=[];
+             
+         }else{
+
           localStorage.setItem('token', JSON.stringify(resp.jwt));
           // localStorage.setItem('enable_2fa',resp.session.enable_2fa);
           var enable_2fa = localStorage.getItem('enable_2fa');
@@ -77,7 +86,8 @@ enter(){
               else
               {
                this.navCtrl.navigateRoot(this.returnUrl);
-              }            
+              } 
+          }           
           
       }, (err) =>{
         this.connectedCspList=[];

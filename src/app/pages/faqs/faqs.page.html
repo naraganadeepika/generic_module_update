@@ -1,0 +1,10 @@
+<app-headertwo [title]="'FAQS' | translate" [backpath]="'/home'" [isparent]="'true'" [display]="'bell'">
+</app-headertwo>
+
+<ion-content>
+  <div *ngFor="let info of information" class=ion-padding>
+   <p [innerHTML]="info.title"></p>
+    <p [innerHTML]="info.description"></p>
+  </div>
+
+</ion-content>

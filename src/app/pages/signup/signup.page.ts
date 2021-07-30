@@ -65,6 +65,8 @@ export class SignupPage implements OnInit {
       this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
       this.passwordIcon = this.passwordIcon === 'eye-off-outline' ? 'eye-outline' : 'eye-off-outline';
   }
+
+  // registration process
   signupSubmit(values:any){
     this.signup_Form_touched = true;
     if(values.referral_code !="")
@@ -125,7 +127,7 @@ export class SignupPage implements OnInit {
           this.toaster.warning_presentToast(this.translate.instant('CORDOVA_UNAVAILABLE'));
         } 
   }
-
+  // validations
   valid_fun(filed){
     if(!this.signup_Form.touched && !this.signup_Form_touched){
       return '';

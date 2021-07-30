@@ -64,10 +64,12 @@ export class LoginOtpPage{
            otp: new FormControl('', Validators.compose([Validators.required,Validators.pattern('[0-9]{6}')]))
             });
   }
-
+    
+    // otp auto read 
     ionViewDidEnter() {
        this.phone_number=localStorage.getItem('phn_num');
        this.menu.enable(false);
+        this.maxTime=120;
        this.StartTimer();
        if(isCordovaAvailable())
       {
@@ -91,7 +93,8 @@ export class LoginOtpPage{
         () => { console.log('watch stop failed') }
       )
     }
-
+    
+    // getting the correct otp from the message
     processSMS(data) {
       // Check SMS for a specific string sequence to identify it is you SMS
       // Design your SMS in a way so you can identify the OTP quickly i.e. first 6 letters
@@ -108,12 +111,14 @@ export class LoginOtpPage{
       // }
     }
 
-    
+    // menu disable
     ionViewWillLeave() {
     
       this.menu.enable(true);
+      this.maxTime=0;
     }
 
+    // submiting the otp along with that verification 
   async verifyotp(){
     this.email_err ='';
     const loading = await this.loadingCtrl.create({
@@ -195,7 +200,8 @@ export class LoginOtpPage{
          
        } 
   }
-
+  
+  // validation
    valid_fun(filed){
     if(!this.otpForm.touched && !this.otpForm_touched){
       return '';
@@ -213,7 +219,7 @@ export class LoginOtpPage{
     }
   }
 
-
+// resending the otp and the timer will gain set to 2 mins
   resendOtp()
   {
 
@@ -228,6 +234,8 @@ export class LoginOtpPage{
              this.errorService.errorsMethod(err)
             });
   }
+
+  // the otp expire timer calculations
 
    StartTimer(){
     this.timer = setTimeout(x => 
@@ -261,6 +269,7 @@ export class LoginOtpPage{
       }, 1000);
   }
 
+  
   
   
 

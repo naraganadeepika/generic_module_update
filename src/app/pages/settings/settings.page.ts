@@ -54,16 +54,17 @@ export class SettingsPage implements OnInit {
     public errorService:ErrorService
 
     ) { 
-      this.user.get_settings_data().subscribe((resp:any)=>{
-        // console.log(resp);
-        this.allow = resp;
-      },err=>{
-        // this.errorService.errorsMethod(err);
-      })
+      // this.user.get_settings_data().subscribe((resp:any)=>{
+      //   // console.log(resp);
+      //   this.allow = resp;
+      // },err=>{
+      //   // this.errorService.errorsMethod(err);
+      // })
 
 
     }
-
+  
+  // setting the language when there is no default language
   ionViewWillEnter()
   {
 
@@ -75,7 +76,7 @@ export class SettingsPage implements OnInit {
       this.selectedLang = localStorage.getItem('LANG');
     }
     else{
-      this.selectedLang = 'en';
+      this.selectedLang = 'english';
     }
 
 
@@ -162,7 +163,8 @@ export class SettingsPage implements OnInit {
        this.toaster.warning_presentToast(this.translate.instant('CORDOVA_UNAVAILABLE'));
     }
   }
-
+  
+   // app updation
   async AppUPDAte(url) {
     const alert = await this.alertController.create({
       header:'Latest version available',
@@ -189,7 +191,7 @@ export class SettingsPage implements OnInit {
     await alert.present();
     }
 
-
+ // force update
   async forceUpdate(url) {
 
     const alert = await this.alertController.create({
@@ -348,6 +350,8 @@ export class SettingsPage implements OnInit {
     await alert.present();
   }
 
+  // logout process
+
   logout() {
           
           this.user.logout().subscribe((resp:any) => {
@@ -416,6 +420,8 @@ new_google2fa()
                 this.errorService.errorsMethod(err)
                });
   }
+
+// generate new qr code
 
    async new_qr_code_google2fa()
   {

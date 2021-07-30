@@ -594,7 +594,7 @@ cash_free_status(data)
       image:{
         base64:pic.base64file,
         filename:pic.filename,
-        content_type:'image/png'
+        content_type:'image/jpg'
       }
     }
       let seq = this.api.put('upload_image', data).pipe(share());
@@ -1122,6 +1122,19 @@ translateLanguage()
   get_language_files(lang){
    
    let seq = this.api.get('get_language_files?language='+lang).pipe(share());
+         seq.subscribe((res: any) => {
+
+   }, err => {
+     //console.error('ERROR', err);
+   });
+
+   return seq;
+
+ }
+
+  get_frequently_asked_questions(){
+   
+   let seq = this.api.get('get_frequently_asked_questions').pipe(share());
          seq.subscribe((res: any) => {
 
    }, err => {

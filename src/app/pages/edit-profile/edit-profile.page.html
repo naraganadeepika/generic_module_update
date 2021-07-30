@@ -3,8 +3,8 @@
 <ion-content color="background2">
 
 	 <div class="pic_div">
-	 	<ion-img src="assets/img/black_ant.svg"  class="profile_pic"></ion-img>
-     <!--  <ion-img [src]="userData.profile_pic != null ? userData.profile_pic : 'assets/img/black_ant.svg'"  class="profile_pic"></ion-img> -->
+	 	<!-- <ion-img src="assets/img/black_ant.svg"  class="profile_pic"></ion-img> -->
+      <ion-img [src]="userData.image != null ? userData.image : 'assets/img/black_ant.svg'"  class="profile_pic"></ion-img>
       <ion-icon name="camera" (click) = "presentActionSheet()" id="dp"></ion-icon><br>
      </div>
 

@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
 
 
 
-
+// for every input change it will validate the input 
 	change()
 	  {
 	    this.username_err ='';
@@ -113,7 +113,7 @@ export class LoginPage implements OnInit {
 	          }
 	   }
 
-
+// login submit
 	async doLogin() {
 		  this.account.login_type='password';
 	    this.username_err ='';
@@ -257,6 +257,8 @@ export class LoginPage implements OnInit {
   });
   await alert.present();
 }
+
+// resend confirmation prompt calling
 resend_confirmation(){
   this.presentPrompt();
 }
@@ -285,6 +287,8 @@ resend_confirmation(){
 	          this.toaster.warning_presentToast(this.translate.instant('CORDOVA_UNAVAILABLE'));
 	        } 
 	  }	
+
+	  // login with the otp
 
 	  async login_with_otp(){
 
