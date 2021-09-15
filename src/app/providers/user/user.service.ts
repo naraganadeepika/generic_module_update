@@ -1089,10 +1089,10 @@ translateLanguage()
    }
  else
      {
-     lang='english';
+     lang='en';
       this.translate.setDefaultLang(lang);
       this.translate.use(lang);
-       localStorage.setItem('LANG','english');
+       localStorage.setItem('LANG','en');
      }
  }
 
@@ -1121,7 +1121,7 @@ translateLanguage()
 
   get_language_files(lang){
    
-   let seq = this.api.get('get_language_files?language='+lang).pipe(share());
+   let seq = this.api.get('get_language_files?keyterm='+lang).pipe(share());
          seq.subscribe((res: any) => {
 
    }, err => {

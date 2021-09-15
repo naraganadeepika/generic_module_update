@@ -10,10 +10,11 @@
           <ion-item  color="ionitem" data-step="7"  id="step20">
             <ion-icon name="swap-horizontal-outline" class="color1 icon_shape"></ion-icon>
             <ion-label>{{'CHANGE_LANGUAGE' | translate}}</ion-label>
-            <ion-select [value]="selectedLang" (ionChange)="languageChanged($event)">
-               <ion-select-option *ngFor="let language of languages" value="{{language}}"> {{language}} </ion-select-option>
-            </ion-select>
+             <ion-select slot="end" (ionChange)="languageChanged($event)" [selectedText]="selectedLang_txt" [value]="selectedLang" [(ngModel)]="selectedLang">
+                <ion-select-option *ngFor="let language of languages" value="{{language.keyterm}}" > {{language.name}} </ion-select-option>
+             </ion-select>
           </ion-item>
+
          <!--  <ion-item  color="ionitem" lines="none" (click)="themeService.themeMode()">
           <ion-icon name='color-fill' class="color4 icon_shape" slot="start"></ion-icon>
           <ion-label>Dark Mode</ion-label>

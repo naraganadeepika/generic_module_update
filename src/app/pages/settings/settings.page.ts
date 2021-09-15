@@ -21,7 +21,7 @@ import { Market } from '@ionic-native/market/ngx';
 export class SettingsPage implements OnInit {
 
   lang:string;
-  selectedLang:string;
+  selectedLang:string=localStorage.getItem('LANG')?localStorage.getItem('LANG'):'en';
   version:any;
   key:any;
   google2fa_Form:any;
@@ -38,7 +38,7 @@ export class SettingsPage implements OnInit {
   allow:any;
   darkMode: any;
   languages:[];
-
+   selectedLang_txt:any;
   constructor(private navCtrl:NavController,
         private platform: Platform,
         private toaster:ToastersService,
@@ -70,13 +70,15 @@ export class SettingsPage implements OnInit {
 
     this.user.available_languages().subscribe((resp:any) => {
       this.languages=resp;
+      var selectedLang_find= this.languages.find( ({ keyterm }) => keyterm === this.selectedLang );
+      this.selectedLang_txt=selectedLang_find['name'];
     });
     if(localStorage.getItem('LANG') != null )
     {
       this.selectedLang = localStorage.getItem('LANG');
     }
     else{
-      this.selectedLang = 'english';
+      this.selectedLang = 'en';
     }
 
 
